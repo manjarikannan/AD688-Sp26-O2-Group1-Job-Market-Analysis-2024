@@ -1,0 +1,30 @@
+# LaTeX / TinyTeX
+.TinyTeX/
+
+# Quarto outputs
+_output/
+_quarto/
+_site/
+docs/
+_freeze/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Large files
+*.zip
+*.tgz
+*.tar.gz
+*.pdf
+*.docx
+
+# VS Code / Jupyter
+.vscode/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
