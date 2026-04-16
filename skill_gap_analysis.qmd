@@ -1,0 +1,69 @@
+---
+title: "Skill Gap Analysis"
+---
+
+# Skill Gap Analysis
+
+## Overview
+
+This section examines which skills are most in demand across AI and non-AI job postings in the Lightcast dataset, and compares those findings to the skill profile of a typical business analytics student. The goal is to identify where gaps exist and what students should prioritize to remain competitive in an AI-influenced job market.
+
+## Top Skills in AI Roles
+
+The fifteen most frequently requested skills across AI-related job postings are listed below.
+
+| Skill | Frequency |
+|---|---|
+| Communication | 16,483 |
+| Data Analysis | 15,188 |
+| Management | 12,316 |
+| Detail Oriented | 11,753 |
+| SQL | 11,717 |
+| Problem Solving | 10,351 |
+| Computer Science | 9,535 |
+| Leadership | 8,852 |
+| Python | 7,600 |
+| Operations | 7,299 |
+| Microsoft Excel | 7,057 |
+| Tableau | 6,904 |
+| Data Science | 6,617 |
+| Dashboard | 6,529 |
+| Project Management | 6,266 |
+
+## Top Skills in Non-AI Roles
+
+| Skill | Frequency |
+|---|---|
+| Communication | 14,621 |
+| Data Analysis | 12,502 |
+| Management | 11,813 |
+| SQL | 9,429 |
+| Leadership | 8,350 |
+| Problem Solving | 7,715 |
+| Project Management | 7,209 |
+| Computer Science | 7,133 |
+| Business Process | 6,998 |
+| Operations | 6,993 |
+| SAP Applications | 6,821 |
+| Business Requirements | 6,726 |
+| Finance | 6,147 |
+| Presentations | 5,763 |
+| Planning | 5,621 |
+
+## Comparing AI and Non-AI Skill Demand
+
+Several patterns emerge when comparing the two lists. Communication, Data Analysis, Management, SQL, and Problem Solving rank highly in both, confirming that these are foundational skills regardless of whether a role is AI-related. However, AI roles place noticeably higher demand on Python, Tableau, Data Science, and Dashboard skills, while non-AI roles emphasize SAP Applications, Business Requirements, Finance, and Business Process knowledge.
+
+This suggests that the transition into AI-related work requires building on a shared analytical foundation while adding more specialized technical and data visualization capabilities.
+
+## Skill Gap Assessment
+
+A typical business analytics graduate entering this job market is likely comfortable with communication, Excel, SQL, and basic data analysis. Based on the demand patterns observed in this dataset, the most significant gaps tend to fall in the following areas.
+
+Python programming appears in the top ten for AI roles but not at all in the non-AI top fifteen, making it one of the clearest differentiators for students targeting AI-related positions. Tableau and dashboard development are heavily requested in AI roles and represent a practical visualization skill that complements SQL and Excel. Data Science as a named competency appears frequently in AI postings and signals employer expectations around modeling, statistical reasoning, and analytical workflows beyond basic reporting.
+
+On the non-AI side, familiarity with enterprise platforms such as SAP and business process documentation skills appear prominently, suggesting that students targeting traditional analyst or operations roles should also develop comfort with enterprise systems.
+
+## Recommendations
+
+Students aiming for AI-related roles should prioritize Python, Tableau, and applied data science coursework. Those targeting traditional business or operations roles will benefit from developing familiarity with SAP and structured business process skills. In either path, SQL, communication, and analytical thinking remain the most universally valued capabilities in the current labor market.

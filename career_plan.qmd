@@ -1,0 +1,37 @@
+---
+title: "Career Strategy"
+---
+
+# Career Strategy
+
+## Overview
+
+This section translates the findings from our exploratory analysis, predictive modeling, and skill gap assessment into actionable career guidance for students and early-career job seekers navigating an AI-influenced labor market.
+
+## What the Data Tells Us
+
+Several consistent findings emerged across all stages of this project that should directly inform career planning decisions.
+
+AI-related roles do not universally pay more. The average salary difference between AI and non-AI roles in this dataset is approximately $100, which is negligible. Salary is determined more by industry, occupation tier, and job level than by AI designation alone. Students who assume that adding AI skills to their resume will automatically lead to higher pay may be disappointed without also considering the sector and role level they are targeting.
+
+The salary premium for AI skills is industry-specific. Fields such as Arts and Entertainment, Construction, and Retail Trade show AI salary premiums of $9,000 to $13,500, likely because AI capabilities remain scarce in those sectors. In contrast, the Information industry pays non-AI roles more on average because that sector already compensates technical work highly regardless of AI involvement. Job seekers should research salary norms within their target industry rather than relying on general AI salary narratives.
+
+Salary tier matters more than AI status. The KMeans clustering analysis identified four distinct salary tiers in the job market ranging from approximately $49,000 at the entry level to $179,000 at the senior level. Within every tier, AI and non-AI roles earn nearly identical salaries. Moving up a salary tier requires developing the occupation and industry profile associated with that tier, not simply acquiring AI-related keywords.
+
+## Recommended Career Paths
+
+Based on the skill demand patterns and salary distributions observed in this dataset, three career directions appear particularly well-suited for business analytics students.
+
+Students with strong SQL, Python, and data visualization skills are well positioned for data science and analytics roles, which appear frequently in the Professional, Scientific, and Technical Services sector and consistently fall in the upper mid salary tier around $114,000.
+
+Students interested in finance and insurance will find that sector offers strong AI role concentration and competitive salaries. Finance-adjacent analytical roles that combine business knowledge with data skills appear to be in high demand.
+
+Students targeting non-AI paths should not overlook the value of enterprise systems experience. SAP, business process management, and ERP skills appear prominently in non-AI postings and are associated with stable demand across multiple industries.
+
+## Priority Skills to Develop
+
+Based on the skill gap analysis, the highest-return skills for students to develop before entering the job market are Python programming, SQL, Tableau or equivalent dashboard tools, and applied data science competencies. Communication, problem solving, and project management round out the universal skills that employers expect regardless of role type.
+
+## Final Takeaway
+
+The rise of AI is reshaping the job market, but not in the simple way that headlines often suggest. Our analysis shows that AI skills matter most in specific industries and role contexts, that salary outcomes depend heavily on occupation tier and sector, and that foundational analytical skills remain the most consistently valued capabilities across the entire labor market. Students who build a strong analytical foundation and develop targeted technical skills for their chosen industry will be better positioned than those who chase AI credentials without strategic direction.

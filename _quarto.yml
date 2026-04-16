@@ -1,0 +1,26 @@
+project:
+  type: website
+
+website:
+  title: "Job Market Analysis 2024"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: introduction.qmd
+        text: Project Overview
+      - href: data_cleaning.qmd
+        text: Data Preparation
+      - href: eda.qmd
+        text: Exploratory Analysis
+      - href: ml_methods.qmd
+        text: Predictive Modeling
+      - href: skill_gap_analysis.qmd
+        text: Skill Gap Analysis
+      - href: career_plan.qmd
+        text: Career Strategy
+
+format:
+  html:
+    theme: cosmo
+    toc: true

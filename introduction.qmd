@@ -1,0 +1,29 @@
+---
+title: "Project Overview"
+---
+
+# Project Overview
+
+## Objective
+
+This project examines job market trends in 2024 from the perspective of job seekers rather than recruiters. Using Lightcast data, we analyze hiring patterns, salaries, skills, and labor market conditions to understand how students can position themselves more effectively.
+
+## Research Question
+
+Our project asks:
+
+**What trends in the 2024 job market can help students and early career professionals make better career decisions?**
+
+## Why This Matters
+
+Rapid changes in AI adoption, salary patterns, remote work, and employer skill expectations make the job market harder to navigate. A data driven approach helps identify which roles are growing, which skills matter most, and what kinds of jobs offer the best opportunities.
+
+## Planned Analysis
+
+This project includes:
+- data cleaning and preprocessing
+- exploratory data analysis
+- unsupervised learning with KMeans clustering
+- supervised modeling using regression and classification
+- skill gap analysis
+- career recommendations for job seekers

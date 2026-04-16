@@ -1,0 +1,26 @@
+---
+title: "Job Market Analysis 2024"
+---
+
+# Evaluating Personal Job Market Prospects in 2024
+
+This project analyzes 2024 labor market trends using Lightcast job posting data. The goal is to understand how salaries, skills, industries, remote work, and predictive modeling can help job seekers make better career decisions.
+
+## Project Focus
+
+Our analysis explores:
+- job market demand across roles and industries
+- salary and compensation patterns
+- remote versus on site opportunities
+- predictive models for salary and job classification
+- skill gaps between student preparation and market expectations
+
+## Website Sections
+
+Use the navigation bar above to explore the project:
+- Project Overview
+- Data Preparation
+- Exploratory Analysis
+- Predictive Modeling
+- Skill Gap Analysis
+- Career Strategy
