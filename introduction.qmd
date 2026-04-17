@@ -1,5 +1,13 @@
 ---
 title: "Project Overview"
+author: "Manjari Kannan, Nicholas Decesaris, Oscar Quintero"
+date: tday
+format: docx
+html:
+  bibliography: references.bib
+  csl: csl/econometrica.csl
+  toc: true
+  toc-depth: 3
 ---
 
 # Project Overview
