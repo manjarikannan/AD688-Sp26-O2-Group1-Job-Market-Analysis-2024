@@ -1,5 +1,5 @@
 ---
-title: "Project Overview"
+title: "Salary Disparities Across Disciplines: Who Benefits Most from AI's Rise?"
 author: "Manjari Kannan, Nicholas Decesaris, Oscar Quintero"
 date: tday
 format: docx
