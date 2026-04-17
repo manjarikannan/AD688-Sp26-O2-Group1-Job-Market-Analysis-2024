@@ -7,7 +7,7 @@ html:
   bibliography: references.bib
   csl: csl/econometrica.csl
   toc: true
-  toc-depth: 3
+  
 ---
 
 # Project Overview
