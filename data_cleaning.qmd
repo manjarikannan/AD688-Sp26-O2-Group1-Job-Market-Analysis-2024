@@ -25,6 +25,9 @@ For example, older NAICS and SOC versions are less useful when more current clas
 
 ```python
 from pyspark.sql import functions as F
+#| echo: true
+#| eval: true
+#| code-fold: true
 
 columns_to_drop = [
     "ID",
