@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Manjari Kannan, Nicholas Decesaris, Oscar Quintero">
 
-<title>Data Preparation – Job Market Analysis 2024</title>
+<title>Career Strategy – Job Market Analysis 2024</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -135,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Project Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./data_cleaning.html" aria-current="page"> 
+    <a class="nav-link" href="./data_cleaning.html"> 
 <span class="menu-text">Data Preparation</span></a>
   </li>  
   <li class="nav-item">
@@ -170,7 +171,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link active" data-scroll-target="#data-preparation">Data Preparation</a>
+  <li><a href="#project-overview" id="toc-project-overview" class="nav-link active" data-scroll-target="#project-overview">Project Overview</a>
+  <ul class="collapse">
+  <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
+  <li><a href="#research-question" id="toc-research-question" class="nav-link" data-scroll-target="#research-question">Research Question</a></li>
+  <li><a href="#why-this-matters" id="toc-why-this-matters" class="nav-link" data-scroll-target="#why-this-matters">Why This Matters</a></li>
+  <li><a href="#planned-analysis" id="toc-planned-analysis" class="nav-link" data-scroll-target="#planned-analysis">Planned Analysis</a></li>
+  </ul></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data Preparation</a>
   <ul class="collapse">
   <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#goals-of-data-cleaning" id="toc-goals-of-data-cleaning" class="nav-link" data-scroll-target="#goals-of-data-cleaning">Goals of Data Cleaning</a></li>
@@ -180,26 +188,118 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#example-missing-value-handling" id="toc-example-missing-value-handling" class="nav-link" data-scroll-target="#example-missing-value-handling">Example Missing Value Handling</a></li>
   <li><a href="#removing-duplicate-job-postings" id="toc-removing-duplicate-job-postings" class="nav-link" data-scroll-target="#removing-duplicate-job-postings">Removing Duplicate Job Postings</a></li>
   <li><a href="#example-duplicate-removal" id="toc-example-duplicate-removal" class="nav-link" data-scroll-target="#example-duplicate-removal">Example Duplicate Removal</a></li>
-  <li><a href="#why-this-matters" id="toc-why-this-matters" class="nav-link" data-scroll-target="#why-this-matters">Why This Matters</a></li>
+  <li><a href="#why-this-matters-1" id="toc-why-this-matters-1" class="nav-link" data-scroll-target="#why-this-matters-1">Why This Matters</a></li>
   <li><a href="#output-of-cleaning-step" id="toc-output-of-cleaning-step" class="nav-link" data-scroll-target="#output-of-cleaning-step">Output of Cleaning Step</a></li>
   </ul></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#overview-1" id="toc-overview-1" class="nav-link" data-scroll-target="#overview-1">Overview</a></li>
+  <li><a href="#defining-ai-vs-non-ai-roles" id="toc-defining-ai-vs-non-ai-roles" class="nav-link" data-scroll-target="#defining-ai-vs-non-ai-roles">Defining AI vs Non-AI Roles</a></li>
+  <li><a href="#salary-distribution-ai-vs-non-ai" id="toc-salary-distribution-ai-vs-non-ai" class="nav-link" data-scroll-target="#salary-distribution-ai-vs-non-ai">Salary Distribution: AI vs Non-AI</a></li>
+  <li><a href="#average-salary-by-industry-ai-vs-non-ai" id="toc-average-salary-by-industry-ai-vs-non-ai" class="nav-link" data-scroll-target="#average-salary-by-industry-ai-vs-non-ai">Average Salary by Industry: AI vs Non-AI</a></li>
+  <li><a href="#top-industries-by-ai-job-posting-count" id="toc-top-industries-by-ai-job-posting-count" class="nav-link" data-scroll-target="#top-industries-by-ai-job-posting-count">Top Industries by AI Job Posting Count</a></li>
+  <li><a href="#key-findings" id="toc-key-findings" class="nav-link" data-scroll-target="#key-findings">Key Findings</a></li>
+  </ul></li>
+  <li><a href="#predictive-modeling" id="toc-predictive-modeling" class="nav-link" data-scroll-target="#predictive-modeling">Predictive Modeling</a>
+  <ul class="collapse">
+  <li><a href="#overview-2" id="toc-overview-2" class="nav-link" data-scroll-target="#overview-2">Overview</a></li>
+  <li><a href="#regression-model-predicting-salary" id="toc-regression-model-predicting-salary" class="nav-link" data-scroll-target="#regression-model-predicting-salary">Regression Model: Predicting Salary</a>
+  <ul class="collapse">
+  <li><a href="#objective-1" id="toc-objective-1" class="nav-link" data-scroll-target="#objective-1">Objective</a></li>
+  <li><a href="#feature-justification" id="toc-feature-justification" class="nav-link" data-scroll-target="#feature-justification">Feature Justification</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
+  </ul></li>
+  <li><a href="#classification-model-predicting-ai-vs-non-ai-roles" id="toc-classification-model-predicting-ai-vs-non-ai-roles" class="nav-link" data-scroll-target="#classification-model-predicting-ai-vs-non-ai-roles">Classification Model: Predicting AI vs Non-AI Roles</a>
+  <ul class="collapse">
+  <li><a href="#objective-2" id="toc-objective-2" class="nav-link" data-scroll-target="#objective-2">Objective</a></li>
+  <li><a href="#results-1" id="toc-results-1" class="nav-link" data-scroll-target="#results-1">Results</a></li>
+  <li><a href="#confusion-matrix" id="toc-confusion-matrix" class="nav-link" data-scroll-target="#confusion-matrix">Confusion Matrix</a></li>
+  <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">Interpretation</a></li>
+  </ul></li>
+  <li><a href="#kmeans-clustering-salary-tiers" id="toc-kmeans-clustering-salary-tiers" class="nav-link" data-scroll-target="#kmeans-clustering-salary-tiers">KMeans Clustering: Salary Tiers</a>
+  <ul class="collapse">
+  <li><a href="#objective-3" id="toc-objective-3" class="nav-link" data-scroll-target="#objective-3">Objective</a></li>
+  <li><a href="#results-2" id="toc-results-2" class="nav-link" data-scroll-target="#results-2">Results</a></li>
+  <li><a href="#interpretation-2" id="toc-interpretation-2" class="nav-link" data-scroll-target="#interpretation-2">Interpretation</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#skill-gap-analysis" id="toc-skill-gap-analysis" class="nav-link" data-scroll-target="#skill-gap-analysis">Skill Gap Analysis</a>
+  <ul class="collapse">
+  <li><a href="#overview-3" id="toc-overview-3" class="nav-link" data-scroll-target="#overview-3">Overview</a></li>
+  <li><a href="#top-skills-in-ai-roles" id="toc-top-skills-in-ai-roles" class="nav-link" data-scroll-target="#top-skills-in-ai-roles">Top Skills in AI Roles</a></li>
+  <li><a href="#top-skills-in-non-ai-roles" id="toc-top-skills-in-non-ai-roles" class="nav-link" data-scroll-target="#top-skills-in-non-ai-roles">Top Skills in Non-AI Roles</a></li>
+  <li><a href="#comparing-ai-and-non-ai-skill-demand" id="toc-comparing-ai-and-non-ai-skill-demand" class="nav-link" data-scroll-target="#comparing-ai-and-non-ai-skill-demand">Comparing AI and Non-AI Skill Demand</a></li>
+  <li><a href="#skill-gap-assessment" id="toc-skill-gap-assessment" class="nav-link" data-scroll-target="#skill-gap-assessment">Skill Gap Assessment</a></li>
+  <li><a href="#recommendations" id="toc-recommendations" class="nav-link" data-scroll-target="#recommendations">Recommendations</a></li>
+  </ul></li>
+  <li><a href="#career-strategy" id="toc-career-strategy" class="nav-link" data-scroll-target="#career-strategy">Career Strategy</a>
+  <ul class="collapse">
+  <li><a href="#overview-4" id="toc-overview-4" class="nav-link" data-scroll-target="#overview-4">Overview</a></li>
+  <li><a href="#what-the-data-tells-us" id="toc-what-the-data-tells-us" class="nav-link" data-scroll-target="#what-the-data-tells-us">What the Data Tells Us</a></li>
+  <li><a href="#recommended-career-paths" id="toc-recommended-career-paths" class="nav-link" data-scroll-target="#recommended-career-paths">Recommended Career Paths</a></li>
+  <li><a href="#priority-skills-to-develop" id="toc-priority-skills-to-develop" class="nav-link" data-scroll-target="#priority-skills-to-develop">Priority Skills to Develop</a></li>
+  <li><a href="#final-takeaway" id="toc-final-takeaway" class="nav-link" data-scroll-target="#final-takeaway">Final Takeaway</a></li>
+  </ul></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="final_report.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data Preparation</h1>
+<h1 class="title">Career Strategy</h1>
+<p class="subtitle lead">Final Report</p>
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Manjari Kannan </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Boston University
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Nicholas Decesaris </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Boston University
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Oscar Quintero </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Boston University
+          </p>
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">today</p>
+    </div>
+  </div>
   
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">April 13, 2026</p>
+    </div>
+  </div>
     
   </div>
   
@@ -208,6 +308,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="project-overview" class="level1">
+<h1>Project Overview</h1>
+<section id="objective" class="level2">
+<h2 class="anchored" data-anchor-id="objective">Objective</h2>
+<p>This project examines job market trends in 2024 from the perspective of job seekers rather than recruiters. Using Lightcast data, we analyze hiring patterns, salaries, skills, and labor market conditions to understand how students can position themselves more effectively.</p>
+</section>
+<section id="research-question" class="level2">
+<h2 class="anchored" data-anchor-id="research-question">Research Question</h2>
+<p>Our project asks:</p>
+<p><strong>What trends in the 2024 job market can help students and early career professionals make better career decisions?</strong></p>
+</section>
+<section id="why-this-matters" class="level2">
+<h2 class="anchored" data-anchor-id="why-this-matters">Why This Matters</h2>
+<p>Rapid changes in AI adoption, salary patterns, remote work, and employer skill expectations make the job market harder to navigate. A data driven approach helps identify which roles are growing, which skills matter most, and what kinds of jobs offer the best opportunities.</p>
+</section>
+<section id="planned-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="planned-analysis">Planned Analysis</h2>
+<p>This project includes: - data cleaning and preprocessing - exploratory data analysis - unsupervised learning with KMeans clustering - supervised modeling using regression and classification - skill gap analysis - career recommendations for job seekers</p>
+</section>
+</section>
 <section id="data-preparation" class="level1">
 <h1>Data Preparation</h1>
 <section id="overview" class="level2">
@@ -275,8 +395,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"POSTED"</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="why-this-matters" class="level2">
-<h2 class="anchored" data-anchor-id="why-this-matters">Why This Matters</h2>
+<section id="why-this-matters-1" class="level2">
+<h2 class="anchored" data-anchor-id="why-this-matters-1">Why This Matters</h2>
 <p>Data cleaning improves the reliability of every later stage of the project. Cleaner data leads to:</p>
 <ul>
 <li>more accurate summaries and charts</li>
@@ -294,6 +414,399 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>regression models predicting salary</li>
 <li>classification models predicting job categories or remote work type</li>
 </ul>
+</section>
+</section>
+<section id="exploratory-data-analysis" class="level1">
+<h1>Exploratory Data Analysis</h1>
+<section id="overview-1" class="level2">
+<h2 class="anchored" data-anchor-id="overview-1">Overview</h2>
+<p>Before building any models, we explored the Lightcast job postings dataset to understand the underlying patterns in salary, industry composition, and AI-related job demand. This section summarizes what the data revealed about how AI roles compare to non-AI roles across key dimensions.</p>
+<p>All analysis is based on the cleaned dataset of 70,892 job postings.</p>
+</section>
+<section id="defining-ai-vs-non-ai-roles" class="level2">
+<h2 class="anchored" data-anchor-id="defining-ai-vs-non-ai-roles">Defining AI vs Non-AI Roles</h2>
+<p>To distinguish AI-related jobs from the rest of the dataset, we flagged any posting where the job title or skills field contained keywords such as “ai”, “machine learning”, “artificial intelligence”, “deep learning”, “data science”, “nlp”, “llm”, or “neural network”.</p>
+<p>This produced 31,857 AI-related postings (approximately 45% of the dataset) and 39,035 non-AI postings (approximately 55%). The near-even split suggests that AI-related roles have moved well beyond a niche segment of the labor market.</p>
+</section>
+<section id="salary-distribution-ai-vs-non-ai" class="level2">
+<h2 class="anchored" data-anchor-id="salary-distribution-ai-vs-non-ai">Salary Distribution: AI vs Non-AI</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="outputs/salary_distribution_plotly.png" class="img-fluid figure-img"></p>
+<figcaption>Salary Distribution</figcaption>
+</figure>
+</div>
+<p>The first question we investigated was whether AI roles simply pay more. The overall pattern suggests they do not, at least not uniformly.</p>
+<p>Both distributions peak near $112,500 and follow a similar right-skewed shape. The two groups overlap substantially, which indicates that holding an AI-related title does not automatically translate into higher compensation. The relationship between AI and salary appears to be more complex than a simple premium.</p>
+</section>
+<section id="average-salary-by-industry-ai-vs-non-ai" class="level2">
+<h2 class="anchored" data-anchor-id="average-salary-by-industry-ai-vs-non-ai">Average Salary by Industry: AI vs Non-AI</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="outputs/salary_by_industry_plotly.png" class="img-fluid figure-img"></p>
+<figcaption>Salary by Industry</figcaption>
+</figure>
+</div>
+<p>Breaking salary down by industry reveals a more nuanced picture. Certain industries show a meaningful AI salary premium, including Arts and Entertainment (approximately +$13,000), Construction (approximately +$13,500), and Retail Trade (approximately +$9,000). In these fields, AI skills remain relatively uncommon, and compensation reflects that scarcity.</p>
+<p>In contrast, the Information industry pays AI roles less on average than non-AI roles. This is likely because traditional IT and enterprise infrastructure roles in that sector already command high salaries, making AI titles less financially distinctive by comparison.</p>
+</section>
+<section id="top-industries-by-ai-job-posting-count" class="level2">
+<h2 class="anchored" data-anchor-id="top-industries-by-ai-job-posting-count">Top Industries by AI Job Posting Count</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="outputs/top_industries_plotly.png" class="img-fluid figure-img"></p>
+<figcaption>Top Industries</figcaption>
+</figure>
+</div>
+<p>In terms of where AI jobs are being posted, Professional, Scientific, and Technical Services leads by a wide margin, followed by Finance and Insurance and Information. While AI-related roles appear across many sectors, the majority of active hiring remains concentrated in knowledge-intensive industries. For job seekers targeting AI roles, these sectors represent the highest volume of opportunity.</p>
+</section>
+<section id="key-findings" class="level2">
+<h2 class="anchored" data-anchor-id="key-findings">Key Findings</h2>
+<p>Several patterns emerged from this exploratory analysis worth carrying forward into the modeling phase.</p>
+<p>The overall salary difference between AI and non-AI roles is negligible at roughly $100 on average. The salary premium associated with AI skills is industry-specific rather than universal. Fields where AI capabilities are still emerging tend to reward those skills more generously. And the concentration of AI hiring in professional services, finance, and information suggests that the benefits of AI are not evenly distributed across the workforce. Where a worker is employed matters as much as what skills they bring.</p>
+</section>
+</section>
+<section id="predictive-modeling" class="level1">
+<h1>Predictive Modeling</h1>
+<section id="overview-2" class="level2">
+<h2 class="anchored" data-anchor-id="overview-2">Overview</h2>
+<p>This section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural salary tiers across the job market. Together these models help quantify how job characteristics relate to compensation and AI demand.</p>
+</section>
+<section id="regression-model-predicting-salary" class="level2">
+<h2 class="anchored" data-anchor-id="regression-model-predicting-salary">Regression Model: Predicting Salary</h2>
+<section id="objective-1" class="level3">
+<h3 class="anchored" data-anchor-id="objective-1">Objective</h3>
+<p>The goal of this model is to predict the midpoint salary of a job posting based on observable job characteristics.</p>
+</section>
+<section id="feature-justification" class="level3">
+<h3 class="anchored" data-anchor-id="feature-justification">Feature Justification</h3>
+<p>Two versions of the model were tested. The first used industry, remote work type, and AI role flag as features. The second added occupation category and years of experience. Occupation category was expected to be the strongest predictor because salary varies substantially across professional fields regardless of industry.</p>
+</section>
+<section id="results" class="level3">
+<h3 class="anchored" data-anchor-id="results">Results</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Features</th>
+<th>RMSE</th>
+<th>R2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Model 1</td>
+<td>Industry, Remote Type, AI Flag</td>
+<td>$31,428</td>
+<td>0.0094</td>
+</tr>
+<tr class="even">
+<td>Model 2</td>
+<td>+ Occupation, Experience</td>
+<td>$30,040</td>
+<td>0.0949</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
+<p>Adding occupation category and experience improved R2 from 0.009 to 0.095 and reduced RMSE by roughly $1,400. However, the overall explanatory power remains modest. This is expected given that salary is also shaped by factors not present in this dataset, such as company size, specific technical skills, education level, and negotiation. The low R2 is itself a finding worth noting: structured job characteristics explain only a small portion of salary variance, which suggests that individual and firm level factors play a larger role in determining compensation.</p>
+</section>
+</section>
+<section id="classification-model-predicting-ai-vs-non-ai-roles" class="level2">
+<h2 class="anchored" data-anchor-id="classification-model-predicting-ai-vs-non-ai-roles">Classification Model: Predicting AI vs Non-AI Roles</h2>
+<section id="objective-2" class="level3">
+<h3 class="anchored" data-anchor-id="objective-2">Objective</h3>
+<p>This model attempts to classify whether a job posting is AI-related based on industry, remote work type, and occupation category.</p>
+</section>
+<section id="results-1" class="level3">
+<h3 class="anchored" data-anchor-id="results-1">Results</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Accuracy</td>
+<td>55.6%</td>
+</tr>
+<tr class="even">
+<td>F1 Score</td>
+<td>0.48</td>
+</tr>
+<tr class="odd">
+<td>AUC</td>
+<td>0.54</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="confusion-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="confusion-matrix">Confusion Matrix</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="outputs/confusion_matrix.png" class="img-fluid figure-img"></p>
+<figcaption>Confusion Matrix</figcaption>
+</figure>
+</div>
+<p>The confusion matrix shows that the model correctly identifies most non-AI roles (6,869 true negatives) but misclassifies the majority of actual AI roles as non-AI (5,426 false negatives). This pattern reflects the core finding that AI roles are not structurally distinguishable from non-AI roles based on industry, remote type, and occupation category alone.</p>
+</section>
+<section id="interpretation-1" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-1">Interpretation</h3>
+<p>The model performs only slightly better than random guessing. This finding is informative rather than disappointing. It suggests that AI-related roles are spread across industries and occupation categories rather than being concentrated in obvious segments. The distinction between AI and non-AI roles lives primarily in the specific skills and title language of the posting, not in its structural characteristics.</p>
+</section>
+</section>
+<section id="kmeans-clustering-salary-tiers" class="level2">
+<h2 class="anchored" data-anchor-id="kmeans-clustering-salary-tiers">KMeans Clustering: Salary Tiers</h2>
+<section id="objective-3" class="level3">
+<h3 class="anchored" data-anchor-id="objective-3">Objective</h3>
+<p>KMeans clustering was used to identify natural groupings in the job market based on industry, occupation, salary, and AI role status. Four clusters were specified based on the expectation that the market would segment into entry, mid, upper mid, and senior tiers.</p>
+</section>
+<section id="results-2" class="level3">
+<h3 class="anchored" data-anchor-id="results-2">Results</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Cluster</th>
+<th>Avg Salary (Non-AI)</th>
+<th>Avg Salary (AI)</th>
+<th>Job Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Entry Level</td>
+<td>$47,270</td>
+<td>$50,670</td>
+<td>4,601</td>
+</tr>
+<tr class="even">
+<td>Mid Level</td>
+<td>$82,528</td>
+<td>$82,259</td>
+<td>7,700</td>
+</tr>
+<tr class="odd">
+<td>Upper Mid Level</td>
+<td>$114,743</td>
+<td>$114,707</td>
+<td>51,215</td>
+</tr>
+<tr class="even">
+<td>Senior Level</td>
+<td>$177,965</td>
+<td>$180,191</td>
+<td>7,359</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="interpretation-2" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-2">Interpretation</h3>
+<p>The clustering produced four well-separated salary tiers that are intuitive and interpretable. The most striking pattern is that within every cluster, AI and non-AI roles earn nearly identical average salaries. The salary tier a job belongs to is determined by its occupation and industry profile, not by whether it involves AI. This finding is consistent across all three models and forms the central conclusion of this analysis: AI designation alone does not drive salary. Structural job characteristics and market positioning matter more.</p>
+</section>
+</section>
+</section>
+<section id="skill-gap-analysis" class="level1">
+<h1>Skill Gap Analysis</h1>
+<section id="overview-3" class="level2">
+<h2 class="anchored" data-anchor-id="overview-3">Overview</h2>
+<p>This section examines which skills are most in demand across AI and non-AI job postings in the Lightcast dataset, and compares those findings to the skill profile of a typical business analytics student. The goal is to identify where gaps exist and what students should prioritize to remain competitive in an AI-influenced job market.</p>
+</section>
+<section id="top-skills-in-ai-roles" class="level2">
+<h2 class="anchored" data-anchor-id="top-skills-in-ai-roles">Top Skills in AI Roles</h2>
+<p>The fifteen most frequently requested skills across AI-related job postings are listed below.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Skill</th>
+<th>Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Communication</td>
+<td>16,483</td>
+</tr>
+<tr class="even">
+<td>Data Analysis</td>
+<td>15,188</td>
+</tr>
+<tr class="odd">
+<td>Management</td>
+<td>12,316</td>
+</tr>
+<tr class="even">
+<td>Detail Oriented</td>
+<td>11,753</td>
+</tr>
+<tr class="odd">
+<td>SQL</td>
+<td>11,717</td>
+</tr>
+<tr class="even">
+<td>Problem Solving</td>
+<td>10,351</td>
+</tr>
+<tr class="odd">
+<td>Computer Science</td>
+<td>9,535</td>
+</tr>
+<tr class="even">
+<td>Leadership</td>
+<td>8,852</td>
+</tr>
+<tr class="odd">
+<td>Python</td>
+<td>7,600</td>
+</tr>
+<tr class="even">
+<td>Operations</td>
+<td>7,299</td>
+</tr>
+<tr class="odd">
+<td>Microsoft Excel</td>
+<td>7,057</td>
+</tr>
+<tr class="even">
+<td>Tableau</td>
+<td>6,904</td>
+</tr>
+<tr class="odd">
+<td>Data Science</td>
+<td>6,617</td>
+</tr>
+<tr class="even">
+<td>Dashboard</td>
+<td>6,529</td>
+</tr>
+<tr class="odd">
+<td>Project Management</td>
+<td>6,266</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="top-skills-in-non-ai-roles" class="level2">
+<h2 class="anchored" data-anchor-id="top-skills-in-non-ai-roles">Top Skills in Non-AI Roles</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Skill</th>
+<th>Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Communication</td>
+<td>14,621</td>
+</tr>
+<tr class="even">
+<td>Data Analysis</td>
+<td>12,502</td>
+</tr>
+<tr class="odd">
+<td>Management</td>
+<td>11,813</td>
+</tr>
+<tr class="even">
+<td>SQL</td>
+<td>9,429</td>
+</tr>
+<tr class="odd">
+<td>Leadership</td>
+<td>8,350</td>
+</tr>
+<tr class="even">
+<td>Problem Solving</td>
+<td>7,715</td>
+</tr>
+<tr class="odd">
+<td>Project Management</td>
+<td>7,209</td>
+</tr>
+<tr class="even">
+<td>Computer Science</td>
+<td>7,133</td>
+</tr>
+<tr class="odd">
+<td>Business Process</td>
+<td>6,998</td>
+</tr>
+<tr class="even">
+<td>Operations</td>
+<td>6,993</td>
+</tr>
+<tr class="odd">
+<td>SAP Applications</td>
+<td>6,821</td>
+</tr>
+<tr class="even">
+<td>Business Requirements</td>
+<td>6,726</td>
+</tr>
+<tr class="odd">
+<td>Finance</td>
+<td>6,147</td>
+</tr>
+<tr class="even">
+<td>Presentations</td>
+<td>5,763</td>
+</tr>
+<tr class="odd">
+<td>Planning</td>
+<td>5,621</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="comparing-ai-and-non-ai-skill-demand" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-ai-and-non-ai-skill-demand">Comparing AI and Non-AI Skill Demand</h2>
+<p>Several patterns emerge when comparing the two lists. Communication, Data Analysis, Management, SQL, and Problem Solving rank highly in both, confirming that these are foundational skills regardless of whether a role is AI-related. However, AI roles place noticeably higher demand on Python, Tableau, Data Science, and Dashboard skills, while non-AI roles emphasize SAP Applications, Business Requirements, Finance, and Business Process knowledge.</p>
+<p>This suggests that the transition into AI-related work requires building on a shared analytical foundation while adding more specialized technical and data visualization capabilities.</p>
+</section>
+<section id="skill-gap-assessment" class="level2">
+<h2 class="anchored" data-anchor-id="skill-gap-assessment">Skill Gap Assessment</h2>
+<p>A typical business analytics graduate entering this job market is likely comfortable with communication, Excel, SQL, and basic data analysis. Based on the demand patterns observed in this dataset, the most significant gaps tend to fall in the following areas.</p>
+<p>Python programming appears in the top ten for AI roles but not at all in the non-AI top fifteen, making it one of the clearest differentiators for students targeting AI-related positions. Tableau and dashboard development are heavily requested in AI roles and represent a practical visualization skill that complements SQL and Excel. Data Science as a named competency appears frequently in AI postings and signals employer expectations around modeling, statistical reasoning, and analytical workflows beyond basic reporting.</p>
+<p>On the non-AI side, familiarity with enterprise platforms such as SAP and business process documentation skills appear prominently, suggesting that students targeting traditional analyst or operations roles should also develop comfort with enterprise systems.</p>
+</section>
+<section id="recommendations" class="level2">
+<h2 class="anchored" data-anchor-id="recommendations">Recommendations</h2>
+<p>Students aiming for AI-related roles should prioritize Python, Tableau, and applied data science coursework. Those targeting traditional business or operations roles will benefit from developing familiarity with SAP and structured business process skills. In either path, SQL, communication, and analytical thinking remain the most universally valued capabilities in the current labor market.</p>
+</section>
+</section>
+<section id="career-strategy" class="level1">
+<h1>Career Strategy</h1>
+<section id="overview-4" class="level2">
+<h2 class="anchored" data-anchor-id="overview-4">Overview</h2>
+<p>This section translates the findings from our exploratory analysis, predictive modeling, and skill gap assessment into actionable career guidance for students and early-career job seekers navigating an AI-influenced labor market.</p>
+</section>
+<section id="what-the-data-tells-us" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-data-tells-us">What the Data Tells Us</h2>
+<p>Several consistent findings emerged across all stages of this project that should directly inform career planning decisions.</p>
+<p>AI-related roles do not universally pay more. The average salary difference between AI and non-AI roles in this dataset is approximately $100, which is negligible. Salary is determined more by industry, occupation tier, and job level than by AI designation alone. Students who assume that adding AI skills to their resume will automatically lead to higher pay may be disappointed without also considering the sector and role level they are targeting.</p>
+<p>The salary premium for AI skills is industry-specific. Fields such as Arts and Entertainment, Construction, and Retail Trade show AI salary premiums of $9,000 to $13,500, likely because AI capabilities remain scarce in those sectors. In contrast, the Information industry pays non-AI roles more on average because that sector already compensates technical work highly regardless of AI involvement. Job seekers should research salary norms within their target industry rather than relying on general AI salary narratives.</p>
+<p>Salary tier matters more than AI status. The KMeans clustering analysis identified four distinct salary tiers in the job market ranging from approximately $49,000 at the entry level to $179,000 at the senior level. Within every tier, AI and non-AI roles earn nearly identical salaries. Moving up a salary tier requires developing the occupation and industry profile associated with that tier, not simply acquiring AI-related keywords.</p>
+</section>
+<section id="recommended-career-paths" class="level2">
+<h2 class="anchored" data-anchor-id="recommended-career-paths">Recommended Career Paths</h2>
+<p>Based on the skill demand patterns and salary distributions observed in this dataset, three career directions appear particularly well-suited for business analytics students.</p>
+<p>Students with strong SQL, Python, and data visualization skills are well positioned for data science and analytics roles, which appear frequently in the Professional, Scientific, and Technical Services sector and consistently fall in the upper mid salary tier around $114,000.</p>
+<p>Students interested in finance and insurance will find that sector offers strong AI role concentration and competitive salaries. Finance-adjacent analytical roles that combine business knowledge with data skills appear to be in high demand.</p>
+<p>Students targeting non-AI paths should not overlook the value of enterprise systems experience. SAP, business process management, and ERP skills appear prominently in non-AI postings and are associated with stable demand across multiple industries.</p>
+</section>
+<section id="priority-skills-to-develop" class="level2">
+<h2 class="anchored" data-anchor-id="priority-skills-to-develop">Priority Skills to Develop</h2>
+<p>Based on the skill gap analysis, the highest-return skills for students to develop before entering the job market are Python programming, SQL, Tableau or equivalent dashboard tools, and applied data science competencies. Communication, problem solving, and project management round out the universal skills that employers expect regardless of role type.</p>
+</section>
+<section id="final-takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="final-takeaway">Final Takeaway</h2>
+<p>The rise of AI is reshaping the job market, but not in the simple way that headlines often suggest. Our analysis shows that AI skills matter most in specific industries and role contexts, that salary outcomes depend heavily on occupation tier and sector, and that foundational analytical skills remain the most consistently valued capabilities across the entire labor market. Students who build a strong analytical foundation and develop targeted technical skills for their chosen industry will be better positioned than those who chase AI credentials without strategic direction.</p>
 
 
 </section>
