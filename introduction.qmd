@@ -1,5 +1,5 @@
 ---
-title: "Personal Career Path Decisions in the 2024 Job Market"
+title: "Personal Career Path Decisions in 2024"
 author: "Manjari Kannan, Nicholas Decesaris, Oscar Quintero"
 date: today
 format:

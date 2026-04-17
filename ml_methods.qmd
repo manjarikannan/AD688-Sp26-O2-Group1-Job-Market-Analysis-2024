@@ -2,8 +2,6 @@
 title: "Predictive Modeling"
 ---
 
-# Predictive Modeling
-
 ## Overview
 
 This section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural salary tiers across the job market. Together these models help quantify how job characteristics relate to compensation and AI demand.

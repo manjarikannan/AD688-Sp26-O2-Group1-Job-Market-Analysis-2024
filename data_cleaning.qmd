@@ -2,8 +2,6 @@
 title: "Data Preparation"
 ---
 
-# Data Preparation
-
 ## Overview
 
 Before conducting exploratory analysis and predictive modeling, the Lightcast job postings dataset must be cleaned and standardized. Because the dataset includes many tracking variables, repeated industry and occupation code versions, and missing values, preprocessing is necessary to improve interpretability and reduce noise.

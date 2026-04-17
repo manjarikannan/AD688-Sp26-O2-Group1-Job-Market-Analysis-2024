@@ -2,8 +2,6 @@
 title: "Skill Gap Analysis"
 ---
 
-# Skill Gap Analysis
-
 ## Overview
 
 This section examines which skills are most in demand across AI and non-AI job postings in the Lightcast dataset, and compares those findings to the skill profile of a typical business analytics student. The goal is to identify where gaps exist and what students should prioritize to remain competitive in an AI-influenced job market.

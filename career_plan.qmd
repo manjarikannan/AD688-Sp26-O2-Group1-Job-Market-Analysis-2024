@@ -2,8 +2,6 @@
 title: "Career Strategy"
 ---
 
-# Career Strategy
-
 ## Overview
 
 This section translates the findings from our exploratory analysis, predictive modeling, and skill gap assessment into actionable career guidance for students and early-career job seekers navigating an AI-influenced labor market.
