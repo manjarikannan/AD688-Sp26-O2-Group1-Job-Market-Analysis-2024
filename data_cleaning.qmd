@@ -23,7 +23,7 @@ For example, older NAICS and SOC versions are less useful when more current clas
 
 ## Example Python Cleaning Code
 
-```python
+```{python}
 from pyspark.sql import functions as F
 #| echo: true
 #| eval: true
