@@ -1,0 +1,275 @@
+[
+  {
+    "objectID": "eda.html",
+    "href": "eda.html",
+    "title": "Exploratory Data Analysis",
+    "section": "",
+    "text": "Before building any models, we explored the Lightcast job postings dataset to understand the underlying patterns in salary, industry composition, and AI-related job demand. This section summarizes what the data revealed about how AI roles compare to non-AI roles across key dimensions.\nAll analysis is based on the cleaned dataset of 70,892 job postings.\n\n\n\nTo distinguish AI-related jobs from the rest of the dataset, we flagged any posting where the job title or skills field contained keywords such as “ai”, “machine learning”, “artificial intelligence”, “deep learning”, “data science”, “nlp”, “llm”, or “neural network”.\nThis produced 31,857 AI-related postings (approximately 45% of the dataset) and 39,035 non-AI postings (approximately 55%). The near-even split suggests that AI-related roles have moved well beyond a niche segment of the labor market.\n\n\n\n\n\n\nSalary Distribution\n\n\nThe first question we investigated was whether AI roles simply pay more. The overall pattern suggests they do not, at least not uniformly.\nBoth distributions peak near $112,500 and follow a similar right-skewed shape. The two groups overlap substantially, which indicates that holding an AI-related title does not automatically translate into higher compensation. The relationship between AI and salary appears to be more complex than a simple premium.\n\n\n\n\n\n\nSalary by Industry\n\n\nBreaking salary down by industry reveals a more nuanced picture. Certain industries show a meaningful AI salary premium, including Arts and Entertainment (approximately +$13,000), Construction (approximately +$13,500), and Retail Trade (approximately +$9,000). In these fields, AI skills remain relatively uncommon, and compensation reflects that scarcity.\nIn contrast, the Information industry pays AI roles less on average than non-AI roles. This is likely because traditional IT and enterprise infrastructure roles in that sector already command high salaries, making AI titles less financially distinctive by comparison.\n\n\n\n\n\n\nTop Industries\n\n\nIn terms of where AI jobs are being posted, Professional, Scientific, and Technical Services leads by a wide margin, followed by Finance and Insurance and Information. While AI-related roles appear across many sectors, the majority of active hiring remains concentrated in knowledge-intensive industries. For job seekers targeting AI roles, these sectors represent the highest volume of opportunity.\n\n\n\nSeveral patterns emerged from this exploratory analysis worth carrying forward into the modeling phase.\nThe overall salary difference between AI and non-AI roles is negligible at roughly $100 on average. The salary premium associated with AI skills is industry-specific rather than universal. Fields where AI capabilities are still emerging tend to reward those skills more generously. And the concentration of AI hiring in professional services, finance, and information suggests that the benefits of AI are not evenly distributed across the workforce. Where a worker is employed matters as much as what skills they bring."
+  },
+  {
+    "objectID": "eda.html#overview",
+    "href": "eda.html#overview",
+    "title": "Exploratory Data Analysis",
+    "section": "",
+    "text": "Before building any models, we explored the Lightcast job postings dataset to understand the underlying patterns in salary, industry composition, and AI-related job demand. This section summarizes what the data revealed about how AI roles compare to non-AI roles across key dimensions.\nAll analysis is based on the cleaned dataset of 70,892 job postings."
+  },
+  {
+    "objectID": "eda.html#defining-ai-vs-non-ai-roles",
+    "href": "eda.html#defining-ai-vs-non-ai-roles",
+    "title": "Exploratory Data Analysis",
+    "section": "",
+    "text": "To distinguish AI-related jobs from the rest of the dataset, we flagged any posting where the job title or skills field contained keywords such as “ai”, “machine learning”, “artificial intelligence”, “deep learning”, “data science”, “nlp”, “llm”, or “neural network”.\nThis produced 31,857 AI-related postings (approximately 45% of the dataset) and 39,035 non-AI postings (approximately 55%). The near-even split suggests that AI-related roles have moved well beyond a niche segment of the labor market."
+  },
+  {
+    "objectID": "eda.html#salary-distribution-ai-vs-non-ai",
+    "href": "eda.html#salary-distribution-ai-vs-non-ai",
+    "title": "Exploratory Data Analysis",
+    "section": "",
+    "text": "Salary Distribution\n\n\nThe first question we investigated was whether AI roles simply pay more. The overall pattern suggests they do not, at least not uniformly.\nBoth distributions peak near $112,500 and follow a similar right-skewed shape. The two groups overlap substantially, which indicates that holding an AI-related title does not automatically translate into higher compensation. The relationship between AI and salary appears to be more complex than a simple premium."
+  },
+  {
+    "objectID": "eda.html#average-salary-by-industry-ai-vs-non-ai",
+    "href": "eda.html#average-salary-by-industry-ai-vs-non-ai",
+    "title": "Exploratory Data Analysis",
+    "section": "",
+    "text": "Salary by Industry\n\n\nBreaking salary down by industry reveals a more nuanced picture. Certain industries show a meaningful AI salary premium, including Arts and Entertainment (approximately +$13,000), Construction (approximately +$13,500), and Retail Trade (approximately +$9,000). In these fields, AI skills remain relatively uncommon, and compensation reflects that scarcity.\nIn contrast, the Information industry pays AI roles less on average than non-AI roles. This is likely because traditional IT and enterprise infrastructure roles in that sector already command high salaries, making AI titles less financially distinctive by comparison."
+  },
+  {
+    "objectID": "eda.html#top-industries-by-ai-job-posting-count",
+    "href": "eda.html#top-industries-by-ai-job-posting-count",
+    "title": "Exploratory Data Analysis",
+    "section": "",
+    "text": "Top Industries\n\n\nIn terms of where AI jobs are being posted, Professional, Scientific, and Technical Services leads by a wide margin, followed by Finance and Insurance and Information. While AI-related roles appear across many sectors, the majority of active hiring remains concentrated in knowledge-intensive industries. For job seekers targeting AI roles, these sectors represent the highest volume of opportunity."
+  },
+  {
+    "objectID": "eda.html#key-findings",
+    "href": "eda.html#key-findings",
+    "title": "Exploratory Data Analysis",
+    "section": "",
+    "text": "Several patterns emerged from this exploratory analysis worth carrying forward into the modeling phase.\nThe overall salary difference between AI and non-AI roles is negligible at roughly $100 on average. The salary premium associated with AI skills is industry-specific rather than universal. Fields where AI capabilities are still emerging tend to reward those skills more generously. And the concentration of AI hiring in professional services, finance, and information suggests that the benefits of AI are not evenly distributed across the workforce. Where a worker is employed matters as much as what skills they bring."
+  },
+  {
+    "objectID": "ml_methods.html",
+    "href": "ml_methods.html",
+    "title": "Predictive Modeling",
+    "section": "",
+    "text": "This section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural salary tiers across the job market. Together these models help quantify how job characteristics relate to compensation and AI demand.\n\n\n\n\n\nThe goal of this model is to predict the midpoint salary of a job posting based on observable job characteristics.\n\n\n\nTwo versions of the model were tested. The first used industry, remote work type, and AI role flag as features. The second added occupation category and years of experience. Occupation category was expected to be the strongest predictor because salary varies substantially across professional fields regardless of industry.\n\n\n\n\n\n\nModel\nFeatures\nRMSE\nR2\n\n\n\n\nModel 1\nIndustry, Remote Type, AI Flag\n$31,428\n0.0094\n\n\nModel 2\n+ Occupation, Experience\n$30,040\n0.0949\n\n\n\n\n\n\nAdding occupation category and experience improved R2 from 0.009 to 0.095 and reduced RMSE by roughly $1,400. However, the overall explanatory power remains modest. This is expected given that salary is also shaped by factors not present in this dataset, such as company size, specific technical skills, education level, and negotiation. The low R2 is itself a finding worth noting: structured job characteristics explain only a small portion of salary variance, which suggests that individual and firm level factors play a larger role in determining compensation.\n\n\n\n\n\n\nThis model attempts to classify whether a job posting is AI-related based on industry, remote work type, and occupation category.\n\n\n\n\n\n\nMetric\nScore\n\n\n\n\nAccuracy\n55.6%\n\n\nF1 Score\n0.48\n\n\nAUC\n0.54\n\n\n\n\n\n\n\n\n\nConfusion Matrix\n\n\nThe confusion matrix shows that the model correctly identifies most non-AI roles (6,869 true negatives) but misclassifies the majority of actual AI roles as non-AI (5,426 false negatives). This pattern reflects the core finding that AI roles are not structurally distinguishable from non-AI roles based on industry, remote type, and occupation category alone.\n\n\n\nThe model performs only slightly better than random guessing. This finding is informative rather than disappointing. It suggests that AI-related roles are spread across industries and occupation categories rather than being concentrated in obvious segments. The distinction between AI and non-AI roles lives primarily in the specific skills and title language of the posting, not in its structural characteristics.\n\n\n\n\n\n\nKMeans clustering was used to identify natural groupings in the job market based on industry, occupation, salary, and AI role status. Four clusters were specified based on the expectation that the market would segment into entry, mid, upper mid, and senior tiers.\n\n\n\n\n\n\nCluster\nAvg Salary (Non-AI)\nAvg Salary (AI)\nJob Count\n\n\n\n\nEntry Level\n$47,270\n$50,670\n4,601\n\n\nMid Level\n$82,528\n$82,259\n7,700\n\n\nUpper Mid Level\n$114,743\n$114,707\n51,215\n\n\nSenior Level\n$177,965\n$180,191\n7,359\n\n\n\n\n\n\nThe clustering produced four well-separated salary tiers that are intuitive and interpretable. The most striking pattern is that within every cluster, AI and non-AI roles earn nearly identical average salaries. The salary tier a job belongs to is determined by its occupation and industry profile, not by whether it involves AI. This finding is consistent across all three models and forms the central conclusion of this analysis: AI designation alone does not drive salary. Structural job characteristics and market positioning matter more."
+  },
+  {
+    "objectID": "ml_methods.html#overview",
+    "href": "ml_methods.html#overview",
+    "title": "Predictive Modeling",
+    "section": "",
+    "text": "This section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural salary tiers across the job market. Together these models help quantify how job characteristics relate to compensation and AI demand."
+  },
+  {
+    "objectID": "ml_methods.html#regression-model-predicting-salary",
+    "href": "ml_methods.html#regression-model-predicting-salary",
+    "title": "Predictive Modeling",
+    "section": "",
+    "text": "The goal of this model is to predict the midpoint salary of a job posting based on observable job characteristics.\n\n\n\nTwo versions of the model were tested. The first used industry, remote work type, and AI role flag as features. The second added occupation category and years of experience. Occupation category was expected to be the strongest predictor because salary varies substantially across professional fields regardless of industry.\n\n\n\n\n\n\nModel\nFeatures\nRMSE\nR2\n\n\n\n\nModel 1\nIndustry, Remote Type, AI Flag\n$31,428\n0.0094\n\n\nModel 2\n+ Occupation, Experience\n$30,040\n0.0949\n\n\n\n\n\n\nAdding occupation category and experience improved R2 from 0.009 to 0.095 and reduced RMSE by roughly $1,400. However, the overall explanatory power remains modest. This is expected given that salary is also shaped by factors not present in this dataset, such as company size, specific technical skills, education level, and negotiation. The low R2 is itself a finding worth noting: structured job characteristics explain only a small portion of salary variance, which suggests that individual and firm level factors play a larger role in determining compensation."
+  },
+  {
+    "objectID": "ml_methods.html#classification-model-predicting-ai-vs-non-ai-roles",
+    "href": "ml_methods.html#classification-model-predicting-ai-vs-non-ai-roles",
+    "title": "Predictive Modeling",
+    "section": "",
+    "text": "This model attempts to classify whether a job posting is AI-related based on industry, remote work type, and occupation category.\n\n\n\n\n\n\nMetric\nScore\n\n\n\n\nAccuracy\n55.6%\n\n\nF1 Score\n0.48\n\n\nAUC\n0.54\n\n\n\n\n\n\n\n\n\nConfusion Matrix\n\n\nThe confusion matrix shows that the model correctly identifies most non-AI roles (6,869 true negatives) but misclassifies the majority of actual AI roles as non-AI (5,426 false negatives). This pattern reflects the core finding that AI roles are not structurally distinguishable from non-AI roles based on industry, remote type, and occupation category alone.\n\n\n\nThe model performs only slightly better than random guessing. This finding is informative rather than disappointing. It suggests that AI-related roles are spread across industries and occupation categories rather than being concentrated in obvious segments. The distinction between AI and non-AI roles lives primarily in the specific skills and title language of the posting, not in its structural characteristics."
+  },
+  {
+    "objectID": "ml_methods.html#kmeans-clustering-salary-tiers",
+    "href": "ml_methods.html#kmeans-clustering-salary-tiers",
+    "title": "Predictive Modeling",
+    "section": "",
+    "text": "KMeans clustering was used to identify natural groupings in the job market based on industry, occupation, salary, and AI role status. Four clusters were specified based on the expectation that the market would segment into entry, mid, upper mid, and senior tiers.\n\n\n\n\n\n\nCluster\nAvg Salary (Non-AI)\nAvg Salary (AI)\nJob Count\n\n\n\n\nEntry Level\n$47,270\n$50,670\n4,601\n\n\nMid Level\n$82,528\n$82,259\n7,700\n\n\nUpper Mid Level\n$114,743\n$114,707\n51,215\n\n\nSenior Level\n$177,965\n$180,191\n7,359\n\n\n\n\n\n\nThe clustering produced four well-separated salary tiers that are intuitive and interpretable. The most striking pattern is that within every cluster, AI and non-AI roles earn nearly identical average salaries. The salary tier a job belongs to is determined by its occupation and industry profile, not by whether it involves AI. This finding is consistent across all three models and forms the central conclusion of this analysis: AI designation alone does not drive salary. Structural job characteristics and market positioning matter more."
+  },
+  {
+    "objectID": "skill_gap_analysis.html",
+    "href": "skill_gap_analysis.html",
+    "title": "Skill Gap Analysis",
+    "section": "",
+    "text": "This section examines which skills are most in demand across AI and non-AI job postings in the Lightcast dataset, and compares those findings to the skill profile of a typical business analytics student. The goal is to identify where gaps exist and what students should prioritize to remain competitive in an AI-influenced job market.\n\n\n\nThe fifteen most frequently requested skills across AI-related job postings are listed below.\n\n\n\nSkill\nFrequency\n\n\n\n\nCommunication\n16,483\n\n\nData Analysis\n15,188\n\n\nManagement\n12,316\n\n\nDetail Oriented\n11,753\n\n\nSQL\n11,717\n\n\nProblem Solving\n10,351\n\n\nComputer Science\n9,535\n\n\nLeadership\n8,852\n\n\nPython\n7,600\n\n\nOperations\n7,299\n\n\nMicrosoft Excel\n7,057\n\n\nTableau\n6,904\n\n\nData Science\n6,617\n\n\nDashboard\n6,529\n\n\nProject Management\n6,266\n\n\n\n\n\n\n\n\n\nSkill\nFrequency\n\n\n\n\nCommunication\n14,621\n\n\nData Analysis\n12,502\n\n\nManagement\n11,813\n\n\nSQL\n9,429\n\n\nLeadership\n8,350\n\n\nProblem Solving\n7,715\n\n\nProject Management\n7,209\n\n\nComputer Science\n7,133\n\n\nBusiness Process\n6,998\n\n\nOperations\n6,993\n\n\nSAP Applications\n6,821\n\n\nBusiness Requirements\n6,726\n\n\nFinance\n6,147\n\n\nPresentations\n5,763\n\n\nPlanning\n5,621\n\n\n\n\n\n\nSeveral patterns emerge when comparing the two lists. Communication, Data Analysis, Management, SQL, and Problem Solving rank highly in both, confirming that these are foundational skills regardless of whether a role is AI-related. However, AI roles place noticeably higher demand on Python, Tableau, Data Science, and Dashboard skills, while non-AI roles emphasize SAP Applications, Business Requirements, Finance, and Business Process knowledge.\nThis suggests that the transition into AI-related work requires building on a shared analytical foundation while adding more specialized technical and data visualization capabilities.\n\n\n\nA typical business analytics graduate entering this job market is likely comfortable with communication, Excel, SQL, and basic data analysis. Based on the demand patterns observed in this dataset, the most significant gaps tend to fall in the following areas.\nPython programming appears in the top ten for AI roles but not at all in the non-AI top fifteen, making it one of the clearest differentiators for students targeting AI-related positions. Tableau and dashboard development are heavily requested in AI roles and represent a practical visualization skill that complements SQL and Excel. Data Science as a named competency appears frequently in AI postings and signals employer expectations around modeling, statistical reasoning, and analytical workflows beyond basic reporting.\nOn the non-AI side, familiarity with enterprise platforms such as SAP and business process documentation skills appear prominently, suggesting that students targeting traditional analyst or operations roles should also develop comfort with enterprise systems.\n\n\n\nStudents aiming for AI-related roles should prioritize Python, Tableau, and applied data science coursework. Those targeting traditional business or operations roles will benefit from developing familiarity with SAP and structured business process skills. In either path, SQL, communication, and analytical thinking remain the most universally valued capabilities in the current labor market."
+  },
+  {
+    "objectID": "skill_gap_analysis.html#overview",
+    "href": "skill_gap_analysis.html#overview",
+    "title": "Skill Gap Analysis",
+    "section": "",
+    "text": "This section examines which skills are most in demand across AI and non-AI job postings in the Lightcast dataset, and compares those findings to the skill profile of a typical business analytics student. The goal is to identify where gaps exist and what students should prioritize to remain competitive in an AI-influenced job market."
+  },
+  {
+    "objectID": "skill_gap_analysis.html#top-skills-in-ai-roles",
+    "href": "skill_gap_analysis.html#top-skills-in-ai-roles",
+    "title": "Skill Gap Analysis",
+    "section": "",
+    "text": "The fifteen most frequently requested skills across AI-related job postings are listed below.\n\n\n\nSkill\nFrequency\n\n\n\n\nCommunication\n16,483\n\n\nData Analysis\n15,188\n\n\nManagement\n12,316\n\n\nDetail Oriented\n11,753\n\n\nSQL\n11,717\n\n\nProblem Solving\n10,351\n\n\nComputer Science\n9,535\n\n\nLeadership\n8,852\n\n\nPython\n7,600\n\n\nOperations\n7,299\n\n\nMicrosoft Excel\n7,057\n\n\nTableau\n6,904\n\n\nData Science\n6,617\n\n\nDashboard\n6,529\n\n\nProject Management\n6,266"
+  },
+  {
+    "objectID": "skill_gap_analysis.html#top-skills-in-non-ai-roles",
+    "href": "skill_gap_analysis.html#top-skills-in-non-ai-roles",
+    "title": "Skill Gap Analysis",
+    "section": "",
+    "text": "Skill\nFrequency\n\n\n\n\nCommunication\n14,621\n\n\nData Analysis\n12,502\n\n\nManagement\n11,813\n\n\nSQL\n9,429\n\n\nLeadership\n8,350\n\n\nProblem Solving\n7,715\n\n\nProject Management\n7,209\n\n\nComputer Science\n7,133\n\n\nBusiness Process\n6,998\n\n\nOperations\n6,993\n\n\nSAP Applications\n6,821\n\n\nBusiness Requirements\n6,726\n\n\nFinance\n6,147\n\n\nPresentations\n5,763\n\n\nPlanning\n5,621"
+  },
+  {
+    "objectID": "skill_gap_analysis.html#comparing-ai-and-non-ai-skill-demand",
+    "href": "skill_gap_analysis.html#comparing-ai-and-non-ai-skill-demand",
+    "title": "Skill Gap Analysis",
+    "section": "",
+    "text": "Several patterns emerge when comparing the two lists. Communication, Data Analysis, Management, SQL, and Problem Solving rank highly in both, confirming that these are foundational skills regardless of whether a role is AI-related. However, AI roles place noticeably higher demand on Python, Tableau, Data Science, and Dashboard skills, while non-AI roles emphasize SAP Applications, Business Requirements, Finance, and Business Process knowledge.\nThis suggests that the transition into AI-related work requires building on a shared analytical foundation while adding more specialized technical and data visualization capabilities."
+  },
+  {
+    "objectID": "skill_gap_analysis.html#skill-gap-assessment",
+    "href": "skill_gap_analysis.html#skill-gap-assessment",
+    "title": "Skill Gap Analysis",
+    "section": "",
+    "text": "A typical business analytics graduate entering this job market is likely comfortable with communication, Excel, SQL, and basic data analysis. Based on the demand patterns observed in this dataset, the most significant gaps tend to fall in the following areas.\nPython programming appears in the top ten for AI roles but not at all in the non-AI top fifteen, making it one of the clearest differentiators for students targeting AI-related positions. Tableau and dashboard development are heavily requested in AI roles and represent a practical visualization skill that complements SQL and Excel. Data Science as a named competency appears frequently in AI postings and signals employer expectations around modeling, statistical reasoning, and analytical workflows beyond basic reporting.\nOn the non-AI side, familiarity with enterprise platforms such as SAP and business process documentation skills appear prominently, suggesting that students targeting traditional analyst or operations roles should also develop comfort with enterprise systems."
+  },
+  {
+    "objectID": "skill_gap_analysis.html#recommendations",
+    "href": "skill_gap_analysis.html#recommendations",
+    "title": "Skill Gap Analysis",
+    "section": "",
+    "text": "Students aiming for AI-related roles should prioritize Python, Tableau, and applied data science coursework. Those targeting traditional business or operations roles will benefit from developing familiarity with SAP and structured business process skills. In either path, SQL, communication, and analytical thinking remain the most universally valued capabilities in the current labor market."
+  },
+  {
+    "objectID": "career_plan.html",
+    "href": "career_plan.html",
+    "title": "Career Strategy",
+    "section": "",
+    "text": "This section translates the findings from our exploratory analysis, predictive modeling, and skill gap assessment into actionable career guidance for students and early-career job seekers navigating an AI-influenced labor market.\n\n\n\nSeveral consistent findings emerged across all stages of this project that should directly inform career planning decisions.\nAI-related roles do not universally pay more. The average salary difference between AI and non-AI roles in this dataset is approximately $100, which is negligible. Salary is determined more by industry, occupation tier, and job level than by AI designation alone. Students who assume that adding AI skills to their resume will automatically lead to higher pay may be disappointed without also considering the sector and role level they are targeting.\nThe salary premium for AI skills is industry-specific. Fields such as Arts and Entertainment, Construction, and Retail Trade show AI salary premiums of $9,000 to $13,500, likely because AI capabilities remain scarce in those sectors. In contrast, the Information industry pays non-AI roles more on average because that sector already compensates technical work highly regardless of AI involvement. Job seekers should research salary norms within their target industry rather than relying on general AI salary narratives.\nSalary tier matters more than AI status. The KMeans clustering analysis identified four distinct salary tiers in the job market ranging from approximately $49,000 at the entry level to $179,000 at the senior level. Within every tier, AI and non-AI roles earn nearly identical salaries. Moving up a salary tier requires developing the occupation and industry profile associated with that tier, not simply acquiring AI-related keywords.\n\n\n\nBased on the skill demand patterns and salary distributions observed in this dataset, three career directions appear particularly well-suited for business analytics students.\nStudents with strong SQL, Python, and data visualization skills are well positioned for data science and analytics roles, which appear frequently in the Professional, Scientific, and Technical Services sector and consistently fall in the upper mid salary tier around $114,000.\nStudents interested in finance and insurance will find that sector offers strong AI role concentration and competitive salaries. Finance-adjacent analytical roles that combine business knowledge with data skills appear to be in high demand.\nStudents targeting non-AI paths should not overlook the value of enterprise systems experience. SAP, business process management, and ERP skills appear prominently in non-AI postings and are associated with stable demand across multiple industries.\n\n\n\nBased on the skill gap analysis, the highest-return skills for students to develop before entering the job market are Python programming, SQL, Tableau or equivalent dashboard tools, and applied data science competencies. Communication, problem solving, and project management round out the universal skills that employers expect regardless of role type.\n\n\n\nThe rise of AI is reshaping the job market, but not in the simple way that headlines often suggest. Our analysis shows that AI skills matter most in specific industries and role contexts, that salary outcomes depend heavily on occupation tier and sector, and that foundational analytical skills remain the most consistently valued capabilities across the entire labor market. Students who build a strong analytical foundation and develop targeted technical skills for their chosen industry will be better positioned than those who chase AI credentials without strategic direction."
+  },
+  {
+    "objectID": "career_plan.html#overview",
+    "href": "career_plan.html#overview",
+    "title": "Career Strategy",
+    "section": "",
+    "text": "This section translates the findings from our exploratory analysis, predictive modeling, and skill gap assessment into actionable career guidance for students and early-career job seekers navigating an AI-influenced labor market."
+  },
+  {
+    "objectID": "career_plan.html#what-the-data-tells-us",
+    "href": "career_plan.html#what-the-data-tells-us",
+    "title": "Career Strategy",
+    "section": "",
+    "text": "Several consistent findings emerged across all stages of this project that should directly inform career planning decisions.\nAI-related roles do not universally pay more. The average salary difference between AI and non-AI roles in this dataset is approximately $100, which is negligible. Salary is determined more by industry, occupation tier, and job level than by AI designation alone. Students who assume that adding AI skills to their resume will automatically lead to higher pay may be disappointed without also considering the sector and role level they are targeting.\nThe salary premium for AI skills is industry-specific. Fields such as Arts and Entertainment, Construction, and Retail Trade show AI salary premiums of $9,000 to $13,500, likely because AI capabilities remain scarce in those sectors. In contrast, the Information industry pays non-AI roles more on average because that sector already compensates technical work highly regardless of AI involvement. Job seekers should research salary norms within their target industry rather than relying on general AI salary narratives.\nSalary tier matters more than AI status. The KMeans clustering analysis identified four distinct salary tiers in the job market ranging from approximately $49,000 at the entry level to $179,000 at the senior level. Within every tier, AI and non-AI roles earn nearly identical salaries. Moving up a salary tier requires developing the occupation and industry profile associated with that tier, not simply acquiring AI-related keywords."
+  },
+  {
+    "objectID": "career_plan.html#recommended-career-paths",
+    "href": "career_plan.html#recommended-career-paths",
+    "title": "Career Strategy",
+    "section": "",
+    "text": "Based on the skill demand patterns and salary distributions observed in this dataset, three career directions appear particularly well-suited for business analytics students.\nStudents with strong SQL, Python, and data visualization skills are well positioned for data science and analytics roles, which appear frequently in the Professional, Scientific, and Technical Services sector and consistently fall in the upper mid salary tier around $114,000.\nStudents interested in finance and insurance will find that sector offers strong AI role concentration and competitive salaries. Finance-adjacent analytical roles that combine business knowledge with data skills appear to be in high demand.\nStudents targeting non-AI paths should not overlook the value of enterprise systems experience. SAP, business process management, and ERP skills appear prominently in non-AI postings and are associated with stable demand across multiple industries."
+  },
+  {
+    "objectID": "career_plan.html#priority-skills-to-develop",
+    "href": "career_plan.html#priority-skills-to-develop",
+    "title": "Career Strategy",
+    "section": "",
+    "text": "Based on the skill gap analysis, the highest-return skills for students to develop before entering the job market are Python programming, SQL, Tableau or equivalent dashboard tools, and applied data science competencies. Communication, problem solving, and project management round out the universal skills that employers expect regardless of role type."
+  },
+  {
+    "objectID": "career_plan.html#final-takeaway",
+    "href": "career_plan.html#final-takeaway",
+    "title": "Career Strategy",
+    "section": "",
+    "text": "The rise of AI is reshaping the job market, but not in the simple way that headlines often suggest. Our analysis shows that AI skills matter most in specific industries and role contexts, that salary outcomes depend heavily on occupation tier and sector, and that foundational analytical skills remain the most consistently valued capabilities across the entire labor market. Students who build a strong analytical foundation and develop targeted technical skills for their chosen industry will be better positioned than those who chase AI credentials without strategic direction."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Job Market Analysis 2024",
+    "section": "",
+    "text": "This project analyzes 2024 labor market trends using Lightcast job posting data. The goal is to understand how salaries, skills, industries, remote work, and predictive modeling can help job seekers make better career decisions.\n\n\nOur analysis explores: - job market demand across roles and industries - salary and compensation patterns - remote versus on site opportunities - predictive models for salary and job classification - skill gaps between student preparation and market expectations\n\n\n\nUse the navigation bar above to explore the project: - Project Overview - Data Preparation - Exploratory Analysis - Predictive Modeling - Skill Gap Analysis - Career Strategy"
+  },
+  {
+    "objectID": "index.html#project-focus",
+    "href": "index.html#project-focus",
+    "title": "Job Market Analysis 2024",
+    "section": "",
+    "text": "Our analysis explores: - job market demand across roles and industries - salary and compensation patterns - remote versus on site opportunities - predictive models for salary and job classification - skill gaps between student preparation and market expectations"
+  },
+  {
+    "objectID": "index.html#website-sections",
+    "href": "index.html#website-sections",
+    "title": "Job Market Analysis 2024",
+    "section": "",
+    "text": "Use the navigation bar above to explore the project: - Project Overview - Data Preparation - Exploratory Analysis - Predictive Modeling - Skill Gap Analysis - Career Strategy"
+  },
+  {
+    "objectID": "data_cleaning.html",
+    "href": "data_cleaning.html",
+    "title": "Data Preparation",
+    "section": "",
+    "text": "Before conducting exploratory analysis and predictive modeling, the Lightcast job postings dataset must be cleaned and standardized. Because the dataset includes many tracking variables, repeated industry and occupation code versions, and missing values, preprocessing is necessary to improve interpretability and reduce noise.\n\n\n\nThe main goals of data preparation are to: - remove columns that are irrelevant or redundant - keep the most current classification systems - handle missing values consistently - remove duplicate job postings - prepare the dataset for visualization and machine learning\n\n\n\nThe raw dataset contains many columns that are not useful for this project, such as URLs, duplicate tracking fields, and outdated industry and occupation code versions. Keeping too many repeated classification columns can make the analysis harder to interpret and may introduce unnecessary complexity.\nFor example, older NAICS and SOC versions are less useful when more current classifications are already available in the dataset. To keep the analysis focused and consistent, we retain the latest available fields such as NAICS_2022_6 and SOC_2021_4 and remove redundant older versions.\n\n\n\nfrom pyspark.sql import functions as F\n\ncolumns_to_drop = [\n    \"ID\",\n    \"URL\",\n    \"ACTIVE_URLS\",\n    \"DUPLICATES\",\n    \"LAST_UPDATED_TIMESTAMP\",\n    \"NAICS2\",\n    \"NAICS3\",\n    \"NAICS4\",\n    \"NAICS5\",\n    \"NAICS6\",\n    \"SOC_2\",\n    \"SOC_3\",\n    \"SOC_5\"\n]\n\ndf_clean = df.drop(*columns_to_drop)\n\n\n\nMissing values are common in labor market data, especially for salary and skill related fields. Different strategies should be used depending on the data type.\nFor numerical variables such as salary, replacing missing values with the median is more appropriate than using the mean because salary data is often skewed by very high paying jobs. For categorical variables, missing values can be replaced with “Unknown” so that rows are not lost unnecessarily.\nColumns with too many missing values may also be removed if they do not provide enough useful information.\n\n\n\nmedian_salary = df_clean.approxQuantile(\"SALARY\", [0.5], 0.01)[0]\n\ndf_clean = df_clean.fillna({\n    \"SALARY\": median_salary,\n    \"REMOTE_TYPE_NAME\": \"Unknown\",\n    \"NAICS_2022_6_NAME\": \"Unknown\",\n    \"SOC_2021_4_NAME\": \"Unknown\"\n})\n\n\n\nDuplicate job postings can distort the results by counting the same opportunity multiple times. To prevent this, duplicate observations should be removed using a reasonable combination of identifying fields such as title, company, location, and posting date.\n\n\n\ndf_clean = df_clean.dropDuplicates([\n    \"TITLE\",\n    \"COMPANY_NAME\",\n    \"LOCATION\",\n    \"POSTED\"\n])\n\n\n\nData cleaning improves the reliability of every later stage of the project. Cleaner data leads to:\n\nmore accurate summaries and charts\nbetter model performance\nclearer interpretation for job seekers\nmore trustworthy career recommendations\n\n\n\n\nAfter cleaning, the dataset is more suitable for:\n\nexploratory analysis of salary, industry, and remote work patterns\nclustering by occupation or industry categories\nregression models predicting salary\nclassification models predicting job categories or remote work type"
+  },
+  {
+    "objectID": "data_cleaning.html#overview",
+    "href": "data_cleaning.html#overview",
+    "title": "Data Preparation",
+    "section": "",
+    "text": "Before conducting exploratory analysis and predictive modeling, the Lightcast job postings dataset must be cleaned and standardized. Because the dataset includes many tracking variables, repeated industry and occupation code versions, and missing values, preprocessing is necessary to improve interpretability and reduce noise."
+  },
+  {
+    "objectID": "data_cleaning.html#goals-of-data-cleaning",
+    "href": "data_cleaning.html#goals-of-data-cleaning",
+    "title": "Data Preparation",
+    "section": "",
+    "text": "The main goals of data preparation are to: - remove columns that are irrelevant or redundant - keep the most current classification systems - handle missing values consistently - remove duplicate job postings - prepare the dataset for visualization and machine learning"
+  },
+  {
+    "objectID": "data_cleaning.html#why-some-columns-should-be-dropped",
+    "href": "data_cleaning.html#why-some-columns-should-be-dropped",
+    "title": "Data Preparation",
+    "section": "",
+    "text": "The raw dataset contains many columns that are not useful for this project, such as URLs, duplicate tracking fields, and outdated industry and occupation code versions. Keeping too many repeated classification columns can make the analysis harder to interpret and may introduce unnecessary complexity.\nFor example, older NAICS and SOC versions are less useful when more current classifications are already available in the dataset. To keep the analysis focused and consistent, we retain the latest available fields such as NAICS_2022_6 and SOC_2021_4 and remove redundant older versions."
+  },
+  {
+    "objectID": "data_cleaning.html#example-python-cleaning-code",
+    "href": "data_cleaning.html#example-python-cleaning-code",
+    "title": "Data Preparation",
+    "section": "",
+    "text": "from pyspark.sql import functions as F\n\ncolumns_to_drop = [\n    \"ID\",\n    \"URL\",\n    \"ACTIVE_URLS\",\n    \"DUPLICATES\",\n    \"LAST_UPDATED_TIMESTAMP\",\n    \"NAICS2\",\n    \"NAICS3\",\n    \"NAICS4\",\n    \"NAICS5\",\n    \"NAICS6\",\n    \"SOC_2\",\n    \"SOC_3\",\n    \"SOC_5\"\n]\n\ndf_clean = df.drop(*columns_to_drop)"
+  },
+  {
+    "objectID": "data_cleaning.html#handling-missing-values",
+    "href": "data_cleaning.html#handling-missing-values",
+    "title": "Data Preparation",
+    "section": "",
+    "text": "Missing values are common in labor market data, especially for salary and skill related fields. Different strategies should be used depending on the data type.\nFor numerical variables such as salary, replacing missing values with the median is more appropriate than using the mean because salary data is often skewed by very high paying jobs. For categorical variables, missing values can be replaced with “Unknown” so that rows are not lost unnecessarily.\nColumns with too many missing values may also be removed if they do not provide enough useful information."
+  },
+  {
+    "objectID": "data_cleaning.html#example-missing-value-handling",
+    "href": "data_cleaning.html#example-missing-value-handling",
+    "title": "Data Preparation",
+    "section": "",
+    "text": "median_salary = df_clean.approxQuantile(\"SALARY\", [0.5], 0.01)[0]\n\ndf_clean = df_clean.fillna({\n    \"SALARY\": median_salary,\n    \"REMOTE_TYPE_NAME\": \"Unknown\",\n    \"NAICS_2022_6_NAME\": \"Unknown\",\n    \"SOC_2021_4_NAME\": \"Unknown\"\n})"
+  },
+  {
+    "objectID": "data_cleaning.html#removing-duplicate-job-postings",
+    "href": "data_cleaning.html#removing-duplicate-job-postings",
+    "title": "Data Preparation",
+    "section": "",
+    "text": "Duplicate job postings can distort the results by counting the same opportunity multiple times. To prevent this, duplicate observations should be removed using a reasonable combination of identifying fields such as title, company, location, and posting date."
+  },
+  {
+    "objectID": "data_cleaning.html#example-duplicate-removal",
+    "href": "data_cleaning.html#example-duplicate-removal",
+    "title": "Data Preparation",
+    "section": "",
+    "text": "df_clean = df_clean.dropDuplicates([\n    \"TITLE\",\n    \"COMPANY_NAME\",\n    \"LOCATION\",\n    \"POSTED\"\n])"
+  },
+  {
+    "objectID": "data_cleaning.html#why-this-matters",
+    "href": "data_cleaning.html#why-this-matters",
+    "title": "Data Preparation",
+    "section": "",
+    "text": "Data cleaning improves the reliability of every later stage of the project. Cleaner data leads to:\n\nmore accurate summaries and charts\nbetter model performance\nclearer interpretation for job seekers\nmore trustworthy career recommendations"
+  },
+  {
+    "objectID": "data_cleaning.html#output-of-cleaning-step",
+    "href": "data_cleaning.html#output-of-cleaning-step",
+    "title": "Data Preparation",
+    "section": "",
+    "text": "After cleaning, the dataset is more suitable for:\n\nexploratory analysis of salary, industry, and remote work patterns\nclustering by occupation or industry categories\nregression models predicting salary\nclassification models predicting job categories or remote work type"
+  }
+]
