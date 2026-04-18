@@ -25,7 +25,7 @@
     "href": "final_report.html#why-this-matters",
     "title": "Career Strategy",
     "section": "Why This Matters",
-    "text": "Why This Matters\nRapid changes in AI adoption, salary patterns, remote work, and employer skill expectations make the job market harder to navigate. A data driven approach helps identify which roles are growing, which skills matter most, and what kinds of jobs offer the best opportunities."
+    "text": "Why This Matters\nRapid changes in AI adoption, salary patterns, remote work, and employer skill expectations make the job market harder to navigate. A data driven approach helps identify which roles are growing, which skills matter most, and what kinds of jobs offer the best opportunities (Dominski and Lee (2025))."
   },
   {
     "objectID": "final_report.html#planned-analysis",
@@ -291,7 +291,7 @@
     "href": "eda.html#average-salary-by-industry-ai-vs-non-ai",
     "title": "Exploratory Data Analysis",
     "section": "Average Salary by Industry: AI vs Non-AI",
-    "text": "Average Salary by Industry: AI vs Non-AI\n\nBreaking salary down by industry reveals a more nuanced picture. Certain industries show a meaningful AI salary premium, including Arts and Entertainment (approximately +$13,000), Construction (approximately +$13,500), and Retail Trade (approximately +$9,000). In these fields, AI skills remain relatively uncommon, and compensation reflects that scarcity.\nIn contrast, the Information industry pays AI roles less on average than non-AI roles. Interestingly, “working in an occupation that is considered high skill increases the odds of job loss to AI” [@Dahlin2023]…especially for the “middle-skill employees in the technological landscape” [@dahlin2023]. Arguably, the high-skill employes can pivot using tools and higher levels of resources and knowledge to adapt to the shifting environment which does not appear to directly impact salary until it is considered that the majority of the middle-skill employees will must either transition to another field or be entirely displaced. This apparent stability of salary is likely because of the traditional IT and enterprise infrastructure roles in that sector already commanding high salaries, making AI titles less financially distinctive by comparison due to the stability of the high-skill employees mantaining positions."
+    "text": "Average Salary by Industry: AI vs Non-AI\n\nBreaking salary down by industry reveals a more nuanced picture. Certain industries show a meaningful AI salary premium, including Arts and Entertainment (approximately +$13,000), Construction (approximately +$13,500), and Retail Trade (approximately +$9,000). In these fields, AI skills remain relatively uncommon, and compensation reflects that scarcity.\nIn contrast, the Information industry pays AI roles less on average than non-AI roles. Interestingly, “working in an occupation that is considered high skill increases the odds of job loss to AI” (Dahlin2023?)…especially for the “middle-skill employees in the technological landscape” (dahlin2023?). Arguably, the high-skill employes can pivot using tools and higher levels of resources and knowledge to adapt to the shifting environment which does not appear to directly impact salary until it is considered that the majority of the middle-skill employees will must either transition to another field or be entirely displaced. This apparent stability of salary is likely because of the traditional IT and enterprise infrastructure roles in that sector already commanding high salaries, making AI titles less financially distinctive by comparison due to the stability of the high-skill employees mantaining positions."
   },
   {
     "objectID": "eda.html#top-industries-by-ai-job-posting-count",
@@ -396,7 +396,7 @@
     "href": "introduction.html",
     "title": "Personal Career Path Decisions in 2024",
     "section": "",
-    "text": "This project examines job market trends in 2024 from the perspective of job seekers rather than recruiters. Using Lightcast data, we analyze hiring patterns, salaries, skills, and labor market conditions to understand how students can position themselves more effectively.\n\n\n\nOur project asks:\nWhat trends in the 2024 job market can help students and early career professionals make better career decisions?\n\n\n\nRapid changes in AI adoption, salary patterns, remote work, and employer skill expectations make the job market harder to navigate. A data driven approach helps identify which roles are growing, which skills matter most, and what kinds of jobs offer the best opportunities.\n\n\n\nThis project includes: - data cleaning and preprocessing - exploratory data analysis - unsupervised learning with KMeans clustering - supervised modeling using regression and classification - skill gap analysis - career recommendations for job seekers"
+    "text": "This project examines job market trends in 2024 from the perspective of job seekers rather than recruiters. Using Lightcast data, we analyze hiring patterns, salaries, skills, and labor market conditions to understand how students can position themselves more effectively.\n\n\n\nOur project asks:\nWhat trends in the 2024 job market can help students and early career professionals make better career decisions?\n\n\n\nRapid changes in AI adoption, salary patterns, remote work, and employer skill expectations make the job market harder to navigate. A data driven approach helps identify which roles are growing, which skills matter most, and what kinds of jobs offer the best opportunities (Dominski and Lee (2025)).\n\n\n\nThis project includes: - data cleaning and preprocessing - exploratory data analysis - unsupervised learning with KMeans clustering - supervised modeling using regression and classification - skill gap analysis - career recommendations for job seekers"
   },
   {
     "objectID": "introduction.html#objective",
@@ -417,7 +417,7 @@
     "href": "introduction.html#why-this-matters",
     "title": "Personal Career Path Decisions in 2024",
     "section": "",
-    "text": "Rapid changes in AI adoption, salary patterns, remote work, and employer skill expectations make the job market harder to navigate. A data driven approach helps identify which roles are growing, which skills matter most, and what kinds of jobs offer the best opportunities."
+    "text": "Rapid changes in AI adoption, salary patterns, remote work, and employer skill expectations make the job market harder to navigate. A data driven approach helps identify which roles are growing, which skills matter most, and what kinds of jobs offer the best opportunities (Dominski and Lee (2025))."
   },
   {
     "objectID": "introduction.html#planned-analysis",
@@ -445,7 +445,7 @@
     "href": "career_plan.html#what-the-data-tells-us",
     "title": "Career Strategy",
     "section": "What the Data Tells Us",
-    "text": "What the Data Tells Us\nSeveral consistent findings emerged across all stages of this project that should directly inform career planning decisions.\nAI-related roles do not universally pay more. Recent studies suggest that “increased AI exposure may be correlated with higher earnings in some contexts, but the strength and direction of this relationship are sensitive to model specification[s] [@dominski2025].” Within the findings of this project, for instance, the average salary difference between AI and non-AI roles in this dataset is approximately $100, which is negligible. Salary is determined more by industry, occupation tier, and job level than by AI designation alone. Students who assume that adding AI skills to their resume will automatically lead to higher pay may be disappointed without also considering the sector and role level they are targeting.\nThe salary premium for AI skills is industry-specific. Fields such as Arts and Entertainment, Construction, and Retail Trade show AI salary premiums of $9,000 to $13,500, likely because AI capabilities remain scarce in those sectors. In contrast, the Information industry pays non-AI roles more on average because that sector already compensates technical work highly regardless of AI involvement. Job seekers should research salary norms within their target industry rather than relying on general AI salary narratives.\nSalary tier matters more than AI status. The KMeans clustering analysis identified four distinct salary tiers in the job market ranging from approximately $49,000 at the entry level to $179,000 at the senior level. Within every tier, AI and non-AI roles earn nearly identical salaries. Moving up a salary tier requires developing the occupation and industry profile associated with that tier, not simply acquiring AI-related keywords."
+    "text": "What the Data Tells Us\nSeveral consistent findings emerged across all stages of this project that should directly inform career planning decisions.\nAI-related roles do not universally pay more. Recent studies suggest that “increased AI exposure may be correlated with higher earnings in some contexts, but the strength and direction of this relationship are sensitive to model specification[s] (dominski2025?).” Within the findings of this project, for instance, the average salary difference between AI and non-AI roles in this dataset is approximately $100, which is negligible. Salary is determined more by industry, occupation tier, and job level than by AI designation alone. Students who assume that adding AI skills to their resume will automatically lead to higher pay may be disappointed without also considering the sector and role level they are targeting.\nThe salary premium for AI skills is industry-specific. Fields such as Arts and Entertainment, Construction, and Retail Trade show AI salary premiums of $9,000 to $13,500, likely because AI capabilities remain scarce in those sectors. In contrast, the Information industry pays non-AI roles more on average because that sector already compensates technical work highly regardless of AI involvement. Job seekers should research salary norms within their target industry rather than relying on general AI salary narratives.\nSalary tier matters more than AI status. The KMeans clustering analysis identified four distinct salary tiers in the job market ranging from approximately $49,000 at the entry level to $179,000 at the senior level. Within every tier, AI and non-AI roles earn nearly identical salaries. Moving up a salary tier requires developing the occupation and industry profile associated with that tier, not simply acquiring AI-related keywords."
   },
   {
     "objectID": "career_plan.html#recommended-career-paths",
@@ -473,21 +473,21 @@
     "href": "index.html",
     "title": "Job Market Analysis 2024",
     "section": "",
-    "text": "This project analyzes 2024 labor market trends using Lightcast job posting data. The goal is to understand how salaries, skills, industries, remote work, and predictive modeling can help job seekers make better career decisions.\n\n\nOur analysis explores: - job market demand across roles and industries - salary and compensation patterns - remote versus on site opportunities - predictive models for salary and job classification - skill gaps between student preparation and market expectations\n\n\n\nUse the navigation bar above to explore the project: - Project Overview - Data Preparation - Exploratory Analysis - Predictive Modeling - Skill Gap Analysis - Career Strategy"
+    "text": "This project analyzes 2024 labor market trends using Lightcast job posting data. The goal is to understand how salaries, skills, industries, remote work, and predictive modeling can help job seekers make better career decisions.\n\n\nOur analysis explores:\n\njob market demand across roles and industries\nsalary and compensation patterns\nremote versus on site opportunities\npredictive models for salary and job classification\nskill gaps between student preparation and market expectations\n\n\n\n\nUse the navigation bar above to explore the project:\n\nProject Overview\nData Preparation\nExploratory Analysis\nPredictive Modeling\nSkill Gap Analysis\nCareer Strategy"
   },
   {
     "objectID": "index.html#project-focus",
     "href": "index.html#project-focus",
     "title": "Job Market Analysis 2024",
     "section": "",
-    "text": "Our analysis explores: - job market demand across roles and industries - salary and compensation patterns - remote versus on site opportunities - predictive models for salary and job classification - skill gaps between student preparation and market expectations"
+    "text": "Our analysis explores:\n\njob market demand across roles and industries\nsalary and compensation patterns\nremote versus on site opportunities\npredictive models for salary and job classification\nskill gaps between student preparation and market expectations"
   },
   {
     "objectID": "index.html#website-sections",
     "href": "index.html#website-sections",
     "title": "Job Market Analysis 2024",
     "section": "",
-    "text": "Use the navigation bar above to explore the project: - Project Overview - Data Preparation - Exploratory Analysis - Predictive Modeling - Skill Gap Analysis - Career Strategy"
+    "text": "Use the navigation bar above to explore the project:\n\nProject Overview\nData Preparation\nExploratory Analysis\nPredictive Modeling\nSkill Gap Analysis\nCareer Strategy"
   },
   {
     "objectID": "data_cleaning.html",
