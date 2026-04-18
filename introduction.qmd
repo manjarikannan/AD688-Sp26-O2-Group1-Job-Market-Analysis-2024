@@ -36,3 +36,5 @@ This project includes:
 - supervised modeling using regression and classification
 - skill gap analysis
 - career recommendations for job seekers
+
+## References
