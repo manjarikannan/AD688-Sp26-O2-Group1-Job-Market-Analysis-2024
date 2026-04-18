@@ -1,34 +1,47 @@
-# LaTeX / TinyTeX
-.TinyTeX/
-
-# Quarto outputs
-_output/
-_quarto/
-_site/
-docs/
-_freeze/
-
-# Python
-__pycache__/
-*.pyc
+# Virtual Environments
 .venv/
 venv/
+env/
+ENV/
+.env
 
-# Large files
+# Quarto outputs and temporary files
+_site/
+.quarto/
+_output/
+docs/
+_freeze/
+*.ipynb
+.ipynb_checkpoints/
+**/*.quarto_ipynb
+.quarto/
+
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+
+# Large data files - NEVER commit these (especially the Lightcast dataset)
+data/
+raw_data/
+raw/
+*.csv
+*.parquet
 *.zip
 *.tgz
 *.tar.gz
-*.pdf
-*.docx
-*.csv
+*.gz
 
-# VS Code / Jupyter
+# Large Lightcast file specifically (in case it's named differently)
+*lightcast*
+*job_market*
+*postings*
+
+# Editor / VS Code / OS files
 .vscode/
-.ipynb_checkpoints/
-
-# OS
 .DS_Store
 Thumbs.db
+*.log
 
-/.quarto/
-**/*.quarto_ipynb
+# LaTeX / TinyTeX (you already had this)
+.TinyTeX/
