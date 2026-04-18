@@ -20,6 +20,7 @@ venv/
 *.tar.gz
 *.pdf
 *.docx
+*.csv
 
 # VS Code / Jupyter
 .vscode/
