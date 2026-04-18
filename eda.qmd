@@ -2,8 +2,6 @@
 title: "Exploratory Data Analysis"
 ---
 
-# Exploratory Data Analysis
-
 ## Overview
 
 Before building any models, we explored the Lightcast job postings dataset to understand the underlying patterns in salary, industry composition, and AI-related job demand. This section summarizes what the data revealed about how AI roles compare to non-AI roles across key dimensions.
