@@ -37,6 +37,12 @@ This project includes:
 - skill gap analysis
 - career recommendations for job seekers
 
+:::{.callout-important}
+## Note from Nakul
+Please show the model code and the tables for Ml methods and EDA. I want to see the code and the tables that you generated for those sections.
+:::
+
 ## References
+
 ```{bibliography}
 ```
