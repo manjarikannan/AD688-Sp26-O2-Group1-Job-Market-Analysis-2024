@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -35,10 +35,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-b03a11417efed39b2e2431882e1d3ba1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -131,15 +131,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link active" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a>
-  <ul class="collapse">
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#defining-ai-vs-non-ai-roles" id="toc-defining-ai-vs-non-ai-roles" class="nav-link" data-scroll-target="#defining-ai-vs-non-ai-roles">Defining AI vs Non-AI Roles</a></li>
   <li><a href="#salary-distribution-ai-vs-non-ai" id="toc-salary-distribution-ai-vs-non-ai" class="nav-link" data-scroll-target="#salary-distribution-ai-vs-non-ai">Salary Distribution: AI vs Non-AI</a></li>
   <li><a href="#average-salary-by-industry-ai-vs-non-ai" id="toc-average-salary-by-industry-ai-vs-non-ai" class="nav-link" data-scroll-target="#average-salary-by-industry-ai-vs-non-ai">Average Salary by Industry: AI vs Non-AI</a></li>
   <li><a href="#top-industries-by-ai-job-posting-count" id="toc-top-industries-by-ai-job-posting-count" class="nav-link" data-scroll-target="#top-industries-by-ai-job-posting-count">Top Industries by AI Job Posting Count</a></li>
   <li><a href="#key-findings" id="toc-key-findings" class="nav-link" data-scroll-target="#key-findings">Key Findings</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -165,8 +162,6 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="exploratory-data-analysis" class="level1">
-<h1>Exploratory Data Analysis</h1>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>Before building any models, we explored the Lightcast job postings dataset to understand the underlying patterns in salary, industry composition, and AI-related job demand. This section summarizes what the data revealed about how AI roles compare to non-AI roles across key dimensions.</p>
@@ -179,34 +174,19 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="salary-distribution-ai-vs-non-ai" class="level2">
 <h2 class="anchored" data-anchor-id="salary-distribution-ai-vs-non-ai">Salary Distribution: AI vs Non-AI</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="outputs/salary_distribution_plotly.png" class="img-fluid figure-img"></p>
-<figcaption>Salary Distribution</figcaption>
-</figure>
-</div>
+<iframe src="outputs/salary_distribution.html" width="100%" height="500px" frameborder="0"></iframe>
 <p>The first question we investigated was whether AI roles simply pay more. The overall pattern suggests they do not, at least not uniformly.</p>
 <p>Both distributions peak near $112,500 and follow a similar right-skewed shape. The two groups overlap substantially, which indicates that holding an AI-related title does not automatically translate into higher compensation. The relationship between AI and salary appears to be more complex than a simple premium.</p>
 </section>
 <section id="average-salary-by-industry-ai-vs-non-ai" class="level2">
 <h2 class="anchored" data-anchor-id="average-salary-by-industry-ai-vs-non-ai">Average Salary by Industry: AI vs Non-AI</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="outputs/salary_by_industry_plotly.png" class="img-fluid figure-img"></p>
-<figcaption>Salary by Industry</figcaption>
-</figure>
-</div>
+<iframe src="outputs/salary_by_industry.html" width="100%" height="600px" frameborder="0"></iframe>
 <p>Breaking salary down by industry reveals a more nuanced picture. Certain industries show a meaningful AI salary premium, including Arts and Entertainment (approximately +$13,000), Construction (approximately +$13,500), and Retail Trade (approximately +$9,000). In these fields, AI skills remain relatively uncommon, and compensation reflects that scarcity.</p>
 <p>In contrast, the Information industry pays AI roles less on average than non-AI roles. This is likely because traditional IT and enterprise infrastructure roles in that sector already command high salaries, making AI titles less financially distinctive by comparison.</p>
 </section>
 <section id="top-industries-by-ai-job-posting-count" class="level2">
 <h2 class="anchored" data-anchor-id="top-industries-by-ai-job-posting-count">Top Industries by AI Job Posting Count</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="outputs/top_industries_plotly.png" class="img-fluid figure-img"></p>
-<figcaption>Top Industries</figcaption>
-</figure>
-</div>
+<iframe src="outputs/top_industries.html" width="100%" height="500px" frameborder="0"></iframe>
 <p>In terms of where AI jobs are being posted, Professional, Scientific, and Technical Services leads by a wide margin, followed by Finance and Insurance and Information. While AI-related roles appear across many sectors, the majority of active hiring remains concentrated in knowledge-intensive industries. For job seekers targeting AI roles, these sectors represent the highest volume of opportunity.</p>
 </section>
 <section id="key-findings" class="level2">
@@ -215,7 +195,6 @@ ul.task-list li input[type="checkbox"] {
 <p>The overall salary difference between AI and non-AI roles is negligible at roughly $100 on average. The salary premium associated with AI skills is industry-specific rather than universal. Fields where AI capabilities are still emerging tend to reward those skills more generously. And the concentration of AI hiring in professional services, finance, and information suggests that the benefits of AI are not evenly distributed across the workforce. Where a worker is employed matters as much as what skills they bring.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -301,8 +280,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -413,7 +390,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
