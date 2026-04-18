@@ -25,7 +25,7 @@ Our project asks:
 
 ## Why This Matters
 
-Rapid changes in AI adoption, salary patterns, remote work, and employer skill expectations make the job market harder to navigate. A data driven approach helps identify which roles are growing, which skills matter most, and what kinds of jobs offer the best opportunities.
+Rapid changes in AI adoption, salary patterns, remote work, and employer skill expectations make the job market harder to navigate. A data driven approach helps identify which roles are growing, which skills matter most, and what kinds of jobs offer the best opportunities [@dominski2025advancingaicapabilitiesevolving].
 
 ## Planned Analysis
 

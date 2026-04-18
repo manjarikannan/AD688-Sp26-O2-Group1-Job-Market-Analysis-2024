@@ -9,6 +9,7 @@ This project analyzes 2024 labor market trends using Lightcast job posting data.
 ## Project Focus
 
 Our analysis explores:
+
 - job market demand across roles and industries
 - salary and compensation patterns
 - remote versus on site opportunities
@@ -18,6 +19,7 @@ Our analysis explores:
 ## Website Sections
 
 Use the navigation bar above to explore the project:
+
 - Project Overview
 - Data Preparation
 - Exploratory Analysis
