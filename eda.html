@@ -23,7 +23,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -186,7 +205,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="average-salary-by-industry-ai-vs-non-ai">Average Salary by Industry: AI vs Non-AI</h2>
 <iframe src="outputs/salary_by_industry.html" width="100%" height="600px" frameborder="0"></iframe>
 <p>Breaking salary down by industry reveals a more nuanced picture. Certain industries show a meaningful AI salary premium, including Arts and Entertainment (approximately +$13,000), Construction (approximately +$13,500), and Retail Trade (approximately +$9,000). In these fields, AI skills remain relatively uncommon, and compensation reflects that scarcity.</p>
-<p>In contrast, the Information industry pays AI roles less on average than non-AI roles. Interestingly, “working in an occupation that is considered high skill increases the odds of job loss to AI” <span class="citation" data-cites="Dahlin2023">(<a href="#ref-Dahlin2023" role="doc-biblioref"><strong>Dahlin2023?</strong></a>)</span>…especially for the “middle-skill employees in the technological landscape” <span class="citation" data-cites="dahlin2023">(<a href="#ref-dahlin2023" role="doc-biblioref"><strong>dahlin2023?</strong></a>)</span>. Arguably, the high-skill employes can pivot using tools and higher levels of resources and knowledge to adapt to the shifting environment which does not appear to directly impact salary until it is considered that the majority of the middle-skill employees will must either transition to another field or be entirely displaced. This apparent stability of salary is likely because of the traditional IT and enterprise infrastructure roles in that sector already commanding high salaries, making AI titles less financially distinctive by comparison due to the stability of the high-skill employees mantaining positions.</p>
+<p>In contrast, the Information industry pays AI roles less on average than non-AI roles. Interestingly, “working in an occupation that is considered high skill increases the odds of job loss to AI <span class="citation" data-cites="doi:10.1177/23780231241259672">(<a href="#ref-doi:10.1177/23780231241259672" role="doc-biblioref">Dahlin (2024)</a>)</span>”“…especially for the”middle-skill employees in the technological landscape <span class="citation" data-cites="doi:10.1177/23780231241259672">(<a href="#ref-doi:10.1177/23780231241259672" role="doc-biblioref">Dahlin (2024)</a>)</span>.” Arguably, the high-skill employes can pivot using tools and higher levels of resources and knowledge to adapt to the shifting environment which does not appear to directly impact salary until it is considered that the majority of the middle-skill employees will must either transition to another field or be entirely displaced. This apparent stability of salary is likely because of the traditional IT and enterprise infrastructure roles in that sector already commanding high salaries, making AI titles less financially distinctive by comparison due to the stability of the high-skill employees mantaining positions.</p>
 </section>
 <section id="top-industries-by-ai-job-posting-count" class="level2">
 <h2 class="anchored" data-anchor-id="top-industries-by-ai-job-posting-count">Top Industries by AI Job Posting Count</h2>
@@ -199,9 +218,14 @@ ul.task-list li input[type="checkbox"] {
 <p>The overall salary difference between AI and non-AI roles is negligible at roughly $100 on average. The salary premium associated with AI skills is industry-specific rather than universal. Fields where AI capabilities are still emerging tend to reward those skills more generously. The concentration of AI hiring in professional services, finance, and information suggests that the benefits of AI are not evenly distributed across the workforce. Where a worker is employed matters as much as what skills they bring.</p>
 
 
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-doi:10.1177/23780231241259672" class="csl-entry" role="listitem">
+<span class="smallcaps">Dahlin, E.</span> (2024): <span>“<a href="https://doi.org/10.1177/23780231241259672">Who says artificial intelligence is stealing our jobs?</a>”</span> <em>Socius</em>, 10, 23780231241259672.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
