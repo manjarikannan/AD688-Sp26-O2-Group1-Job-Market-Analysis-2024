@@ -45,3 +45,4 @@ Thumbs.db
 
 # LaTeX / TinyTeX (you already had this)
 .TinyTeX/
+/.quarto/

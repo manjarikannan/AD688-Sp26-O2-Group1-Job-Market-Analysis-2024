@@ -2,6 +2,8 @@
 title: "Exploratory Data Analysis"
 ---
 
+# Exploratory Data Analysis
+
 ## Overview
 
 Before building any models, we explored the Lightcast job postings dataset to understand the underlying patterns in salary, industry composition, and AI-related job demand. This section summarizes what the data revealed about how AI roles compare to non-AI roles across key dimensions.
@@ -16,7 +18,9 @@ This produced 31,857 AI-related postings (approximately 45% of the dataset) and 
 
 ## Salary Distribution: AI vs Non-AI
 
-![Salary Distribution](outputs/salary_distribution_plotly.png)
+```{=html}
+<iframe src="outputs/salary_distribution.html" width="100%" height="500px" frameborder="0"></iframe>
+```
 
 The first question we investigated was whether AI roles simply pay more. The overall pattern suggests they do not, at least not uniformly.
 
@@ -24,7 +28,9 @@ Both distributions peak near $112,500 and follow a similar right-skewed shape. T
 
 ## Average Salary by Industry: AI vs Non-AI
 
-![Salary by Industry](outputs/salary_by_industry_plotly.png)
+```{=html}
+<iframe src="outputs/salary_by_industry.html" width="100%" height="600px" frameborder="0"></iframe>
+```
 
 Breaking salary down by industry reveals a more nuanced picture. Certain industries show a meaningful AI salary premium, including Arts and Entertainment (approximately +$13,000), Construction (approximately +$13,500), and Retail Trade (approximately +$9,000). In these fields, AI skills remain relatively uncommon, and compensation reflects that scarcity.
 
@@ -32,7 +38,9 @@ In contrast, the Information industry pays AI roles less on average than non-AI 
 
 ## Top Industries by AI Job Posting Count
 
-![Top Industries](outputs/top_industries_plotly.png)
+```{=html}
+<iframe src="outputs/top_industries.html" width="100%" height="500px" frameborder="0"></iframe>
+```
 
 In terms of where AI jobs are being posted, Professional, Scientific, and Technical Services leads by a wide margin, followed by Finance and Insurance and Information. While AI-related roles appear across many sectors, the majority of active hiring remains concentrated in knowledge-intensive industries. For job seekers targeting AI roles, these sectors represent the highest volume of opportunity.
 
