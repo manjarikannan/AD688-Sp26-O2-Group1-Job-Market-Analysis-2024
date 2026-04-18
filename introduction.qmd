@@ -38,3 +38,5 @@ This project includes:
 - career recommendations for job seekers
 
 ## References
+```{bibliography}
+```
