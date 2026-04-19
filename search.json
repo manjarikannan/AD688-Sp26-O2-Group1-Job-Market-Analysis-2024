@@ -259,6 +259,13 @@
     "text": "Final Takeaway\nThe rise of AI is reshaping the job market, but not in the simple way that headlines often suggest. Our analysis shows that AI skills matter most in specific industries and role contexts, that salary outcomes depend heavily on occupation tier and sector, and that foundational analytical skills remain the most consistently valued capabilities across the entire labor market. Students who build a strong analytical foundation and develop targeted technical skills for their chosen industry will be better positioned than those who chase AI credentials without strategic direction."
   },
   {
+    "objectID": "final_report.html#team-contributions",
+    "href": "final_report.html#team-contributions",
+    "title": "Career Strategy",
+    "section": "Team Contributions",
+    "text": "Team Contributions\n\nManjari Kannan : built the Quarto website structure and navigation, handled data cleaning and preprocessing in PySpark including salary column identification, missing value imputation, and duplicate removal, developed the AI vs Non-AI role classification using keyword matching, conducted exploratory data analysis across salary, industry, and job posting trends, built and evaluated the regression, classification, and clustering models, completed the skill gap analysis, wrote the analysis and interpretation for each section of the report, converted visualizations to interactive Plotly charts, and managed GitHub throughout the project\nOscar Quintero : sourced and formatted the academic references in BibTeX\nNicholas Decesaris : responsible for the final presentation"
+  },
+  {
     "objectID": "eda.html",
     "href": "eda.html",
     "title": "Exploratory Data Analysis",
