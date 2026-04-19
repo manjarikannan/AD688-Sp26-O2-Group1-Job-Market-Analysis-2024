@@ -4,7 +4,7 @@ title: "Predictive Modeling"
 
 ## Overview
 
-This section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural salary tiers across the job market. Together these models help quantify how job characteristics relate to compensation and AI demand.
+This section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural salary tiers across the job market.
 
 ## Regression Model: Predicting Salary
 
@@ -16,6 +16,45 @@ The goal of this model is to predict the midpoint salary of a job posting based 
 
 Two versions of the model were tested. The first used industry, remote work type, and AI role flag as features. The second added occupation category and years of experience. Occupation category was expected to be the strongest predictor because salary varies substantially across professional fields regardless of industry.
 
+### Code
+
+```python
+from pyspark.ml.feature import StringIndexer, VectorAssembler
+from pyspark.ml.regression import LinearRegression
+from pyspark.ml import Pipeline
+from pyspark.ml.evaluation import RegressionEvaluator
+
+# Model 2: industry + remote + occupation + experience + AI flag
+df_model = df_clean.filter(col("SALARY_MID").isNotNull()) \
+    .filter(col("NAICS_2022_2_NAME").isNotNull()) \
+    .filter(col("REMOTE_TYPE_NAME").isNotNull()) \
+    .filter(col("SOC_2021_2_NAME").isNotNull()) \
+    .withColumn("MIN_YEARS_EXP", col("MIN_YEARS_EXPERIENCE").cast("double")) \
+    .fillna({"MIN_YEARS_EXP": 0.0})
+
+industry_indexer = StringIndexer(inputCol="NAICS_2022_2_NAME", outputCol="industry_idx", handleInvalid="skip")
+remote_indexer = StringIndexer(inputCol="REMOTE_TYPE_NAME", outputCol="remote_idx", handleInvalid="skip")
+soc_indexer = StringIndexer(inputCol="SOC_2021_2_NAME", outputCol="soc_idx", handleInvalid="skip")
+
+assembler = VectorAssembler(
+    inputCols=["industry_idx", "remote_idx", "soc_idx", "IS_AI_ROLE", "MIN_YEARS_EXP"],
+    outputCol="features"
+)
+
+lr = LinearRegression(featuresCol="features", labelCol="SALARY_MID")
+pipeline = Pipeline(stages=[industry_indexer, remote_indexer, soc_indexer, assembler, lr])
+
+train, test = df_model.randomSplit([0.8, 0.2], seed=42)
+model = pipeline.fit(train)
+predictions = model.transform(test)
+
+rmse = RegressionEvaluator(labelCol="SALARY_MID", predictionCol="prediction", metricName="rmse").evaluate(predictions)
+r2 = RegressionEvaluator(labelCol="SALARY_MID", predictionCol="prediction", metricName="r2").evaluate(predictions)
+
+print(f"RMSE: ${rmse:,.0f}")
+print(f"R2: {r2:.4f}")
+```
+
 ### Results
 
 | Model | Features | RMSE | R2 |
@@ -25,13 +64,38 @@ Two versions of the model were tested. The first used industry, remote work type
 
 ### Interpretation
 
-Adding occupation category and experience improved R2 from 0.009 to 0.095 and reduced RMSE by roughly $1,400. However, the overall explanatory power remains modest. This is expected given that salary is also shaped by factors not present in this dataset, such as company size, specific technical skills, education level, and negotiation. The low R2 is itself a finding worth noting: structured job characteristics explain only a small portion of salary variance, which suggests that individual and firm level factors play a larger role in determining compensation.
+Adding occupation category and experience improved R2 from 0.009 to 0.095 and reduced RMSE by roughly $1,400. The overall explanatory power remains modest, which is expected given that salary is also shaped by factors not present in this dataset such as company size, specific technical skills, and education level.
 
 ## Classification Model: Predicting AI vs Non-AI Roles
 
 ### Objective
 
 This model attempts to classify whether a job posting is AI-related based on industry, remote work type, and occupation category.
+
+### Code
+
+```python
+from pyspark.ml.classification import LogisticRegression
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator, BinaryClassificationEvaluator
+
+df_clf = df_clean.filter(col("NAICS_2022_2_NAME").isNotNull()) \
+    .filter(col("REMOTE_TYPE_NAME").isNotNull()) \
+    .filter(col("SOC_2021_2_NAME").isNotNull())
+
+industry_idx = StringIndexer(inputCol="NAICS_2022_2_NAME", outputCol="industry_idx", handleInvalid="skip")
+remote_idx = StringIndexer(inputCol="REMOTE_TYPE_NAME", outputCol="remote_idx", handleInvalid="skip")
+soc_idx = StringIndexer(inputCol="SOC_2021_2_NAME", outputCol="soc_idx", handleInvalid="skip")
+assembler_clf = VectorAssembler(inputCols=["industry_idx", "remote_idx", "soc_idx"], outputCol="features")
+
+lrc = LogisticRegression(featuresCol="features", labelCol="IS_AI_ROLE", maxIter=10)
+pipeline_clf = Pipeline(stages=[industry_idx, remote_idx, soc_idx, assembler_clf, lrc])
+
+train_clf, test_clf = df_clf.randomSplit([0.8, 0.2], seed=42)
+model_clf = pipeline_clf.fit(train_clf)
+predictions_clf = model_clf.transform(test_clf)
+
+predictions_clf.groupBy("IS_AI_ROLE", "prediction").count().orderBy("IS_AI_ROLE", "prediction").show()
+```
 
 ### Results
 
@@ -43,21 +107,75 @@ This model attempts to classify whether a job posting is AI-related based on ind
 
 ### Confusion Matrix
 
+```
++----------+----------+-----+
+|IS_AI_ROLE|prediction|count|
++----------+----------+-----+
+|         0|       0.0| 6869|
+|         0|       1.0|  825|
+|         1|       0.0| 5426|
+|         1|       1.0|  952|
++----------+----------+-----+
+```
+
 ![Confusion Matrix](outputs/confusion_matrix.png)
 
 The confusion matrix shows that the model correctly identifies most non-AI roles (6,869 true negatives) but misclassifies the majority of actual AI roles as non-AI (5,426 false negatives). This pattern reflects the core finding that AI roles are not structurally distinguishable from non-AI roles based on industry, remote type, and occupation category alone.
 
 ### Interpretation
 
-The model performs only slightly better than random guessing. This finding is informative rather than disappointing. It suggests that AI-related roles are spread across industries and occupation categories rather than being concentrated in obvious segments. The distinction between AI and non-AI roles lives primarily in the specific skills and title language of the posting, not in its structural characteristics.
+The model performs only slightly better than random guessing. This suggests that AI-related roles are spread across industries and occupation categories rather than being concentrated in obvious segments. The distinction between AI and non-AI roles lives primarily in the specific skills and title language of the posting, not in its structural characteristics.
 
 ## KMeans Clustering: Salary Tiers
 
 ### Objective
 
-KMeans clustering was used to identify natural groupings in the job market based on industry, occupation, salary, and AI role status. Four clusters were specified based on the expectation that the market would segment into entry, mid, upper mid, and senior tiers.
+KMeans clustering was used to identify natural groupings in the job market based on industry, occupation, salary, and AI role status.
+
+### Code
+
+```python
+from pyspark.ml.clustering import KMeans
+
+df_km = df_clean.filter(col("NAICS_2022_2_NAME").isNotNull()) \
+    .filter(col("SOC_2021_2_NAME").isNotNull()) \
+    .filter(col("SALARY_MID").isNotNull())
+
+industry_km = StringIndexer(inputCol="NAICS_2022_2_NAME", outputCol="industry_idx", handleInvalid="skip")
+soc_km = StringIndexer(inputCol="SOC_2021_2_NAME", outputCol="soc_idx", handleInvalid="skip")
+assembler_km = VectorAssembler(
+    inputCols=["industry_idx", "soc_idx", "SALARY_MID", "IS_AI_ROLE"],
+    outputCol="features"
+)
+
+kmeans = KMeans(featuresCol="features", k=4, seed=42)
+pipeline_km = Pipeline(stages=[industry_km, soc_km, assembler_km, kmeans])
+
+model_km = pipeline_km.fit(df_km)
+clusters = model_km.transform(df_km)
+
+clusters.groupBy("prediction", "IS_AI_ROLE") \
+    .avg("SALARY_MID") \
+    .orderBy("prediction", "IS_AI_ROLE") \
+    .show()
+```
 
 ### Results
+
+```
++----------+----------+------------------+
+|prediction|IS_AI_ROLE|   avg(SALARY_MID)|
++----------+----------+------------------+
+|         0|         0| 82527.93027166883|
+|         0|         1| 82259.38657105606|
+|         1|         0|114743.48156257602|
+|         1|         1|114706.52900810979|
+|         2|         0|177965.12350242163|
+|         2|         1| 180190.9214202561|
+|         3|         0| 47270.14509564509|
+|         3|         1| 50669.67723880597|
++----------+----------+------------------+
+```
 
 | Cluster | Avg Salary (Non-AI) | Avg Salary (AI) | Job Count |
 |---|---|---|---|
@@ -68,4 +186,4 @@ KMeans clustering was used to identify natural groupings in the job market based
 
 ### Interpretation
 
-The clustering produced four well-separated salary tiers that are intuitive and interpretable. The most striking pattern is that within every cluster, AI and non-AI roles earn nearly identical average salaries. The salary tier a job belongs to is determined by its occupation and industry profile, not by whether it involves AI. This finding is consistent across all three models and forms the central conclusion of this analysis: AI designation alone does not drive salary. Structural job characteristics and market positioning matter more.
+The clustering produced four well-separated salary tiers. The most striking pattern is that within every cluster, AI and non-AI roles earn nearly identical average salaries. The salary tier a job belongs to is determined by its occupation and industry profile, not by whether it involves AI. This finding is consistent across all three models: AI designation alone does not drive salary. Structural job characteristics and market positioning matter more.

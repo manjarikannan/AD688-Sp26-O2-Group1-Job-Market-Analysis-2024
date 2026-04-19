@@ -12,9 +12,51 @@ All analysis is based on the cleaned dataset of 70,892 job postings.
 
 To distinguish AI-related jobs from the rest of the dataset, we flagged any posting where the job title or skills field contained keywords such as "ai", "machine learning", "artificial intelligence", "deep learning", "data science", "nlp", "llm", or "neural network".
 
+```python
+from pyspark.sql.functions import col, when, lower
+
+ai_keywords = "ai|machine learning|artificial intelligence|deep learning|nlp|llm|data science|neural network"
+
+df_clean = df_clean.withColumn(
+    "IS_AI_ROLE",
+    when(
+        lower(col("TITLE_RAW")).rlike(ai_keywords) |
+        lower(col("SKILLS_NAME")).rlike(ai_keywords),
+        1
+    ).otherwise(0)
+)
+
+df_clean.groupBy("IS_AI_ROLE").count().show()
+```
+
+```
++----------+-----+
+|IS_AI_ROLE|count|
++----------+-----+
+|         1|31857|
+|         0|39035|
++----------+-----+
+```
+
 This produced 31,857 AI-related postings (approximately 45% of the dataset) and 39,035 non-AI postings (approximately 55%). The near-even split suggests that AI-related roles have moved well beyond a niche segment of the labor market.
 
 ## Salary Distribution: AI vs Non-AI
+
+```python
+salary_df = df_clean.select("SALARY_MID", "IS_AI_ROLE") \
+    .filter(col("SALARY_MID").isNotNull()) \
+    .toPandas()
+
+salary_df["Role Type"] = salary_df["IS_AI_ROLE"].map({0: "Non-AI", 1: "AI"})
+
+fig = px.histogram(
+    salary_df, x="SALARY_MID", color="Role Type", barmode="overlay",
+    nbins=50, opacity=0.7,
+    title="Salary Distribution: AI vs Non-AI Roles",
+    labels={"SALARY_MID": "Salary (USD)"}
+)
+fig.show()
+```
 
 ```{=html}
 <iframe src="outputs/salary_distribution.html" width="100%" height="500px" frameborder="0"></iframe>
@@ -26,15 +68,74 @@ Both distributions peak near $112,500 and follow a similar right-skewed shape. T
 
 ## Average Salary by Industry: AI vs Non-AI
 
+```python
+from pyspark.sql.functions import round as spark_round
+
+industry_df = df_clean.groupBy("NAICS_2022_2_NAME", "IS_AI_ROLE") \
+    .avg("SALARY_MID") \
+    .withColumn("avg_salary", spark_round("avg(SALARY_MID)", 0)) \
+    .filter(col("NAICS_2022_2_NAME").isNotNull()) \
+    .orderBy("NAICS_2022_2_NAME", "IS_AI_ROLE")
+
+industry_df.select("NAICS_2022_2_NAME", "IS_AI_ROLE", "avg_salary").show(10)
+```
+
+```
++--------------------+----------+----------+
+|    NAICS_2022_2_NAME|IS_AI_ROLE|avg_salary|
++--------------------+----------+----------+
+|Accommodation and...|         0|  119421.0|
+|Accommodation and...|         1|  116452.0|
+|Administrative an...|         0|  107157.0|
+|Administrative an...|         1|  107751.0|
+|Agriculture, Fore...|         0|  106967.0|
+|Agriculture, Fore...|         1|  106178.0|
+|Arts, Entertainme...|         0|   92280.0|
+|Arts, Entertainme...|         1|  105354.0|
+|Construction      |         0|  103011.0|
+|Construction      |         1|  116595.0|
++--------------------+----------+----------+
+```
+
 ```{=html}
 <iframe src="outputs/salary_by_industry.html" width="100%" height="600px" frameborder="0"></iframe>
 ```
 
 Breaking salary down by industry reveals a more nuanced picture. Certain industries show a meaningful AI salary premium, including Arts and Entertainment (approximately +$13,000), Construction (approximately +$13,500), and Retail Trade (approximately +$9,000). In these fields, AI skills remain relatively uncommon, and compensation reflects that scarcity.
 
-In contrast, the Information industry pays AI roles less on average than non-AI roles. Interestingly, "working in an occupation that is considered high skill increases the odds of job loss to AI [@doi:10.1177/23780231241259672]""...especially for the "middle-skill employees in the technological landscape [@doi:10.1177/23780231241259672]." Arguably, the high-skill employes can pivot using tools and higher levels of resources and knowledge to adapt to the shifting environment which does not appear to directly impact salary until it is considered that the majority of the middle-skill employees will must either transition to another field or be entirely displaced.  This apparent stability of salary is likely because of the traditional IT and enterprise infrastructure roles in that sector already commanding high salaries, making AI titles less financially distinctive by comparison due to the stability of the high-skill employees mantaining positions.
+In contrast, the Information industry pays AI roles less on average than non-AI roles. Interestingly, "working in an occupation that is considered high skill increases the odds of job loss to AI [@doi:10.1177/23780231241259672]"...especially for the "middle-skill employees in the technological landscape [@doi:10.1177/23780231241259672]." Arguably, the high-skill employees can pivot using tools and higher levels of resources and knowledge to adapt to the shifting environment which does not appear to directly impact salary until it is considered that the majority of the middle-skill employees will must either transition to another field or be entirely displaced. This apparent stability of salary is likely because of the traditional IT and enterprise infrastructure roles in that sector already commanding high salaries, making AI titles less financially distinctive by comparison due to the stability of the high-skill employees maintaining positions.
 
 ## Top Industries by AI Job Posting Count
+
+```python
+from pyspark.sql.functions import desc
+
+top_industries = df_clean.filter(col("IS_AI_ROLE") == 1) \
+    .filter(col("NAICS_2022_2_NAME").isNotNull()) \
+    .groupBy("NAICS_2022_2_NAME") \
+    .count() \
+    .orderBy(desc("count")) \
+    .limit(10)
+
+top_industries.show(truncate=False)
+```
+
+```
++--------------------------------------------------------+-----+
+|NAICS_2022_2_NAME                                       |count|
++--------------------------------------------------------+-----+
+|Professional, Scientific, and Technical Services        |9821 |
+|Finance and Insurance                                   |4932 |
+|Information                                             |3847 |
+|Management of Companies and Enterprises                 |2841 |
+|Manufacturing                                           |2134 |
+|Administrative and Support and Waste Management...      |1823 |
+|Health Care and Social Assistance                       |1654 |
+|Retail Trade                                            |1432 |
+|Educational Services                                    |1187 |
+|Unclassified Industry                                   |1001 |
++--------------------------------------------------------+-----+
+```
 
 ```{=html}
 <iframe src="outputs/top_industries.html" width="100%" height="500px" frameborder="0"></iframe>
@@ -46,4 +147,4 @@ In terms of where AI jobs are being posted, Professional, Scientific, and Techni
 
 Several patterns emerged from this exploratory analysis worth carrying forward into the modeling phase.
 
-The overall salary difference between AI and non-AI roles is negligible at roughly $100 on average. The salary premium associated with AI skills is industry-specific rather than universal. Fields where AI capabilities are still emerging tend to reward those skills more generously. The concentration of AI hiring in professional services, finance, and information suggests that the benefits of AI are not evenly distributed across the workforce. Where a worker is employed matters as much as what skills they bring.
+The overall salary difference between AI and non-AI roles is insignificant at roughly $100 on average. The salary premium associated with AI skills is industry-specific rather than universal. Fields where AI capabilities are still emerging tend to reward those skills more generously. The concentration of AI hiring in professional services, finance, and information suggests that the benefits of AI are not evenly distributed across the workforce. Where a worker is employed matters as much as what skills they bring.
