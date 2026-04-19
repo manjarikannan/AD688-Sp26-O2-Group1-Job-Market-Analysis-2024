@@ -1,6 +1,5 @@
 project:
   type: website
-
 website:
   title: "Job Market Analysis 2024"
   navbar:
@@ -19,14 +18,13 @@ website:
         text: Skill Gap Analysis
       - href: career_plan.qmd
         text: Career Strategy
-
 format:
   html:
     theme: cosmo
     toc: true
+    code-fold: true
 bibliography: references.bib
 csl: ./csl/econometrica.csl
 execute:
   echo: true
-  eval: true
-  code-fold: true
+  eval: false
