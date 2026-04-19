@@ -12,7 +12,8 @@ All analysis is based on the cleaned dataset of 70,892 job postings.
 
 To distinguish AI-related jobs from the rest of the dataset, we flagged any posting where the job title or skills field contained keywords such as "ai", "machine learning", "artificial intelligence", "deep learning", "data science", "nlp", "llm", or "neural network".
 
-```python
+```{python}
+#| eval: false
 from pyspark.sql.functions import col, when, lower
 
 ai_keywords = "ai|machine learning|artificial intelligence|deep learning|nlp|llm|data science|neural network"
@@ -42,7 +43,8 @@ This produced 31,857 AI-related postings (approximately 45% of the dataset) and 
 
 ## Salary Distribution: AI vs Non-AI
 
-```python
+```{python}
+#| eval: false
 salary_df = df_clean.select("SALARY_MID", "IS_AI_ROLE") \
     .filter(col("SALARY_MID").isNotNull()) \
     .toPandas()
@@ -68,7 +70,8 @@ Both distributions peak near $112,500 and follow a similar right-skewed shape. T
 
 ## Average Salary by Industry: AI vs Non-AI
 
-```python
+```{python}
+#| eval: false
 from pyspark.sql.functions import round as spark_round
 
 industry_df = df_clean.groupBy("NAICS_2022_2_NAME", "IS_AI_ROLE") \
@@ -107,7 +110,8 @@ In contrast, the Information industry pays AI roles less on average than non-AI 
 
 ## Top Industries by AI Job Posting Count
 
-```python
+```{python}
+#| eval: false
 from pyspark.sql.functions import desc
 
 top_industries = df_clean.filter(col("IS_AI_ROLE") == 1) \

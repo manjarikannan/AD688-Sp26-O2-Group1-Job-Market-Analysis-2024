@@ -18,7 +18,8 @@ Two versions of the model were tested. The first used industry, remote work type
 
 ### Code
 
-```python
+```{python}
+#| eval: false
 from pyspark.ml.feature import StringIndexer, VectorAssembler
 from pyspark.ml.regression import LinearRegression
 from pyspark.ml import Pipeline
@@ -74,7 +75,8 @@ This model attempts to classify whether a job posting is AI-related based on ind
 
 ### Code
 
-```python
+```{python}
+#| eval: false
 from pyspark.ml.classification import LogisticRegression
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator, BinaryClassificationEvaluator
 
@@ -134,7 +136,8 @@ KMeans clustering was used to identify natural groupings in the job market based
 
 ### Code
 
-```python
+```{python}
+#| eval: false
 from pyspark.ml.clustering import KMeans
 
 df_km = df_clean.filter(col("NAICS_2022_2_NAME").isNotNull()) \
