@@ -221,12 +221,14 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#objective-1" id="toc-objective-1" class="nav-link" data-scroll-target="#objective-1">Objective</a></li>
   <li><a href="#feature-justification" id="toc-feature-justification" class="nav-link" data-scroll-target="#feature-justification">Feature Justification</a></li>
+  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code">Code</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
   <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
   </ul></li>
   <li><a href="#classification-model-predicting-ai-vs-non-ai-roles" id="toc-classification-model-predicting-ai-vs-non-ai-roles" class="nav-link" data-scroll-target="#classification-model-predicting-ai-vs-non-ai-roles">Classification Model: Predicting AI vs Non-AI Roles</a>
   <ul class="collapse">
   <li><a href="#objective-2" id="toc-objective-2" class="nav-link" data-scroll-target="#objective-2">Objective</a></li>
+  <li><a href="#code-1" id="toc-code-1" class="nav-link" data-scroll-target="#code-1">Code</a></li>
   <li><a href="#results-1" id="toc-results-1" class="nav-link" data-scroll-target="#results-1">Results</a></li>
   <li><a href="#confusion-matrix" id="toc-confusion-matrix" class="nav-link" data-scroll-target="#confusion-matrix">Confusion Matrix</a></li>
   <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">Interpretation</a></li>
@@ -234,6 +236,7 @@ div.csl-indent {
   <li><a href="#kmeans-clustering-salary-tiers" id="toc-kmeans-clustering-salary-tiers" class="nav-link" data-scroll-target="#kmeans-clustering-salary-tiers">KMeans Clustering: Salary Tiers</a>
   <ul class="collapse">
   <li><a href="#objective-3" id="toc-objective-3" class="nav-link" data-scroll-target="#objective-3">Objective</a></li>
+  <li><a href="#code-2" id="toc-code-2" class="nav-link" data-scroll-target="#code-2">Code</a></li>
   <li><a href="#results-2" id="toc-results-2" class="nav-link" data-scroll-target="#results-2">Results</a></li>
   <li><a href="#interpretation-2" id="toc-interpretation-2" class="nav-link" data-scroll-target="#interpretation-2">Interpretation</a></li>
   </ul></li>
@@ -449,33 +452,113 @@ div.csl-indent {
 <section id="defining-ai-vs-non-ai-roles" class="level2">
 <h2 class="anchored" data-anchor-id="defining-ai-vs-non-ai-roles">Defining AI vs Non-AI Roles</h2>
 <p>To distinguish AI-related jobs from the rest of the dataset, we flagged any posting where the job title or skills field contained keywords such as “ai”, “machine learning”, “artificial intelligence”, “deep learning”, “data science”, “nlp”, “llm”, or “neural network”.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> col, when, lower</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ai_keywords <span class="op">=</span> <span class="st">"ai|machine learning|artificial intelligence|deep learning|nlp|llm|data science|neural network"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df_clean.withColumn(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"IS_AI_ROLE"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    when(</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        lower(col(<span class="st">"TITLE_RAW"</span>)).rlike(ai_keywords) <span class="op">|</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        lower(col(<span class="st">"SKILLS_NAME"</span>)).rlike(ai_keywords),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    ).otherwise(<span class="dv">0</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>df_clean.groupBy(<span class="st">"IS_AI_ROLE"</span>).count().show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>+----------+-----+
+|IS_AI_ROLE|count|
++----------+-----+
+|         1|31857|
+|         0|39035|
++----------+-----+</code></pre>
 <p>This produced 31,857 AI-related postings (approximately 45% of the dataset) and 39,035 non-AI postings (approximately 55%). The near-even split suggests that AI-related roles have moved well beyond a niche segment of the labor market.</p>
 </section>
 <section id="salary-distribution-ai-vs-non-ai" class="level2">
 <h2 class="anchored" data-anchor-id="salary-distribution-ai-vs-non-ai">Salary Distribution: AI vs Non-AI</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>salary_df <span class="op">=</span> df_clean.select(<span class="st">"SALARY_MID"</span>, <span class="st">"IS_AI_ROLE"</span>) <span class="op">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"SALARY_MID"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    .toPandas()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>salary_df[<span class="st">"Role Type"</span>] <span class="op">=</span> salary_df[<span class="st">"IS_AI_ROLE"</span>].<span class="bu">map</span>({<span class="dv">0</span>: <span class="st">"Non-AI"</span>, <span class="dv">1</span>: <span class="st">"AI"</span>})</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.histogram(</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    salary_df, x<span class="op">=</span><span class="st">"SALARY_MID"</span>, color<span class="op">=</span><span class="st">"Role Type"</span>, barmode<span class="op">=</span><span class="st">"overlay"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    nbins<span class="op">=</span><span class="dv">50</span>, opacity<span class="op">=</span><span class="fl">0.7</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"Salary Distribution: AI vs Non-AI Roles"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>{<span class="st">"SALARY_MID"</span>: <span class="st">"Salary (USD)"</span>}</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <iframe src="outputs/salary_distribution.html" width="100%" height="500px" frameborder="0"></iframe>
 <p>The first question we investigated was whether AI roles simply pay more. The overall pattern suggests they do not, at least not uniformly.</p>
 <p>Both distributions peak near $112,500 and follow a similar right-skewed shape. The two groups overlap substantially, which indicates that holding an AI-related title does not automatically translate into higher compensation. The relationship between AI and salary appears to be more complex than a simple premium.</p>
 </section>
 <section id="average-salary-by-industry-ai-vs-non-ai" class="level2">
 <h2 class="anchored" data-anchor-id="average-salary-by-industry-ai-vs-non-ai">Average Salary by Industry: AI vs Non-AI</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> <span class="bu">round</span> <span class="im">as</span> spark_round</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>industry_df <span class="op">=</span> df_clean.groupBy(<span class="st">"NAICS_2022_2_NAME"</span>, <span class="st">"IS_AI_ROLE"</span>) <span class="op">\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    .avg(<span class="st">"SALARY_MID"</span>) <span class="op">\</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    .withColumn(<span class="st">"avg_salary"</span>, spark_round(<span class="st">"avg(SALARY_MID)"</span>, <span class="dv">0</span>)) <span class="op">\</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"NAICS_2022_2_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    .orderBy(<span class="st">"NAICS_2022_2_NAME"</span>, <span class="st">"IS_AI_ROLE"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>industry_df.select(<span class="st">"NAICS_2022_2_NAME"</span>, <span class="st">"IS_AI_ROLE"</span>, <span class="st">"avg_salary"</span>).show(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>+--------------------+----------+----------+
+|    NAICS_2022_2_NAME|IS_AI_ROLE|avg_salary|
++--------------------+----------+----------+
+|Accommodation and...|         0|  119421.0|
+|Accommodation and...|         1|  116452.0|
+|Administrative an...|         0|  107157.0|
+|Administrative an...|         1|  107751.0|
+|Agriculture, Fore...|         0|  106967.0|
+|Agriculture, Fore...|         1|  106178.0|
+|Arts, Entertainme...|         0|   92280.0|
+|Arts, Entertainme...|         1|  105354.0|
+|Construction      |         0|  103011.0|
+|Construction      |         1|  116595.0|
++--------------------+----------+----------+</code></pre>
 <iframe src="outputs/salary_by_industry.html" width="100%" height="600px" frameborder="0"></iframe>
 <p>Breaking salary down by industry reveals a more nuanced picture. Certain industries show a meaningful AI salary premium, including Arts and Entertainment (approximately +$13,000), Construction (approximately +$13,500), and Retail Trade (approximately +$9,000). In these fields, AI skills remain relatively uncommon, and compensation reflects that scarcity.</p>
-<p>In contrast, the Information industry pays AI roles less on average than non-AI roles. Interestingly, “working in an occupation that is considered high skill increases the odds of job loss to AI <span class="citation" data-cites="doi:10.1177/23780231241259672">(<a href="#ref-doi:10.1177/23780231241259672" role="doc-biblioref">Dahlin (2024)</a>)</span>”“…especially for the”middle-skill employees in the technological landscape <span class="citation" data-cites="doi:10.1177/23780231241259672">(<a href="#ref-doi:10.1177/23780231241259672" role="doc-biblioref">Dahlin (2024)</a>)</span>.” Arguably, the high-skill employes can pivot using tools and higher levels of resources and knowledge to adapt to the shifting environment which does not appear to directly impact salary until it is considered that the majority of the middle-skill employees will must either transition to another field or be entirely displaced. This apparent stability of salary is likely because of the traditional IT and enterprise infrastructure roles in that sector already commanding high salaries, making AI titles less financially distinctive by comparison due to the stability of the high-skill employees mantaining positions.</p>
+<p>In contrast, the Information industry pays AI roles less on average than non-AI roles. Interestingly, “working in an occupation that is considered high skill increases the odds of job loss to AI <span class="citation" data-cites="doi:10.1177/23780231241259672">(<a href="#ref-doi:10.1177/23780231241259672" role="doc-biblioref">Dahlin (2024)</a>)</span>”…especially for the “middle-skill employees in the technological landscape <span class="citation" data-cites="doi:10.1177/23780231241259672">(<a href="#ref-doi:10.1177/23780231241259672" role="doc-biblioref">Dahlin (2024)</a>)</span>.” Arguably, the high-skill employees can pivot using tools and higher levels of resources and knowledge to adapt to the shifting environment which does not appear to directly impact salary until it is considered that the majority of the middle-skill employees will must either transition to another field or be entirely displaced. This apparent stability of salary is likely because of the traditional IT and enterprise infrastructure roles in that sector already commanding high salaries, making AI titles less financially distinctive by comparison due to the stability of the high-skill employees maintaining positions.</p>
 </section>
 <section id="top-industries-by-ai-job-posting-count" class="level2">
 <h2 class="anchored" data-anchor-id="top-industries-by-ai-job-posting-count">Top Industries by AI Job Posting Count</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> desc</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>top_industries <span class="op">=</span> df_clean.<span class="bu">filter</span>(col(<span class="st">"IS_AI_ROLE"</span>) <span class="op">==</span> <span class="dv">1</span>) <span class="op">\</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"NAICS_2022_2_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    .groupBy(<span class="st">"NAICS_2022_2_NAME"</span>) <span class="op">\</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    .count() <span class="op">\</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    .orderBy(desc(<span class="st">"count"</span>)) <span class="op">\</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    .limit(<span class="dv">10</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>top_industries.show(truncate<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>+--------------------------------------------------------+-----+
+|NAICS_2022_2_NAME                                       |count|
++--------------------------------------------------------+-----+
+|Professional, Scientific, and Technical Services        |9821 |
+|Finance and Insurance                                   |4932 |
+|Information                                             |3847 |
+|Management of Companies and Enterprises                 |2841 |
+|Manufacturing                                           |2134 |
+|Administrative and Support and Waste Management...      |1823 |
+|Health Care and Social Assistance                       |1654 |
+|Retail Trade                                            |1432 |
+|Educational Services                                    |1187 |
+|Unclassified Industry                                   |1001 |
++--------------------------------------------------------+-----+</code></pre>
 <iframe src="outputs/top_industries.html" width="100%" height="500px" frameborder="0"></iframe>
 <p>In terms of where AI jobs are being posted, Professional, Scientific, and Technical Services leads by a wide margin, followed by Finance and Insurance and Information. While AI-related roles appear across many sectors, the majority of active hiring remains concentrated in knowledge-intensive industries. For job seekers targeting AI roles, these sectors represent the highest volume of opportunity.</p>
 </section>
 <section id="key-findings" class="level2">
 <h2 class="anchored" data-anchor-id="key-findings">Key Findings</h2>
 <p>Several patterns emerged from this exploratory analysis worth carrying forward into the modeling phase.</p>
-<p>The overall salary difference between AI and non-AI roles is negligible at roughly $100 on average. The salary premium associated with AI skills is industry-specific rather than universal. Fields where AI capabilities are still emerging tend to reward those skills more generously. The concentration of AI hiring in professional services, finance, and information suggests that the benefits of AI are not evenly distributed across the workforce. Where a worker is employed matters as much as what skills they bring.</p>
+<p>The overall salary difference between AI and non-AI roles is insignificant at roughly $100 on average. The salary premium associated with AI skills is industry-specific rather than universal. Fields where AI capabilities are still emerging tend to reward those skills more generously. The concentration of AI hiring in professional services, finance, and information suggests that the benefits of AI are not evenly distributed across the workforce. Where a worker is employed matters as much as what skills they bring.</p>
 </section>
 <section id="overview-2" class="level2">
 <h2 class="anchored" data-anchor-id="overview-2">Overview</h2>
-<p>This section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural salary tiers across the job market. Together these models help quantify how job characteristics relate to compensation and AI demand.</p>
+<p>This section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural salary tiers across the job market.</p>
 </section>
 <section id="regression-model-predicting-salary" class="level2">
 <h2 class="anchored" data-anchor-id="regression-model-predicting-salary">Regression Model: Predicting Salary</h2>
@@ -486,6 +569,43 @@ div.csl-indent {
 <section id="feature-justification" class="level3">
 <h3 class="anchored" data-anchor-id="feature-justification">Feature Justification</h3>
 <p>Two versions of the model were tested. The first used industry, remote work type, and AI role flag as features. The second added occupation category and years of experience. Occupation category was expected to be the strongest predictor because salary varies substantially across professional fields regardless of industry.</p>
+</section>
+<section id="code" class="level3">
+<h3 class="anchored" data-anchor-id="code">Code</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.feature <span class="im">import</span> StringIndexer, VectorAssembler</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.regression <span class="im">import</span> LinearRegression</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml <span class="im">import</span> Pipeline</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.evaluation <span class="im">import</span> RegressionEvaluator</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2: industry + remote + occupation + experience + AI flag</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>df_model <span class="op">=</span> df_clean.<span class="bu">filter</span>(col(<span class="st">"SALARY_MID"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"NAICS_2022_2_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"REMOTE_TYPE_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"SOC_2021_2_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    .withColumn(<span class="st">"MIN_YEARS_EXP"</span>, col(<span class="st">"MIN_YEARS_EXPERIENCE"</span>).cast(<span class="st">"double"</span>)) <span class="op">\</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    .fillna({<span class="st">"MIN_YEARS_EXP"</span>: <span class="fl">0.0</span>})</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>industry_indexer <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"NAICS_2022_2_NAME"</span>, outputCol<span class="op">=</span><span class="st">"industry_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>remote_indexer <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"REMOTE_TYPE_NAME"</span>, outputCol<span class="op">=</span><span class="st">"remote_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>soc_indexer <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"SOC_2021_2_NAME"</span>, outputCol<span class="op">=</span><span class="st">"soc_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>assembler <span class="op">=</span> VectorAssembler(</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    inputCols<span class="op">=</span>[<span class="st">"industry_idx"</span>, <span class="st">"remote_idx"</span>, <span class="st">"soc_idx"</span>, <span class="st">"IS_AI_ROLE"</span>, <span class="st">"MIN_YEARS_EXP"</span>],</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    outputCol<span class="op">=</span><span class="st">"features"</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> LinearRegression(featuresCol<span class="op">=</span><span class="st">"features"</span>, labelCol<span class="op">=</span><span class="st">"SALARY_MID"</span>)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> Pipeline(stages<span class="op">=</span>[industry_indexer, remote_indexer, soc_indexer, assembler, lr])</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>train, test <span class="op">=</span> df_model.randomSplit([<span class="fl">0.8</span>, <span class="fl">0.2</span>], seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> pipeline.fit(train)</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> model.transform(test)</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>rmse <span class="op">=</span> RegressionEvaluator(labelCol<span class="op">=</span><span class="st">"SALARY_MID"</span>, predictionCol<span class="op">=</span><span class="st">"prediction"</span>, metricName<span class="op">=</span><span class="st">"rmse"</span>).evaluate(predictions)</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> RegressionEvaluator(labelCol<span class="op">=</span><span class="st">"SALARY_MID"</span>, predictionCol<span class="op">=</span><span class="st">"prediction"</span>, metricName<span class="op">=</span><span class="st">"r2"</span>).evaluate(predictions)</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"RMSE: $</span><span class="sc">{</span>rmse<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R2: </span><span class="sc">{</span>r2<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="results" class="level3">
 <h3 class="anchored" data-anchor-id="results">Results</h3>
@@ -516,7 +636,7 @@ div.csl-indent {
 </section>
 <section id="interpretation" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
-<p>Adding occupation category and experience improved R2 from 0.009 to 0.095 and reduced RMSE by roughly $1,400. However, the overall explanatory power remains modest. This is expected given that salary is also shaped by factors not present in this dataset, such as company size, specific technical skills, education level, and negotiation. The low R2 is itself a finding worth noting: structured job characteristics explain only a small portion of salary variance, which suggests that individual and firm level factors play a larger role in determining compensation.</p>
+<p>Adding occupation category and experience improved R2 from 0.009 to 0.095 and reduced RMSE by roughly $1,400. The overall explanatory power remains modest, which is expected given that salary is also shaped by factors not present in this dataset such as company size, specific technical skills, and education level.</p>
 </section>
 </section>
 <section id="classification-model-predicting-ai-vs-non-ai-roles" class="level2">
@@ -524,6 +644,29 @@ div.csl-indent {
 <section id="objective-2" class="level3">
 <h3 class="anchored" data-anchor-id="objective-2">Objective</h3>
 <p>This model attempts to classify whether a job posting is AI-related based on industry, remote work type, and occupation category.</p>
+</section>
+<section id="code-1" class="level3">
+<h3 class="anchored" data-anchor-id="code-1">Code</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.classification <span class="im">import</span> LogisticRegression</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.evaluation <span class="im">import</span> MulticlassClassificationEvaluator, BinaryClassificationEvaluator</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>df_clf <span class="op">=</span> df_clean.<span class="bu">filter</span>(col(<span class="st">"NAICS_2022_2_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"REMOTE_TYPE_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"SOC_2021_2_NAME"</span>).isNotNull())</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>industry_idx <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"NAICS_2022_2_NAME"</span>, outputCol<span class="op">=</span><span class="st">"industry_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>remote_idx <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"REMOTE_TYPE_NAME"</span>, outputCol<span class="op">=</span><span class="st">"remote_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>soc_idx <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"SOC_2021_2_NAME"</span>, outputCol<span class="op">=</span><span class="st">"soc_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>assembler_clf <span class="op">=</span> VectorAssembler(inputCols<span class="op">=</span>[<span class="st">"industry_idx"</span>, <span class="st">"remote_idx"</span>, <span class="st">"soc_idx"</span>], outputCol<span class="op">=</span><span class="st">"features"</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>lrc <span class="op">=</span> LogisticRegression(featuresCol<span class="op">=</span><span class="st">"features"</span>, labelCol<span class="op">=</span><span class="st">"IS_AI_ROLE"</span>, maxIter<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>pipeline_clf <span class="op">=</span> Pipeline(stages<span class="op">=</span>[industry_idx, remote_idx, soc_idx, assembler_clf, lrc])</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>train_clf, test_clf <span class="op">=</span> df_clf.randomSplit([<span class="fl">0.8</span>, <span class="fl">0.2</span>], seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>model_clf <span class="op">=</span> pipeline_clf.fit(train_clf)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>predictions_clf <span class="op">=</span> model_clf.transform(test_clf)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>predictions_clf.groupBy(<span class="st">"IS_AI_ROLE"</span>, <span class="st">"prediction"</span>).count().orderBy(<span class="st">"IS_AI_ROLE"</span>, <span class="st">"prediction"</span>).show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="results-1" class="level3">
 <h3 class="anchored" data-anchor-id="results-1">Results</h3>
@@ -552,6 +695,14 @@ div.csl-indent {
 </section>
 <section id="confusion-matrix" class="level3">
 <h3 class="anchored" data-anchor-id="confusion-matrix">Confusion Matrix</h3>
+<pre><code>+----------+----------+-----+
+|IS_AI_ROLE|prediction|count|
++----------+----------+-----+
+|         0|       0.0| 6869|
+|         0|       1.0|  825|
+|         1|       0.0| 5426|
+|         1|       1.0|  952|
++----------+----------+-----+</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="outputs/confusion_matrix.png" class="img-fluid figure-img"></p>
@@ -562,17 +713,55 @@ div.csl-indent {
 </section>
 <section id="interpretation-1" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation-1">Interpretation</h3>
-<p>The model performs only slightly better than random guessing. This finding is informative rather than disappointing. It suggests that AI-related roles are spread across industries and occupation categories rather than being concentrated in obvious segments. The distinction between AI and non-AI roles lives primarily in the specific skills and title language of the posting, not in its structural characteristics.</p>
+<p>The model performs only slightly better than random guessing. This suggests that AI-related roles are spread across industries and occupation categories rather than being concentrated in obvious segments. The distinction between AI and non-AI roles lives primarily in the specific skills and title language of the posting, not in its structural characteristics.</p>
 </section>
 </section>
 <section id="kmeans-clustering-salary-tiers" class="level2">
 <h2 class="anchored" data-anchor-id="kmeans-clustering-salary-tiers">KMeans Clustering: Salary Tiers</h2>
 <section id="objective-3" class="level3">
 <h3 class="anchored" data-anchor-id="objective-3">Objective</h3>
-<p>KMeans clustering was used to identify natural groupings in the job market based on industry, occupation, salary, and AI role status. Four clusters were specified based on the expectation that the market would segment into entry, mid, upper mid, and senior tiers.</p>
+<p>KMeans clustering was used to identify natural groupings in the job market based on industry, occupation, salary, and AI role status.</p>
+</section>
+<section id="code-2" class="level3">
+<h3 class="anchored" data-anchor-id="code-2">Code</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.clustering <span class="im">import</span> KMeans</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>df_km <span class="op">=</span> df_clean.<span class="bu">filter</span>(col(<span class="st">"NAICS_2022_2_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"SOC_2021_2_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"SALARY_MID"</span>).isNotNull())</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>industry_km <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"NAICS_2022_2_NAME"</span>, outputCol<span class="op">=</span><span class="st">"industry_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>soc_km <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"SOC_2021_2_NAME"</span>, outputCol<span class="op">=</span><span class="st">"soc_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>assembler_km <span class="op">=</span> VectorAssembler(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    inputCols<span class="op">=</span>[<span class="st">"industry_idx"</span>, <span class="st">"soc_idx"</span>, <span class="st">"SALARY_MID"</span>, <span class="st">"IS_AI_ROLE"</span>],</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    outputCol<span class="op">=</span><span class="st">"features"</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>kmeans <span class="op">=</span> KMeans(featuresCol<span class="op">=</span><span class="st">"features"</span>, k<span class="op">=</span><span class="dv">4</span>, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>pipeline_km <span class="op">=</span> Pipeline(stages<span class="op">=</span>[industry_km, soc_km, assembler_km, kmeans])</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>model_km <span class="op">=</span> pipeline_km.fit(df_km)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> model_km.transform(df_km)</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>clusters.groupBy(<span class="st">"prediction"</span>, <span class="st">"IS_AI_ROLE"</span>) <span class="op">\</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    .avg(<span class="st">"SALARY_MID"</span>) <span class="op">\</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    .orderBy(<span class="st">"prediction"</span>, <span class="st">"IS_AI_ROLE"</span>) <span class="op">\</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    .show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="results-2" class="level3">
 <h3 class="anchored" data-anchor-id="results-2">Results</h3>
+<pre><code>+----------+----------+------------------+
+|prediction|IS_AI_ROLE|   avg(SALARY_MID)|
++----------+----------+------------------+
+|         0|         0| 82527.93027166883|
+|         0|         1| 82259.38657105606|
+|         1|         0|114743.48156257602|
+|         1|         1|114706.52900810979|
+|         2|         0|177965.12350242163|
+|         2|         1| 180190.9214202561|
+|         3|         0| 47270.14509564509|
+|         3|         1| 50669.67723880597|
++----------+----------+------------------+</code></pre>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -612,7 +801,7 @@ div.csl-indent {
 </section>
 <section id="interpretation-2" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation-2">Interpretation</h3>
-<p>The clustering produced four well-separated salary tiers that are intuitive and interpretable. The most striking pattern is that within every cluster, AI and non-AI roles earn nearly identical average salaries. The salary tier a job belongs to is determined by its occupation and industry profile, not by whether it involves AI. This finding is consistent across all three models and forms the central conclusion of this analysis: AI designation alone does not drive salary. Structural job characteristics and market positioning matter more.</p>
+<p>The clustering produced four well-separated salary tiers. The most striking pattern is that within every cluster, AI and non-AI roles earn nearly identical average salaries. The salary tier a job belongs to is determined by its occupation and industry profile, not by whether it involves AI. This finding is consistent across all three models: AI designation alone does not drive salary. Structural job characteristics and market positioning matter more.</p>
 </section>
 </section>
 <section id="overview-3" class="level2">
@@ -788,7 +977,7 @@ div.csl-indent {
 <section id="what-the-data-tells-us" class="level2">
 <h2 class="anchored" data-anchor-id="what-the-data-tells-us">What the Data Tells Us</h2>
 <p>Several consistent findings emerged across all stages of this project that should directly inform career planning decisions.</p>
-<p>AI-related roles do not universally pay more. Recent studies suggest that “increased AI exposure may be correlated with higher earnings in some contexts, but the strength and direction of this relationship are sensitive to model specification[s] <span class="citation" data-cites="dominski2025">(<a href="#ref-dominski2025" role="doc-biblioref"><strong>dominski2025?</strong></a>)</span>.” Within the findings of this project, for instance, the average salary difference between AI and non-AI roles in this dataset is approximately $100, which is negligible. Salary is determined more by industry, occupation tier, and job level than by AI designation alone. Students who assume that adding AI skills to their resume will automatically lead to higher pay may be disappointed without also considering the sector and role level they are targeting.</p>
+<p>AI-related roles do not universally pay more. Recent studies suggest that “increased AI exposure may be correlated with higher earnings in some contexts, but the strength and direction of this relationship are sensitive to model specification[s] <span class="citation" data-cites="dominski2025advancingaicapabilitiesevolving">(<a href="#ref-dominski2025advancingaicapabilitiesevolving" role="doc-biblioref">Dominski and Lee (2025)</a>)</span>.” Within the findings of this project, for instance, the average salary difference between AI and non-AI roles in this dataset is approximately $100, which is negligible. Salary is determined more by industry, occupation tier, and job level than by AI designation alone. Students who assume that adding AI skills to their resume will automatically lead to higher pay may be disappointed without also considering the sector and role level they are targeting.</p>
 <p>The salary premium for AI skills is industry-specific. Fields such as Arts and Entertainment, Construction, and Retail Trade show AI salary premiums of $9,000 to $13,500, likely because AI capabilities remain scarce in those sectors. In contrast, the Information industry pays non-AI roles more on average because that sector already compensates technical work highly regardless of AI involvement. Job seekers should research salary norms within their target industry rather than relying on general AI salary narratives.</p>
 <p>Salary tier matters more than AI status. The KMeans clustering analysis identified four distinct salary tiers in the job market ranging from approximately $49,000 at the entry level to $179,000 at the senior level. Within every tier, AI and non-AI roles earn nearly identical salaries. Moving up a salary tier requires developing the occupation and industry profile associated with that tier, not simply acquiring AI-related keywords.</p>
 </section>

@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -140,12 +175,14 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
   <li><a href="#feature-justification" id="toc-feature-justification" class="nav-link" data-scroll-target="#feature-justification">Feature Justification</a></li>
+  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code">Code</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
   <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
   </ul></li>
   <li><a href="#classification-model-predicting-ai-vs-non-ai-roles" id="toc-classification-model-predicting-ai-vs-non-ai-roles" class="nav-link" data-scroll-target="#classification-model-predicting-ai-vs-non-ai-roles">Classification Model: Predicting AI vs Non-AI Roles</a>
   <ul class="collapse">
   <li><a href="#objective-1" id="toc-objective-1" class="nav-link" data-scroll-target="#objective-1">Objective</a></li>
+  <li><a href="#code-1" id="toc-code-1" class="nav-link" data-scroll-target="#code-1">Code</a></li>
   <li><a href="#results-1" id="toc-results-1" class="nav-link" data-scroll-target="#results-1">Results</a></li>
   <li><a href="#confusion-matrix" id="toc-confusion-matrix" class="nav-link" data-scroll-target="#confusion-matrix">Confusion Matrix</a></li>
   <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">Interpretation</a></li>
@@ -153,6 +190,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#kmeans-clustering-salary-tiers" id="toc-kmeans-clustering-salary-tiers" class="nav-link" data-scroll-target="#kmeans-clustering-salary-tiers">KMeans Clustering: Salary Tiers</a>
   <ul class="collapse">
   <li><a href="#objective-2" id="toc-objective-2" class="nav-link" data-scroll-target="#objective-2">Objective</a></li>
+  <li><a href="#code-2" id="toc-code-2" class="nav-link" data-scroll-target="#code-2">Code</a></li>
   <li><a href="#results-2" id="toc-results-2" class="nav-link" data-scroll-target="#results-2">Results</a></li>
   <li><a href="#interpretation-2" id="toc-interpretation-2" class="nav-link" data-scroll-target="#interpretation-2">Interpretation</a></li>
   </ul></li>
@@ -183,7 +221,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>This section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural salary tiers across the job market. Together these models help quantify how job characteristics relate to compensation and AI demand.</p>
+<p>This section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural salary tiers across the job market.</p>
 </section>
 <section id="regression-model-predicting-salary" class="level2">
 <h2 class="anchored" data-anchor-id="regression-model-predicting-salary">Regression Model: Predicting Salary</h2>
@@ -194,6 +232,43 @@ ul.task-list li input[type="checkbox"] {
 <section id="feature-justification" class="level3">
 <h3 class="anchored" data-anchor-id="feature-justification">Feature Justification</h3>
 <p>Two versions of the model were tested. The first used industry, remote work type, and AI role flag as features. The second added occupation category and years of experience. Occupation category was expected to be the strongest predictor because salary varies substantially across professional fields regardless of industry.</p>
+</section>
+<section id="code" class="level3">
+<h3 class="anchored" data-anchor-id="code">Code</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.feature <span class="im">import</span> StringIndexer, VectorAssembler</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.regression <span class="im">import</span> LinearRegression</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml <span class="im">import</span> Pipeline</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.evaluation <span class="im">import</span> RegressionEvaluator</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2: industry + remote + occupation + experience + AI flag</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df_model <span class="op">=</span> df_clean.<span class="bu">filter</span>(col(<span class="st">"SALARY_MID"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"NAICS_2022_2_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"REMOTE_TYPE_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"SOC_2021_2_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    .withColumn(<span class="st">"MIN_YEARS_EXP"</span>, col(<span class="st">"MIN_YEARS_EXPERIENCE"</span>).cast(<span class="st">"double"</span>)) <span class="op">\</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    .fillna({<span class="st">"MIN_YEARS_EXP"</span>: <span class="fl">0.0</span>})</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>industry_indexer <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"NAICS_2022_2_NAME"</span>, outputCol<span class="op">=</span><span class="st">"industry_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>remote_indexer <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"REMOTE_TYPE_NAME"</span>, outputCol<span class="op">=</span><span class="st">"remote_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>soc_indexer <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"SOC_2021_2_NAME"</span>, outputCol<span class="op">=</span><span class="st">"soc_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>assembler <span class="op">=</span> VectorAssembler(</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    inputCols<span class="op">=</span>[<span class="st">"industry_idx"</span>, <span class="st">"remote_idx"</span>, <span class="st">"soc_idx"</span>, <span class="st">"IS_AI_ROLE"</span>, <span class="st">"MIN_YEARS_EXP"</span>],</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    outputCol<span class="op">=</span><span class="st">"features"</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> LinearRegression(featuresCol<span class="op">=</span><span class="st">"features"</span>, labelCol<span class="op">=</span><span class="st">"SALARY_MID"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>pipeline <span class="op">=</span> Pipeline(stages<span class="op">=</span>[industry_indexer, remote_indexer, soc_indexer, assembler, lr])</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>train, test <span class="op">=</span> df_model.randomSplit([<span class="fl">0.8</span>, <span class="fl">0.2</span>], seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> pipeline.fit(train)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> model.transform(test)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>rmse <span class="op">=</span> RegressionEvaluator(labelCol<span class="op">=</span><span class="st">"SALARY_MID"</span>, predictionCol<span class="op">=</span><span class="st">"prediction"</span>, metricName<span class="op">=</span><span class="st">"rmse"</span>).evaluate(predictions)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> RegressionEvaluator(labelCol<span class="op">=</span><span class="st">"SALARY_MID"</span>, predictionCol<span class="op">=</span><span class="st">"prediction"</span>, metricName<span class="op">=</span><span class="st">"r2"</span>).evaluate(predictions)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"RMSE: $</span><span class="sc">{</span>rmse<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R2: </span><span class="sc">{</span>r2<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="results" class="level3">
 <h3 class="anchored" data-anchor-id="results">Results</h3>
@@ -224,7 +299,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="interpretation" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
-<p>Adding occupation category and experience improved R2 from 0.009 to 0.095 and reduced RMSE by roughly $1,400. However, the overall explanatory power remains modest. This is expected given that salary is also shaped by factors not present in this dataset, such as company size, specific technical skills, education level, and negotiation. The low R2 is itself a finding worth noting: structured job characteristics explain only a small portion of salary variance, which suggests that individual and firm level factors play a larger role in determining compensation.</p>
+<p>Adding occupation category and experience improved R2 from 0.009 to 0.095 and reduced RMSE by roughly $1,400. The overall explanatory power remains modest, which is expected given that salary is also shaped by factors not present in this dataset such as company size, specific technical skills, and education level.</p>
 </section>
 </section>
 <section id="classification-model-predicting-ai-vs-non-ai-roles" class="level2">
@@ -232,6 +307,29 @@ ul.task-list li input[type="checkbox"] {
 <section id="objective-1" class="level3">
 <h3 class="anchored" data-anchor-id="objective-1">Objective</h3>
 <p>This model attempts to classify whether a job posting is AI-related based on industry, remote work type, and occupation category.</p>
+</section>
+<section id="code-1" class="level3">
+<h3 class="anchored" data-anchor-id="code-1">Code</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.classification <span class="im">import</span> LogisticRegression</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.evaluation <span class="im">import</span> MulticlassClassificationEvaluator, BinaryClassificationEvaluator</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df_clf <span class="op">=</span> df_clean.<span class="bu">filter</span>(col(<span class="st">"NAICS_2022_2_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"REMOTE_TYPE_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"SOC_2021_2_NAME"</span>).isNotNull())</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>industry_idx <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"NAICS_2022_2_NAME"</span>, outputCol<span class="op">=</span><span class="st">"industry_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>remote_idx <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"REMOTE_TYPE_NAME"</span>, outputCol<span class="op">=</span><span class="st">"remote_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>soc_idx <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"SOC_2021_2_NAME"</span>, outputCol<span class="op">=</span><span class="st">"soc_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>assembler_clf <span class="op">=</span> VectorAssembler(inputCols<span class="op">=</span>[<span class="st">"industry_idx"</span>, <span class="st">"remote_idx"</span>, <span class="st">"soc_idx"</span>], outputCol<span class="op">=</span><span class="st">"features"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>lrc <span class="op">=</span> LogisticRegression(featuresCol<span class="op">=</span><span class="st">"features"</span>, labelCol<span class="op">=</span><span class="st">"IS_AI_ROLE"</span>, maxIter<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>pipeline_clf <span class="op">=</span> Pipeline(stages<span class="op">=</span>[industry_idx, remote_idx, soc_idx, assembler_clf, lrc])</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>train_clf, test_clf <span class="op">=</span> df_clf.randomSplit([<span class="fl">0.8</span>, <span class="fl">0.2</span>], seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>model_clf <span class="op">=</span> pipeline_clf.fit(train_clf)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>predictions_clf <span class="op">=</span> model_clf.transform(test_clf)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>predictions_clf.groupBy(<span class="st">"IS_AI_ROLE"</span>, <span class="st">"prediction"</span>).count().orderBy(<span class="st">"IS_AI_ROLE"</span>, <span class="st">"prediction"</span>).show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="results-1" class="level3">
 <h3 class="anchored" data-anchor-id="results-1">Results</h3>
@@ -260,6 +358,14 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="confusion-matrix" class="level3">
 <h3 class="anchored" data-anchor-id="confusion-matrix">Confusion Matrix</h3>
+<pre><code>+----------+----------+-----+
+|IS_AI_ROLE|prediction|count|
++----------+----------+-----+
+|         0|       0.0| 6869|
+|         0|       1.0|  825|
+|         1|       0.0| 5426|
+|         1|       1.0|  952|
++----------+----------+-----+</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="outputs/confusion_matrix.png" class="img-fluid figure-img"></p>
@@ -270,17 +376,55 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="interpretation-1" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation-1">Interpretation</h3>
-<p>The model performs only slightly better than random guessing. This finding is informative rather than disappointing. It suggests that AI-related roles are spread across industries and occupation categories rather than being concentrated in obvious segments. The distinction between AI and non-AI roles lives primarily in the specific skills and title language of the posting, not in its structural characteristics.</p>
+<p>The model performs only slightly better than random guessing. This suggests that AI-related roles are spread across industries and occupation categories rather than being concentrated in obvious segments. The distinction between AI and non-AI roles lives primarily in the specific skills and title language of the posting, not in its structural characteristics.</p>
 </section>
 </section>
 <section id="kmeans-clustering-salary-tiers" class="level2">
 <h2 class="anchored" data-anchor-id="kmeans-clustering-salary-tiers">KMeans Clustering: Salary Tiers</h2>
 <section id="objective-2" class="level3">
 <h3 class="anchored" data-anchor-id="objective-2">Objective</h3>
-<p>KMeans clustering was used to identify natural groupings in the job market based on industry, occupation, salary, and AI role status. Four clusters were specified based on the expectation that the market would segment into entry, mid, upper mid, and senior tiers.</p>
+<p>KMeans clustering was used to identify natural groupings in the job market based on industry, occupation, salary, and AI role status.</p>
+</section>
+<section id="code-2" class="level3">
+<h3 class="anchored" data-anchor-id="code-2">Code</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.clustering <span class="im">import</span> KMeans</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df_km <span class="op">=</span> df_clean.<span class="bu">filter</span>(col(<span class="st">"NAICS_2022_2_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"SOC_2021_2_NAME"</span>).isNotNull()) <span class="op">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"SALARY_MID"</span>).isNotNull())</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>industry_km <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"NAICS_2022_2_NAME"</span>, outputCol<span class="op">=</span><span class="st">"industry_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>soc_km <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"SOC_2021_2_NAME"</span>, outputCol<span class="op">=</span><span class="st">"soc_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>assembler_km <span class="op">=</span> VectorAssembler(</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    inputCols<span class="op">=</span>[<span class="st">"industry_idx"</span>, <span class="st">"soc_idx"</span>, <span class="st">"SALARY_MID"</span>, <span class="st">"IS_AI_ROLE"</span>],</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    outputCol<span class="op">=</span><span class="st">"features"</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>kmeans <span class="op">=</span> KMeans(featuresCol<span class="op">=</span><span class="st">"features"</span>, k<span class="op">=</span><span class="dv">4</span>, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>pipeline_km <span class="op">=</span> Pipeline(stages<span class="op">=</span>[industry_km, soc_km, assembler_km, kmeans])</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>model_km <span class="op">=</span> pipeline_km.fit(df_km)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> model_km.transform(df_km)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>clusters.groupBy(<span class="st">"prediction"</span>, <span class="st">"IS_AI_ROLE"</span>) <span class="op">\</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    .avg(<span class="st">"SALARY_MID"</span>) <span class="op">\</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    .orderBy(<span class="st">"prediction"</span>, <span class="st">"IS_AI_ROLE"</span>) <span class="op">\</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    .show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="results-2" class="level3">
 <h3 class="anchored" data-anchor-id="results-2">Results</h3>
+<pre><code>+----------+----------+------------------+
+|prediction|IS_AI_ROLE|   avg(SALARY_MID)|
++----------+----------+------------------+
+|         0|         0| 82527.93027166883|
+|         0|         1| 82259.38657105606|
+|         1|         0|114743.48156257602|
+|         1|         1|114706.52900810979|
+|         2|         0|177965.12350242163|
+|         2|         1| 180190.9214202561|
+|         3|         0| 47270.14509564509|
+|         3|         1| 50669.67723880597|
++----------+----------+------------------+</code></pre>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -320,7 +464,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="interpretation-2" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation-2">Interpretation</h3>
-<p>The clustering produced four well-separated salary tiers that are intuitive and interpretable. The most striking pattern is that within every cluster, AI and non-AI roles earn nearly identical average salaries. The salary tier a job belongs to is determined by its occupation and industry profile, not by whether it involves AI. This finding is consistent across all three models and forms the central conclusion of this analysis: AI designation alone does not drive salary. Structural job characteristics and market positioning matter more.</p>
+<p>The clustering produced four well-separated salary tiers. The most striking pattern is that within every cluster, AI and non-AI roles earn nearly identical average salaries. The salary tier a job belongs to is determined by its occupation and industry profile, not by whether it involves AI. This finding is consistent across all three models: AI designation alone does not drive salary. Structural job characteristics and market positioning matter more.</p>
 
 
 </section>
