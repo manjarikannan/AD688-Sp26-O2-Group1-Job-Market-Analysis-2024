@@ -501,7 +501,7 @@
     "href": "index.html",
     "title": "Job Market Analysis 2024",
     "section": "",
-    "text": "This project analyzes 2024 labor market trends using Lightcast job posting data. The goal is to understand how salaries, skills, industries, remote work, and predictive modeling can help job seekers make better career decisions.\n\n\nOur analysis explores:\n\njob market demand across roles and industries\nsalary and compensation patterns\nremote versus on site opportunities\npredictive models for salary and job classification\nskill gaps between student preparation and market expectations\n\n\n\n\nUse the navigation bar above to explore the project:\n\nProject Overview\nData Preparation\nExploratory Analysis\nPredictive Modeling\nSkill Gap Analysis\nCareer Strategy"
+    "text": "This project analyzes 2024 labor market trends using Lightcast job posting data. The goal is to understand how salaries, skills, industries, remote work, and predictive modeling can help job seekers make better career decisions.\n\n\nOur analysis explores:\n\njob market demand across roles and industries\nsalary and compensation patterns\nremote versus on site opportunities\npredictive models for salary and job classification\nskill gaps between student preparation and market expectations"
   },
   {
     "objectID": "index.html#project-focus",
@@ -509,13 +509,6 @@
     "title": "Job Market Analysis 2024",
     "section": "",
     "text": "Our analysis explores:\n\njob market demand across roles and industries\nsalary and compensation patterns\nremote versus on site opportunities\npredictive models for salary and job classification\nskill gaps between student preparation and market expectations"
-  },
-  {
-    "objectID": "index.html#website-sections",
-    "href": "index.html#website-sections",
-    "title": "Job Market Analysis 2024",
-    "section": "",
-    "text": "Use the navigation bar above to explore the project:\n\nProject Overview\nData Preparation\nExploratory Analysis\nPredictive Modeling\nSkill Gap Analysis\nCareer Strategy"
   },
   {
     "objectID": "data_cleaning.html",
