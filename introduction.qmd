@@ -11,8 +11,6 @@ format:
     toc: true
 ---
 
-# Project Overview
-
 ## Objective
 
 This project examines job market trends in 2024 from the perspective of job seekers rather than recruiters. Using Lightcast data, we analyze hiring patterns, salaries, skills, and labor market conditions to understand how students can position themselves more effectively.
@@ -30,6 +28,7 @@ Rapid changes in AI adoption, salary patterns, remote work, and employer skill e
 ## Planned Analysis
 
 This project includes:
+
 - data cleaning and preprocessing
 - exploratory data analysis
 - unsupervised learning with KMeans clustering
@@ -38,9 +37,3 @@ This project includes:
 - career recommendations for job seekers
 
 ## References
-
-- Dominski, J., and Y. S. Lee (2025): "Advancing AI Capabilities and Evolving Labor Outcomes."
-
-- Padmanabha, C. H. (2024): "The Impact of Artificial Intelligence on Employment and Wage Inequality."
-
-- Dahlin, E. (2024): "Who says artificial intelligence is stealing our jobs?" *Socius*, 10, 23780231241259672.

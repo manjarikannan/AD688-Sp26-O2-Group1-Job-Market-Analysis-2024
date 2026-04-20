@@ -193,7 +193,7 @@
     "href": "introduction.html",
     "title": "Personal Career Path Decisions in 2024",
     "section": "",
-    "text": "This project examines job market trends in 2024 from the perspective of job seekers rather than recruiters. Using Lightcast data, we analyze hiring patterns, salaries, skills, and labor market conditions to understand how students can position themselves more effectively.\n\n\n\nOur project asks:\nWhat trends in the 2024 job market can help students and early career professionals make better career decisions?\n\n\n\nRapid changes in AI adoption, salary patterns, remote work, and employer skill expectations make the job market harder to navigate. A data driven approach helps identify which roles are growing, which skills matter most, and what kinds of jobs offer the best opportunities (Dominski and Lee (2025)).\n\n\n\nThis project includes: - data cleaning and preprocessing - exploratory data analysis - unsupervised learning with KMeans clustering - supervised modeling using regression and classification - skill gap analysis - career recommendations for job seekers\n\n\n\n\nDominski, J., and Y. S. Lee (2025): “Advancing AI Capabilities and Evolving Labor Outcomes.”\nPadmanabha, C. H. (2024): “The Impact of Artificial Intelligence on Employment and Wage Inequality.”\nDahlin, E. (2024): “Who says artificial intelligence is stealing our jobs?” Socius, 10, 23780231241259672."
+    "text": "This project examines job market trends in 2024 from the perspective of job seekers rather than recruiters. Using Lightcast data, we analyze hiring patterns, salaries, skills, and labor market conditions to understand how students can position themselves more effectively."
   },
   {
     "objectID": "introduction.html#objective",
@@ -206,29 +206,22 @@
     "objectID": "introduction.html#research-question",
     "href": "introduction.html#research-question",
     "title": "Personal Career Path Decisions in 2024",
-    "section": "",
-    "text": "Our project asks:\nWhat trends in the 2024 job market can help students and early career professionals make better career decisions?"
+    "section": "Research Question",
+    "text": "Research Question\nOur project asks:\nWhat trends in the 2024 job market can help students and early career professionals make better career decisions?"
   },
   {
     "objectID": "introduction.html#why-this-matters",
     "href": "introduction.html#why-this-matters",
     "title": "Personal Career Path Decisions in 2024",
-    "section": "",
-    "text": "Rapid changes in AI adoption, salary patterns, remote work, and employer skill expectations make the job market harder to navigate. A data driven approach helps identify which roles are growing, which skills matter most, and what kinds of jobs offer the best opportunities (Dominski and Lee (2025))."
+    "section": "Why This Matters",
+    "text": "Why This Matters\nRapid changes in AI adoption, salary patterns, remote work, and employer skill expectations make the job market harder to navigate. A data driven approach helps identify which roles are growing, which skills matter most, and what kinds of jobs offer the best opportunities (Dominski and Lee (2025))."
   },
   {
     "objectID": "introduction.html#planned-analysis",
     "href": "introduction.html#planned-analysis",
     "title": "Personal Career Path Decisions in 2024",
-    "section": "",
-    "text": "This project includes: - data cleaning and preprocessing - exploratory data analysis - unsupervised learning with KMeans clustering - supervised modeling using regression and classification - skill gap analysis - career recommendations for job seekers"
-  },
-  {
-    "objectID": "introduction.html#references",
-    "href": "introduction.html#references",
-    "title": "Personal Career Path Decisions in 2024",
-    "section": "",
-    "text": "Dominski, J., and Y. S. Lee (2025): “Advancing AI Capabilities and Evolving Labor Outcomes.”\nPadmanabha, C. H. (2024): “The Impact of Artificial Intelligence on Employment and Wage Inequality.”\nDahlin, E. (2024): “Who says artificial intelligence is stealing our jobs?” Socius, 10, 23780231241259672."
+    "section": "Planned Analysis",
+    "text": "Planned Analysis\nThis project includes:\n\ndata cleaning and preprocessing\nexploratory data analysis\nunsupervised learning with KMeans clustering\nsupervised modeling using regression and classification\nskill gap analysis\ncareer recommendations for job seekers"
   },
   {
     "objectID": "data_cleaning.html",
@@ -340,14 +333,14 @@
     "href": "final_report.html#planned-analysis",
     "title": "Evaluating Personal Job Market Prospects in 2024",
     "section": "Planned Analysis",
-    "text": "Planned Analysis\nThis project includes: - data cleaning and preprocessing - exploratory data analysis - unsupervised learning with KMeans clustering - supervised modeling using regression and classification - skill gap analysis - career recommendations for job seekers"
+    "text": "Planned Analysis\nThis project includes:\n\ndata cleaning and preprocessing\nexploratory data analysis\nunsupervised learning with KMeans clustering\nsupervised modeling using regression and classification\nskill gap analysis\ncareer recommendations for job seekers"
   },
   {
     "objectID": "final_report.html#references",
     "href": "final_report.html#references",
     "title": "Evaluating Personal Job Market Prospects in 2024",
     "section": "References",
-    "text": "References\n\nDominski, J., and Y. S. Lee (2025): “Advancing AI Capabilities and Evolving Labor Outcomes.”\nPadmanabha, C. H. (2024): “The Impact of Artificial Intelligence on Employment and Wage Inequality.”\nDahlin, E. (2024): “Who says artificial intelligence is stealing our jobs?” Socius, 10, 23780231241259672.\n\n\ntitle: “Data Preparation”"
+    "text": "References\n\ntitle: “Data Preparation”"
   },
   {
     "objectID": "final_report.html#overview",
