@@ -23,6 +23,7 @@ format:
     theme: cosmo
     toc: true
     code-fold: true
+    css: custom.css
 bibliography: references.bib
 csl: ./csl/econometrica.csl
 execute:
