@@ -2,6 +2,8 @@
 title: "Personal Career Path Decisions in 2024"
 author: "Manjari Kannan, Nicholas Decesaris, Oscar Quintero"
 date: today
+nocite: |
+  @dominski2025advancingaicapabilitiesevolving, @PadmanabhaC.H.2024Ntjm, @doi:10.1177/23780231241259672
 format:
   html:
     bibliography: references.bib
