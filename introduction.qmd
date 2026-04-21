@@ -38,4 +38,12 @@ This project includes:
 - skill gap analysis
 - career recommendations for job seekers
 
+## All References Used:
+
+- Dominski, J., and Y. S. Lee (2025): "Advancing AI Capabilities and Evolving Labor Outcomes."
+
+- Padmanabha, C. H. (2024): "The Impact of Artificial Intelligence on Employment and Wage Inequality."
+
+- Dahlin, E. (2024): "Who says artificial intelligence is stealing our jobs?" *Socius*, 10, 23780231241259672.
+
 ## References
