@@ -374,7 +374,7 @@ div.csl-indent {
 </section>
 <section id="example-python-cleaning-code" class="level2">
 <h2 class="anchored" data-anchor-id="example-python-cleaning-code">Example Python Cleaning Code</h2>
-<div id="78a69126" class="cell" data-execution_count="1">
+<div id="8809e0c6" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql <span class="im">import</span> functions <span class="im">as</span> F</span>
@@ -407,7 +407,7 @@ div.csl-indent {
 </section>
 <section id="example-missing-value-handling" class="level2">
 <h2 class="anchored" data-anchor-id="example-missing-value-handling">Example Missing Value Handling</h2>
-<div id="2ed2f57b" class="cell" data-execution_count="2">
+<div id="b387d9db" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>median_salary <span class="op">=</span> df_clean.approxQuantile(<span class="st">"SALARY"</span>, [<span class="fl">0.5</span>], <span class="fl">0.01</span>)[<span class="dv">0</span>]</span>
@@ -427,7 +427,7 @@ div.csl-indent {
 </section>
 <section id="example-duplicate-removal" class="level2">
 <h2 class="anchored" data-anchor-id="example-duplicate-removal">Example Duplicate Removal</h2>
-<div id="9c4e1f09" class="cell" data-execution_count="3">
+<div id="e68ba834" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df_clean.dropDuplicates([</span>
@@ -471,7 +471,7 @@ div.csl-indent {
 <section id="defining-ai-vs-non-ai-roles" class="level2">
 <h2 class="anchored" data-anchor-id="defining-ai-vs-non-ai-roles">Defining AI vs Non-AI Roles</h2>
 <p>To distinguish AI-related jobs from the rest of the dataset, we flagged any posting where the job title or skills field contained keywords such as “ai”, “machine learning”, “artificial intelligence”, “deep learning”, “data science”, “nlp”, “llm”, or “neural network”.</p>
-<div id="0ac4548b" class="cell" data-execution_count="4">
+<div id="188bfd84" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> col, when, lower</span>
@@ -500,7 +500,7 @@ div.csl-indent {
 </section>
 <section id="salary-distribution-ai-vs-non-ai" class="level2">
 <h2 class="anchored" data-anchor-id="salary-distribution-ai-vs-non-ai">Salary Distribution: AI vs Non-AI</h2>
-<div id="7c405c51" class="cell" data-execution_count="5">
+<div id="ba604531" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>salary_df <span class="op">=</span> df_clean.select(<span class="st">"SALARY_MID"</span>, <span class="st">"IS_AI_ROLE"</span>) <span class="op">\</span></span>
@@ -524,7 +524,7 @@ div.csl-indent {
 </section>
 <section id="average-salary-by-industry-ai-vs-non-ai" class="level2">
 <h2 class="anchored" data-anchor-id="average-salary-by-industry-ai-vs-non-ai">Average Salary by Industry: AI vs Non-AI</h2>
-<div id="014fe8f7" class="cell" data-execution_count="6">
+<div id="dc385000" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> <span class="bu">round</span> <span class="im">as</span> spark_round</span>
@@ -558,7 +558,7 @@ div.csl-indent {
 </section>
 <section id="top-industries-by-ai-job-posting-count" class="level2">
 <h2 class="anchored" data-anchor-id="top-industries-by-ai-job-posting-count">Top Industries by AI Job Posting Count</h2>
-<div id="6393366f" class="cell" data-execution_count="7">
+<div id="dfb801ae" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> desc</span>
@@ -611,7 +611,7 @@ div.csl-indent {
 </section>
 <section id="code" class="level3">
 <h3 class="anchored" data-anchor-id="code">Code</h3>
-<div id="df601f67" class="cell" data-execution_count="8">
+<div id="1f2417d4" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.feature <span class="im">import</span> StringIndexer, VectorAssembler</span>
@@ -691,7 +691,7 @@ div.csl-indent {
 </section>
 <section id="code-1" class="level3">
 <h3 class="anchored" data-anchor-id="code-1">Code</h3>
-<div id="4c1d0315" class="cell" data-execution_count="9">
+<div id="6857ac49" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.classification <span class="im">import</span> LogisticRegression</span>
@@ -773,7 +773,7 @@ div.csl-indent {
 </section>
 <section id="code-2" class="level3">
 <h3 class="anchored" data-anchor-id="code-2">Code</h3>
-<div id="4d2ab342" class="cell" data-execution_count="10">
+<div id="a18c619f" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.clustering <span class="im">import</span> KMeans</span>
