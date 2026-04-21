@@ -4,7 +4,7 @@
     "href": "final_report.html",
     "title": "Career Strategy",
     "section": "",
-    "text": "title: “Personal Career Path Decisions in 2024” author: “Manjari Kannan, Nicholas Decesaris, Oscar Quintero” date: today format: html: bibliography: references.bib csl: csl/econometrica.csl toc: true docx: toc: true —"
+    "text": "title: “Personal Career Path Decisions in 2024” author: “Manjari Kannan, Nicholas Decesaris, Oscar Quintero” date: today nocite: | Dominski and Lee ((2025)), Padmanabha, Venkatesh, and Shwetha ((2024)), Dahlin ((2024)) format: html: bibliography: references.bib csl: csl/econometrica.csl toc: true docx: toc: true —"
   },
   {
     "objectID": "final_report.html#objective",
