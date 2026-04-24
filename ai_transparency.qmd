@@ -1,0 +1,11 @@
+---
+title: "AI Transparency"
+---
+
+This project used Claude (Sonnet 4.6, Anthropic) as an AI assistant throughout the development process. A lot of this project involved tools and workflows that were new to me, so the approach was a mix of using the professor's lecture videos as the primary reference and turning to Claude when something wasn't working or I wasn't sure why.
+
+Claude helped with things like PySpark syntax, debugging data pipeline errors, and troubleshooting issues that came up along the way. Some of the more specific problems it helped with included figuring out that the SALARY column actually contained SOC occupation codes instead of salary values, fixing a git history issue after large files were accidentally committed, getting kaleido and Chrome set up for Plotly image export, and sorting out a citation key mismatch in the BibTeX file.
+
+It also helped with structuring the Quarto pages, catching grammatical errors in the written sections, and giving guidance on how to approach the machine learning models and their evaluation.
+
+That said, all of the actual decisions about what to analyze, which features to use, how to interpret the results, and what conclusions to draw were mine. Claude was used as a tool to help get things working and to improve the writing, not to make analytical or research decisions. The dataset, models, and findings are original work.
