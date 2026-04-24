@@ -234,7 +234,7 @@ div.csl-indent {
   <li><a href="#confusion-matrix" id="toc-confusion-matrix" class="nav-link" data-scroll-target="#confusion-matrix">Confusion Matrix</a></li>
   <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">Interpretation</a></li>
   </ul></li>
-  <li><a href="#kmeans-clustering-salary-tiers" id="toc-kmeans-clustering-salary-tiers" class="nav-link" data-scroll-target="#kmeans-clustering-salary-tiers">KMeans Clustering: Salary Tiers</a>
+  <li><a href="#kmeans-clustering-job-market-segmentation" id="toc-kmeans-clustering-job-market-segmentation" class="nav-link" data-scroll-target="#kmeans-clustering-job-market-segmentation">KMeans Clustering: Job Market Segmentation</a>
   <ul class="collapse">
   <li><a href="#objective-3" id="toc-objective-3" class="nav-link" data-scroll-target="#objective-3">Objective</a></li>
   <li><a href="#code-2" id="toc-code-2" class="nav-link" data-scroll-target="#code-2">Code</a></li>
@@ -374,7 +374,7 @@ div.csl-indent {
 </section>
 <section id="example-python-cleaning-code" class="level2">
 <h2 class="anchored" data-anchor-id="example-python-cleaning-code">Example Python Cleaning Code</h2>
-<div id="595f4796" class="cell" data-execution_count="1">
+<div id="73ab29b5" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql <span class="im">import</span> functions <span class="im">as</span> F</span>
@@ -407,7 +407,7 @@ div.csl-indent {
 </section>
 <section id="example-missing-value-handling" class="level2">
 <h2 class="anchored" data-anchor-id="example-missing-value-handling">Example Missing Value Handling</h2>
-<div id="d4fbf6b6" class="cell" data-execution_count="2">
+<div id="c59011c3" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>median_salary <span class="op">=</span> df_clean.approxQuantile(<span class="st">"SALARY"</span>, [<span class="fl">0.5</span>], <span class="fl">0.01</span>)[<span class="dv">0</span>]</span>
@@ -427,7 +427,7 @@ div.csl-indent {
 </section>
 <section id="example-duplicate-removal" class="level2">
 <h2 class="anchored" data-anchor-id="example-duplicate-removal">Example Duplicate Removal</h2>
-<div id="25402558" class="cell" data-execution_count="3">
+<div id="b35f1e5f" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df_clean.dropDuplicates([</span>
@@ -471,7 +471,7 @@ div.csl-indent {
 <section id="defining-ai-vs-non-ai-roles" class="level2">
 <h2 class="anchored" data-anchor-id="defining-ai-vs-non-ai-roles">Defining AI vs Non-AI Roles</h2>
 <p>To distinguish AI-related jobs from the rest of the dataset, we flagged any posting where the job title or skills field contained keywords such as “ai”, “machine learning”, “artificial intelligence”, “deep learning”, “data science”, “nlp”, “llm”, or “neural network”.</p>
-<div id="cd289b4d" class="cell" data-execution_count="4">
+<div id="620a1a15" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> col, when, lower</span>
@@ -500,7 +500,7 @@ div.csl-indent {
 </section>
 <section id="salary-distribution-ai-vs-non-ai" class="level2">
 <h2 class="anchored" data-anchor-id="salary-distribution-ai-vs-non-ai">Salary Distribution: AI vs Non-AI</h2>
-<div id="37349818" class="cell" data-execution_count="5">
+<div id="98490c0b" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>salary_df <span class="op">=</span> df_clean.select(<span class="st">"SALARY_MID"</span>, <span class="st">"IS_AI_ROLE"</span>) <span class="op">\</span></span>
@@ -524,7 +524,7 @@ div.csl-indent {
 </section>
 <section id="average-salary-by-industry-ai-vs-non-ai" class="level2">
 <h2 class="anchored" data-anchor-id="average-salary-by-industry-ai-vs-non-ai">Average Salary by Industry: AI vs Non-AI</h2>
-<div id="b07d7378" class="cell" data-execution_count="6">
+<div id="96823451" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> <span class="bu">round</span> <span class="im">as</span> spark_round</span>
@@ -558,7 +558,7 @@ div.csl-indent {
 </section>
 <section id="top-industries-by-ai-job-posting-count" class="level2">
 <h2 class="anchored" data-anchor-id="top-industries-by-ai-job-posting-count">Top Industries by AI Job Posting Count</h2>
-<div id="9f060837" class="cell" data-execution_count="7">
+<div id="d5a4c7ac" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> desc</span>
@@ -597,7 +597,7 @@ div.csl-indent {
 </section>
 <section id="overview-2" class="level2">
 <h2 class="anchored" data-anchor-id="overview-2">Overview</h2>
-<p>This section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural salary tiers across the job market.</p>
+<p>This section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural groupings in the job market based on industry and occupation profile.</p>
 </section>
 <section id="regression-model-predicting-salary" class="level2">
 <h2 class="anchored" data-anchor-id="regression-model-predicting-salary">Regression Model: Predicting Salary</h2>
@@ -611,7 +611,7 @@ div.csl-indent {
 </section>
 <section id="code" class="level3">
 <h3 class="anchored" data-anchor-id="code">Code</h3>
-<div id="6c5c6284" class="cell" data-execution_count="8">
+<div id="09aa7209" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.feature <span class="im">import</span> StringIndexer, VectorAssembler</span>
@@ -680,7 +680,7 @@ div.csl-indent {
 </section>
 <section id="interpretation" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
-<p>Adding occupation category and experience improved R2 from 0.009 to 0.095 and reduced RMSE by roughly $1,400. The overall explanatory power remains modest, which is expected given that salary is also shaped by factors not present in this dataset such as company size, specific technical skills, and education level.</p>
+<p>Model 1 has an R2 of 0.0094, meaning it explains less than 1% of salary variance. Adding occupation category and years of experience in Model 2 improved R2 to approximately 9.5% and reduced RMSE by roughly $1,400. While this represents a meaningful improvement, the overall explanatory power remains modest. This is an informative finding rather than a limitation — it indicates that the publicly observable characteristics of a job posting explain very little of what determines salary. Factors such as company size, individual negotiation, specific technical depth, and internal compensation structures account for the remaining variance. Salary is far more individualized than any job listing captures.</p>
 </section>
 </section>
 <section id="classification-model-predicting-ai-vs-non-ai-roles" class="level2">
@@ -691,7 +691,7 @@ div.csl-indent {
 </section>
 <section id="code-1" class="level3">
 <h3 class="anchored" data-anchor-id="code-1">Code</h3>
-<div id="dbd33531" class="cell" data-execution_count="9">
+<div id="a3a50c97" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.classification <span class="im">import</span> LogisticRegression</span>
@@ -762,18 +762,18 @@ div.csl-indent {
 </section>
 <section id="interpretation-1" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation-1">Interpretation</h3>
-<p>The model performs only slightly better than random guessing. This suggests that AI-related roles are spread across industries and occupation categories rather than being concentrated in obvious segments. The distinction between AI and non-AI roles lives primarily in the specific skills and title language of the posting, not in its structural characteristics.</p>
+<p>The model performs only slightly better than random guessing. This suggests that AI-related roles are spread across industries and occupation categories rather than being concentrated in obvious segments. What distinguishes an AI role is the specific language in the job title and required skills, not the broader structural features used here. Students searching for AI roles should focus on job titles and skills requirements directly rather than filtering by industry or occupation type alone.</p>
 </section>
 </section>
-<section id="kmeans-clustering-salary-tiers" class="level2">
-<h2 class="anchored" data-anchor-id="kmeans-clustering-salary-tiers">KMeans Clustering: Salary Tiers</h2>
+<section id="kmeans-clustering-job-market-segmentation" class="level2">
+<h2 class="anchored" data-anchor-id="kmeans-clustering-job-market-segmentation">KMeans Clustering: Job Market Segmentation</h2>
 <section id="objective-3" class="level3">
 <h3 class="anchored" data-anchor-id="objective-3">Objective</h3>
-<p>KMeans clustering was used to identify natural groupings in the job market based on industry, occupation, salary, and AI role status.</p>
+<p>KMeans clustering was used to identify natural groupings in the job market based on industry, occupation category, and AI role status. Salary was intentionally excluded as a clustering feature and instead observed as an outcome across clusters to avoid circularity.</p>
 </section>
 <section id="code-2" class="level3">
 <h3 class="anchored" data-anchor-id="code-2">Code</h3>
-<div id="67e642cc" class="cell" data-execution_count="10">
+<div id="723fdbb3" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.clustering <span class="im">import</span> KMeans</span>
@@ -785,7 +785,7 @@ div.csl-indent {
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>industry_km <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"NAICS_2022_2_NAME"</span>, outputCol<span class="op">=</span><span class="st">"industry_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>soc_km <span class="op">=</span> StringIndexer(inputCol<span class="op">=</span><span class="st">"SOC_2021_2_NAME"</span>, outputCol<span class="op">=</span><span class="st">"soc_idx"</span>, handleInvalid<span class="op">=</span><span class="st">"skip"</span>)</span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>assembler_km <span class="op">=</span> VectorAssembler(</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    inputCols<span class="op">=</span>[<span class="st">"industry_idx"</span>, <span class="st">"soc_idx"</span>, <span class="st">"SALARY_MID"</span>, <span class="st">"IS_AI_ROLE"</span>],</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    inputCols<span class="op">=</span>[<span class="st">"industry_idx"</span>, <span class="st">"soc_idx"</span>, <span class="st">"IS_AI_ROLE"</span>],</span>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    outputCol<span class="op">=</span><span class="st">"features"</span></span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
@@ -798,7 +798,9 @@ div.csl-indent {
 <span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>clusters.groupBy(<span class="st">"prediction"</span>, <span class="st">"IS_AI_ROLE"</span>) <span class="op">\</span></span>
 <span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    .avg(<span class="st">"SALARY_MID"</span>) <span class="op">\</span></span>
 <span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    .orderBy(<span class="st">"prediction"</span>, <span class="st">"IS_AI_ROLE"</span>) <span class="op">\</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    .show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    .show()</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>clusters.groupBy(<span class="st">"prediction"</span>).count().orderBy(<span class="st">"prediction"</span>).show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
@@ -807,55 +809,65 @@ div.csl-indent {
 <pre><code>+----------+----------+------------------+
 |prediction|IS_AI_ROLE|   avg(SALARY_MID)|
 +----------+----------+------------------+
-|         0|         0| 82527.93027166883|
-|         0|         1| 82259.38657105606|
-|         1|         0|114743.48156257602|
-|         1|         1|114706.52900810979|
-|         2|         0|177965.12350242163|
-|         2|         1| 180190.9214202561|
-|         3|         0| 47270.14509564509|
-|         3|         1| 50669.67723880597|
-+----------+----------+------------------+</code></pre>
+|         0|         0|116955.04511258555|
+|         0|         1|116227.77811139468|
+|         1|         0|105665.59209323583|
+|         1|         1|110155.23738170347|
+|         2|         0|103838.20879984286|
+|         2|         1|105275.40979489326|
+|         3|         0|114011.06655818384|
+|         3|         1|114671.99140005348|
++----------+----------+------------------+
+
++----------+-----+
+|prediction|count|
++----------+-----+
+|         0|32463|
+|         1| 4724|
+|         2| 9869|
+|         3|23819|
++----------+-----+</code></pre>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Cluster</th>
+<th>Job Count</th>
 <th>Avg Salary (Non-AI)</th>
 <th>Avg Salary (AI)</th>
-<th>Job Count</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Entry Level</td>
-<td>$47,270</td>
-<td>$50,670</td>
-<td>4,601</td>
+<td>Cluster 0</td>
+<td>32,463</td>
+<td>$116,955</td>
+<td>$116,228</td>
 </tr>
 <tr class="even">
-<td>Mid Level</td>
-<td>$82,528</td>
-<td>$82,259</td>
-<td>7,700</td>
+<td>Cluster 1</td>
+<td>4,724</td>
+<td>$105,666</td>
+<td>$110,155</td>
 </tr>
 <tr class="odd">
-<td>Upper Mid Level</td>
-<td>$114,743</td>
-<td>$114,707</td>
-<td>51,215</td>
+<td>Cluster 2</td>
+<td>9,869</td>
+<td>$103,838</td>
+<td>$105,275</td>
 </tr>
 <tr class="even">
-<td>Senior Level</td>
-<td>$177,965</td>
-<td>$180,191</td>
-<td>7,359</td>
+<td>Cluster 3</td>
+<td>23,819</td>
+<td>$114,011</td>
+<td>$114,672</td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="interpretation-2" class="level3">
 <h3 class="anchored" data-anchor-id="interpretation-2">Interpretation</h3>
-<p>The clustering produced four well-separated salary tiers. The most striking pattern is that within every cluster, AI and non-AI roles earn nearly identical average salaries. The salary tier a job belongs to is determined by its occupation and industry profile, not by whether it involves AI. This finding is consistent across all three models: AI designation alone does not drive salary. Structural job characteristics and market positioning matter more.</p>
+<p>When clustering on industry, occupation, and AI role status without salary as a feature, the four clusters represent distinct job market segments defined by structural characteristics rather than compensation. Observing salary as an outcome across these clusters, the average salaries range from approximately $104,000 to $117,000 — a narrow spread of roughly $13,000 across all groups.</p>
+<p>This finding is consistent with the regression results. Structural job characteristics such as industry and occupation category explain very little salary variation. Within every cluster, AI and non-AI roles also earn similar average salaries, reinforcing the central conclusion of this analysis: AI designation alone does not meaningfully drive compensation. The factors that matter most — company, experience depth, negotiation, and individual skill profile — are not captured in job posting data.</p>
 </section>
 </section>
 <section id="overview-3" class="level2">
