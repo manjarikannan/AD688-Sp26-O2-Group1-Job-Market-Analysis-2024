@@ -1,0 +1,9 @@
+---
+title: "Team Contributions"
+---
+
+- **Manjari Kannan** — built the Quarto website structure and navigation, handled data cleaning and preprocessing in PySpark including salary column identification, missing value imputation, and duplicate removal, developed the AI vs Non-AI role classification using keyword matching, conducted exploratory data analysis across salary, industry, and job posting trends, built and evaluated the regression, classification, and clustering models, completed the skill gap analysis, wrote the analysis and interpretation for each section of the report, converted visualizations to interactive Plotly charts, managed GitHub and GitHub Pages deployment throughout the project, designed and formatted the final presentation including all visual layout and slide content, and addressed all professor feedback including correcting the KMeans clustering methodology to remove salary as a feature and fixing the R-squared interpretation across the regression results
+
+- **Oscar Quintero** — sourced, researched, and formatted the academic references in BibTeX for the literature review
+
+- **Nicholas Decesaris** — created the initial organization and structure for the final presentation
