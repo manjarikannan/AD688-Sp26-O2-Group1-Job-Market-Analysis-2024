@@ -420,6 +420,13 @@
     "text": "Recommendations\nStudents aiming for AI-related roles should prioritize Python, Tableau, and applied data science coursework. Those targeting traditional business or operations roles will benefit from developing familiarity with SAP and structured business process skills. In either path, SQL, communication, and analytical thinking remain the most universally valued capabilities in the current labor market."
   },
   {
+    "objectID": "contributions.html",
+    "href": "contributions.html",
+    "title": "Team Contributions",
+    "section": "",
+    "text": "Manjari Kannan — built the Quarto website structure and navigation, handled data cleaning and preprocessing in PySpark including salary column identification, missing value imputation, and duplicate removal, developed the AI vs Non-AI role classification using keyword matching, conducted exploratory data analysis across salary, industry, and job posting trends, built and evaluated the regression, classification, and clustering models, completed the skill gap analysis, wrote the analysis and interpretation for each section of the report, converted visualizations to interactive Plotly charts, managed GitHub and GitHub Pages deployment throughout the project, designed and formatted the final presentation including all visual layout and slide content, and addressed all professor feedback including correcting the KMeans clustering methodology to remove salary as a feature and fixing the R-squared interpretation across the regression results\nOscar Quintero — sourced, researched, and formatted the academic references in BibTeX for the literature review\nNicholas Decesaris — created the initial organization and structure for the final presentation"
+  },
+  {
     "objectID": "introduction.html",
     "href": "introduction.html",
     "title": "Personal Career Path Decisions in 2024",
