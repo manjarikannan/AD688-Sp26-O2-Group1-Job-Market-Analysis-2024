@@ -4,7 +4,7 @@ title: "Predictive Modeling"
 
 ## Overview
 
-This section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural salary tiers across the job market.
+This section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural groupings in the job market based on industry and occupation profile.
 
 ## Regression Model: Predicting Salary
 
@@ -65,7 +65,7 @@ print(f"R2: {r2:.4f}")
 
 ### Interpretation
 
-Adding occupation category and experience improved R2 from 0.009 to 0.095 and reduced RMSE by roughly $1,400. The overall explanatory power remains modest, which is expected given that salary is also shaped by factors not present in this dataset such as company size, specific technical skills, and education level.
+Model 1 has an R2 of 0.0094, meaning it explains less than 1% of salary variance. Adding occupation category and years of experience in Model 2 improved R2 to approximately 9.5% and reduced RMSE by roughly $1,400. While this represents a meaningful improvement, the overall explanatory power remains modest. This is an informative finding rather than a limitation — it indicates that the publicly observable characteristics of a job posting explain very little of what determines salary. Factors such as company size, individual negotiation, specific technical depth, and internal compensation structures account for the remaining variance. Salary is far more individualized than any job listing captures.
 
 ## Classification Model: Predicting AI vs Non-AI Roles
 
@@ -126,13 +126,13 @@ The confusion matrix shows that the model correctly identifies most non-AI roles
 
 ### Interpretation
 
-The model performs only slightly better than random guessing. This suggests that AI-related roles are spread across industries and occupation categories rather than being concentrated in obvious segments. The distinction between AI and non-AI roles lives primarily in the specific skills and title language of the posting, not in its structural characteristics.
+The model performs only slightly better than random guessing. This suggests that AI-related roles are spread across industries and occupation categories rather than being concentrated in obvious segments. What distinguishes an AI role is the specific language in the job title and required skills, not the broader structural features used here. Students searching for AI roles should focus on job titles and skills requirements directly rather than filtering by industry or occupation type alone.
 
-## KMeans Clustering: Salary Tiers
+## KMeans Clustering: Job Market Segmentation
 
 ### Objective
 
-KMeans clustering was used to identify natural groupings in the job market based on industry, occupation, salary, and AI role status.
+KMeans clustering was used to identify natural groupings in the job market based on industry, occupation category, and AI role status. Salary was intentionally excluded as a clustering feature and instead observed as an outcome across clusters to avoid circularity.
 
 ### Code
 
@@ -147,7 +147,7 @@ df_km = df_clean.filter(col("NAICS_2022_2_NAME").isNotNull()) \
 industry_km = StringIndexer(inputCol="NAICS_2022_2_NAME", outputCol="industry_idx", handleInvalid="skip")
 soc_km = StringIndexer(inputCol="SOC_2021_2_NAME", outputCol="soc_idx", handleInvalid="skip")
 assembler_km = VectorAssembler(
-    inputCols=["industry_idx", "soc_idx", "SALARY_MID", "IS_AI_ROLE"],
+    inputCols=["industry_idx", "soc_idx", "IS_AI_ROLE"],
     outputCol="features"
 )
 
@@ -161,6 +161,8 @@ clusters.groupBy("prediction", "IS_AI_ROLE") \
     .avg("SALARY_MID") \
     .orderBy("prediction", "IS_AI_ROLE") \
     .show()
+
+clusters.groupBy("prediction").count().orderBy("prediction").show()
 ```
 
 ### Results
@@ -169,24 +171,35 @@ clusters.groupBy("prediction", "IS_AI_ROLE") \
 +----------+----------+------------------+
 |prediction|IS_AI_ROLE|   avg(SALARY_MID)|
 +----------+----------+------------------+
-|         0|         0| 82527.93027166883|
-|         0|         1| 82259.38657105606|
-|         1|         0|114743.48156257602|
-|         1|         1|114706.52900810979|
-|         2|         0|177965.12350242163|
-|         2|         1| 180190.9214202561|
-|         3|         0| 47270.14509564509|
-|         3|         1| 50669.67723880597|
+|         0|         0|116955.04511258555|
+|         0|         1|116227.77811139468|
+|         1|         0|105665.59209323583|
+|         1|         1|110155.23738170347|
+|         2|         0|103838.20879984286|
+|         2|         1|105275.40979489326|
+|         3|         0|114011.06655818384|
+|         3|         1|114671.99140005348|
 +----------+----------+------------------+
+
++----------+-----+
+|prediction|count|
++----------+-----+
+|         0|32463|
+|         1| 4724|
+|         2| 9869|
+|         3|23819|
++----------+-----+
 ```
 
-| Cluster | Avg Salary (Non-AI) | Avg Salary (AI) | Job Count |
+| Cluster | Job Count | Avg Salary (Non-AI) | Avg Salary (AI) |
 |---|---|---|---|
-| Entry Level | $47,270 | $50,670 | 4,601 |
-| Mid Level | $82,528 | $82,259 | 7,700 |
-| Upper Mid Level | $114,743 | $114,707 | 51,215 |
-| Senior Level | $177,965 | $180,191 | 7,359 |
+| Cluster 0 | 32,463 | $116,955 | $116,228 |
+| Cluster 1 | 4,724 | $105,666 | $110,155 |
+| Cluster 2 | 9,869 | $103,838 | $105,275 |
+| Cluster 3 | 23,819 | $114,011 | $114,672 |
 
 ### Interpretation
 
-The clustering produced four well-separated salary tiers. The most striking pattern is that within every cluster, AI and non-AI roles earn nearly identical average salaries. The salary tier a job belongs to is determined by its occupation and industry profile, not by whether it involves AI. This finding is consistent across all three models: AI designation alone does not drive salary. Structural job characteristics and market positioning matter more.
+When clustering on industry, occupation, and AI role status without salary as a feature, the four clusters represent distinct job market segments defined by structural characteristics rather than compensation. Observing salary as an outcome across these clusters, the average salaries range from approximately $104,000 to $117,000 — a narrow spread of roughly $13,000 across all groups.
+
+This finding is consistent with the regression results. Structural job characteristics such as industry and occupation category explain very little salary variation. Within every cluster, AI and non-AI roles also earn similar average salaries, reinforcing the central conclusion of this analysis: AI designation alone does not meaningfully drive compensation. The factors that matter most — company, experience depth, negotiation, and individual skill profile — are not captured in job posting data.
