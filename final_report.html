@@ -11,7 +11,7 @@
 <meta name="author" content="Oscar Quintero">
 <meta name="dcterms.date" content="2026-04-13">
 
-<title>Career Strategy – Job Market Analysis 2024</title>
+<title>AI Transparency – Job Market Analysis 2024</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -252,8 +252,6 @@ div.csl-indent {
   <li><a href="#recommended-career-paths" id="toc-recommended-career-paths" class="nav-link" data-scroll-target="#recommended-career-paths">Recommended Career Paths</a></li>
   <li><a href="#priority-skills-to-develop" id="toc-priority-skills-to-develop" class="nav-link" data-scroll-target="#priority-skills-to-develop">Priority Skills to Develop</a></li>
   <li><a href="#final-takeaway" id="toc-final-takeaway" class="nav-link" data-scroll-target="#final-takeaway">Final Takeaway</a></li>
-  <li><a href="#ai-transparency" id="toc-ai-transparency" class="nav-link" data-scroll-target="#ai-transparency">AI Transparency</a></li>
-  <li><a href="#team-contributions" id="toc-team-contributions" class="nav-link" data-scroll-target="#team-contributions">Team Contributions</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="final_report.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
     </div>
@@ -262,7 +260,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Career Strategy</h1>
+<h1 class="title">AI Transparency</h1>
 <p class="subtitle lead">Final Report</p>
 </div>
 
@@ -374,7 +372,7 @@ div.csl-indent {
 </section>
 <section id="example-python-cleaning-code" class="level2">
 <h2 class="anchored" data-anchor-id="example-python-cleaning-code">Example Python Cleaning Code</h2>
-<div id="304eedaf" class="cell" data-execution_count="1">
+<div id="0e07e2eb" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql <span class="im">import</span> functions <span class="im">as</span> F</span>
@@ -407,7 +405,7 @@ div.csl-indent {
 </section>
 <section id="example-missing-value-handling" class="level2">
 <h2 class="anchored" data-anchor-id="example-missing-value-handling">Example Missing Value Handling</h2>
-<div id="b55ac549" class="cell" data-execution_count="2">
+<div id="69ee3578" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>median_salary <span class="op">=</span> df_clean.approxQuantile(<span class="st">"SALARY"</span>, [<span class="fl">0.5</span>], <span class="fl">0.01</span>)[<span class="dv">0</span>]</span>
@@ -427,7 +425,7 @@ div.csl-indent {
 </section>
 <section id="example-duplicate-removal" class="level2">
 <h2 class="anchored" data-anchor-id="example-duplicate-removal">Example Duplicate Removal</h2>
-<div id="8338d523" class="cell" data-execution_count="3">
+<div id="32e76548" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df_clean.dropDuplicates([</span>
@@ -471,7 +469,7 @@ div.csl-indent {
 <section id="defining-ai-vs-non-ai-roles" class="level2">
 <h2 class="anchored" data-anchor-id="defining-ai-vs-non-ai-roles">Defining AI vs Non-AI Roles</h2>
 <p>To distinguish AI-related jobs from the rest of the dataset, we flagged any posting where the job title or skills field contained keywords such as “ai”, “machine learning”, “artificial intelligence”, “deep learning”, “data science”, “nlp”, “llm”, or “neural network”.</p>
-<div id="5de1649e" class="cell" data-execution_count="4">
+<div id="18c2d745" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> col, when, lower</span>
@@ -500,7 +498,7 @@ div.csl-indent {
 </section>
 <section id="salary-distribution-ai-vs-non-ai" class="level2">
 <h2 class="anchored" data-anchor-id="salary-distribution-ai-vs-non-ai">Salary Distribution: AI vs Non-AI</h2>
-<div id="c56c8755" class="cell" data-execution_count="5">
+<div id="90c3c689" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>salary_df <span class="op">=</span> df_clean.select(<span class="st">"SALARY_MID"</span>, <span class="st">"IS_AI_ROLE"</span>) <span class="op">\</span></span>
@@ -524,7 +522,7 @@ div.csl-indent {
 </section>
 <section id="average-salary-by-industry-ai-vs-non-ai" class="level2">
 <h2 class="anchored" data-anchor-id="average-salary-by-industry-ai-vs-non-ai">Average Salary by Industry: AI vs Non-AI</h2>
-<div id="4a5db0b4" class="cell" data-execution_count="6">
+<div id="736b3da0" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> <span class="bu">round</span> <span class="im">as</span> spark_round</span>
@@ -558,7 +556,7 @@ div.csl-indent {
 </section>
 <section id="top-industries-by-ai-job-posting-count" class="level2">
 <h2 class="anchored" data-anchor-id="top-industries-by-ai-job-posting-count">Top Industries by AI Job Posting Count</h2>
-<div id="4100635e" class="cell" data-execution_count="7">
+<div id="233024f0" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> desc</span>
@@ -611,7 +609,7 @@ div.csl-indent {
 </section>
 <section id="code" class="level3">
 <h3 class="anchored" data-anchor-id="code">Code</h3>
-<div id="fe367c7a" class="cell" data-execution_count="8">
+<div id="5e91534e" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.feature <span class="im">import</span> StringIndexer, VectorAssembler</span>
@@ -691,7 +689,7 @@ div.csl-indent {
 </section>
 <section id="code-1" class="level3">
 <h3 class="anchored" data-anchor-id="code-1">Code</h3>
-<div id="231e82ff" class="cell" data-execution_count="9">
+<div id="68fc4444" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.classification <span class="im">import</span> LogisticRegression</span>
@@ -773,7 +771,7 @@ div.csl-indent {
 </section>
 <section id="code-2" class="level3">
 <h3 class="anchored" data-anchor-id="code-2">Code</h3>
-<div id="10de2206" class="cell" data-execution_count="10">
+<div id="273e0681" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.ml.clustering <span class="im">import</span> KMeans</span>
@@ -1061,20 +1059,15 @@ div.csl-indent {
 <section id="final-takeaway" class="level2">
 <h2 class="anchored" data-anchor-id="final-takeaway">Final Takeaway</h2>
 <p>The rise of AI is reshaping the job market, but not in the simple way that headlines often suggest. Our analysis shows that AI skills matter most in specific industries and role contexts, that salary outcomes depend heavily on occupation tier and sector, and that foundational analytical skills remain the most consistently valued capabilities across the entire labor market. Students who build a strong analytical foundation and develop targeted technical skills for their chosen industry will be better positioned than those who chase AI credentials without strategic direction.</p>
-</section>
-<section id="ai-transparency" class="level2">
-<h2 class="anchored" data-anchor-id="ai-transparency">AI Transparency</h2>
-<p>This project used Claude (Sonnet 4.6, Anthropic) as an AI assistant throughout process. Specifically, Claude was used to assist with PySpark syntax and debugging, resolving data pipeline errors such as CSV column misalignment and salary column misidentification (the SALARY column was discovered to contain SOC occupation codes rather than numeric values, requiring a pivot to SALARY_FROM and SALARY_TO), casting errors when converting string fields to numeric types, structuring and formatting Quarto markdown pages, identifying grammatical errors and suggesting improvements to written analysis, and providing guidance on machine learning model evaluation and visualization.</p>
-<p>For concepts and workflows that were new, such as building ML pipelines with StringIndexer and VectorAssembler, and enabling code folding in Quarto, the professor’s lecture videos were the primary reference. Claude was used moreso when errors happened during implementation or when troubleshooting was needed, such as fixing the git history after large files were accidentally committed, resolving the kaleido and Chrome installation required for Plotly image export, and correcting citation key mismatches in the BibTeX file.</p>
-<p>All analytical decisions, including the choice of research question, feature selection, model interpretation, and conclusions drawn from the data, were made by Manjari Kannan.</p>
-</section>
-<section id="team-contributions" class="level2">
-<h2 class="anchored" data-anchor-id="team-contributions">Team Contributions</h2>
 <ul>
-<li><strong>Manjari Kannan</strong> : built the Quarto website structure and navigation, handled data cleaning and preprocessing in PySpark including salary column identification, missing value imputation, and duplicate removal, developed the AI vs Non-AI role classification using keyword matching, conducted exploratory data analysis across salary, industry, and job posting trends, built and evaluated the regression, classification, and clustering models, completed the skill gap analysis, wrote the analysis and interpretation for each section of the report, converted visualizations to interactive Plotly charts, and managed GitHub throughout the project. Created baby blue coloring for website aesthetic and also designed and laid out final presentation formatting.</li>
-<li><strong>Oscar Quintero</strong> : sourced, researched, and formatted the academic references in BibTeX, helped in managing the website aesthetic and overall formatting</li>
-<li><strong>Nicholas Decesaris</strong> : created initial organization for the final presentation</li>
+<li><p><strong>Manjari Kannan</strong> — built the Quarto website structure and navigation, handled data cleaning and preprocessing in PySpark including salary column identification, missing value imputation, and duplicate removal, developed the AI vs Non-AI role classification using keyword matching, conducted exploratory data analysis across salary, industry, and job posting trends, built and evaluated the regression, classification, and clustering models, completed the skill gap analysis, wrote the analysis and interpretation for each section of the report, converted visualizations to interactive Plotly charts, managed GitHub and GitHub Pages deployment throughout the project, designed and formatted the final presentation including all visual layout and slide content, and addressed all professor feedback including correcting the KMeans clustering methodology to remove salary as a feature and fixing the R-squared interpretation across the regression results</p></li>
+<li><p><strong>Oscar Quintero</strong> — sourced, researched, and formatted the academic references in BibTeX for the literature review</p></li>
+<li><p><strong>Nicholas Decesaris</strong> — created the initial organization and structure for the final presentation</p></li>
 </ul>
+<p>This project used Claude (Sonnet 4.6, Anthropic) as an AI assistant throughout the development process. A lot of this project involved tools and workflows that were new to me, so the approach was a mix of using the professor’s lecture videos as the primary reference and turning to Claude when something wasn’t working or I wasn’t sure why.</p>
+<p>Claude helped with things like PySpark syntax, debugging data pipeline errors, and troubleshooting issues that came up along the way. Some of the more specific problems it helped with included figuring out that the SALARY column actually contained SOC occupation codes instead of salary values, fixing a git history issue after large files were accidentally committed, getting kaleido and Chrome set up for Plotly image export, and sorting out a citation key mismatch in the BibTeX file.</p>
+<p>It also helped with structuring the Quarto pages, catching grammatical errors in the written sections, and giving guidance on how to approach the machine learning models and their evaluation.</p>
+<p>That said, all of the actual decisions about what to analyze, which features to use, how to interpret the results, and what conclusions to draw were mine. Claude was used as a tool to help get things working and to improve the writing, not to make analytical or research decisions. The dataset, models, and findings are original work.</p>
 
 
 

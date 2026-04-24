@@ -2,289 +2,275 @@
   {
     "objectID": "final_report.html",
     "href": "final_report.html",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "",
     "text": "title: “Personal Career Path Decisions in 2024” author: “Manjari Kannan, Nicholas Decesaris, Oscar Quintero” date: today format: html: bibliography: references.bib csl: csl/econometrica.csl toc: true docx: toc: true —"
   },
   {
     "objectID": "final_report.html#objective",
     "href": "final_report.html#objective",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Objective",
     "text": "Objective\nThis project examines job market trends in 2024 from the perspective of job seekers rather than recruiters. Using Lightcast data, we analyze hiring patterns, salaries, skills, and labor market conditions to understand how students can position themselves more effectively."
   },
   {
     "objectID": "final_report.html#research-question",
     "href": "final_report.html#research-question",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Research Question",
     "text": "Research Question\nOur project asks:\nWhat trends in the 2024 job market can help students and early career professionals make better career decisions?"
   },
   {
     "objectID": "final_report.html#why-this-matters",
     "href": "final_report.html#why-this-matters",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Why This Matters",
     "text": "Why This Matters\nRapid changes in AI adoption, salary patterns, remote work, and employer skill expectations make the job market harder to navigate. A data driven approach helps identify which roles are growing, which skills matter most, and what kinds of jobs offer the best opportunities (Dominski and Lee (2025))."
   },
   {
     "objectID": "final_report.html#planned-analysis",
     "href": "final_report.html#planned-analysis",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Planned Analysis",
     "text": "Planned Analysis\nThis project includes:\n\ndata cleaning and preprocessing\nexploratory data analysis\nunsupervised learning with KMeans clustering\nsupervised modeling using regression and classification\nskill gap analysis\ncareer recommendations for job seekers"
   },
   {
     "objectID": "final_report.html#all-references-used",
     "href": "final_report.html#all-references-used",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "All References Used:",
     "text": "All References Used:\n\nDominski, J., and Y. S. Lee (2025): “Advancing AI Capabilities and Evolving Labor Outcomes.”\nPadmanabha, C. H. (2024): “The Impact of Artificial Intelligence on Employment and Wage Inequality.”\nDahlin, E. (2024): “Who says artificial intelligence is stealing our jobs?” Socius, 10, 23780231241259672."
   },
   {
     "objectID": "final_report.html#references",
     "href": "final_report.html#references",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "References",
     "text": "References"
   },
   {
     "objectID": "final_report.html#overview",
     "href": "final_report.html#overview",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Overview",
     "text": "Overview\nBefore conducting exploratory analysis and predictive modeling, the Lightcast job postings dataset must be cleaned and standardized. Because the dataset includes many tracking variables, repeated industry and occupation code versions, and missing values, preprocessing is necessary to improve interpretability and reduce noise."
   },
   {
     "objectID": "final_report.html#goals-of-data-cleaning",
     "href": "final_report.html#goals-of-data-cleaning",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Goals of Data Cleaning",
     "text": "Goals of Data Cleaning\nThe main goals of data preparation are to: - remove columns that are irrelevant or redundant - keep the most current classification systems - handle missing values consistently - remove duplicate job postings - prepare the dataset for visualization and machine learning"
   },
   {
     "objectID": "final_report.html#why-some-columns-should-be-dropped",
     "href": "final_report.html#why-some-columns-should-be-dropped",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Why Some Columns Should Be Dropped",
     "text": "Why Some Columns Should Be Dropped\nThe raw dataset contains many columns that are not useful for this project, such as URLs, duplicate tracking fields, and outdated industry and occupation code versions. Keeping too many repeated classification columns can make the analysis harder to interpret and may introduce unnecessary complexity.\nFor example, older NAICS and SOC versions are less useful when more current classifications are already available in the dataset. To keep the analysis focused and consistent, we retain the latest available fields such as NAICS_2022_6 and SOC_2021_4 and remove redundant older versions."
   },
   {
     "objectID": "final_report.html#example-python-cleaning-code",
     "href": "final_report.html#example-python-cleaning-code",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Example Python Cleaning Code",
     "text": "Example Python Cleaning Code\n\n\nCode\nfrom pyspark.sql import functions as F\n\ncolumns_to_drop = [\n    \"ID\",\n    \"URL\",\n    \"ACTIVE_URLS\",\n    \"DUPLICATES\",\n    \"LAST_UPDATED_TIMESTAMP\",\n    \"NAICS2\",\n    \"NAICS3\",\n    \"NAICS4\",\n    \"NAICS5\",\n    \"NAICS6\",\n    \"SOC_2\",\n    \"SOC_3\",\n    \"SOC_5\"\n]\n\ndf_clean = df.drop(*columns_to_drop)"
   },
   {
     "objectID": "final_report.html#handling-missing-values",
     "href": "final_report.html#handling-missing-values",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Handling Missing Values",
     "text": "Handling Missing Values\nMissing values are common in labor market data, especially for salary and skill related fields. Different strategies should be used depending on the data type.\nFor numerical variables such as salary, replacing missing values with the median is more appropriate than using the mean because salary data is often skewed by very high paying jobs. For categorical variables, missing values can be replaced with “Unknown” so that rows are not lost unnecessarily.\nColumns with too many missing values may also be removed if they do not provide enough useful information."
   },
   {
     "objectID": "final_report.html#example-missing-value-handling",
     "href": "final_report.html#example-missing-value-handling",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Example Missing Value Handling",
     "text": "Example Missing Value Handling\n\n\nCode\nmedian_salary = df_clean.approxQuantile(\"SALARY\", [0.5], 0.01)[0]\n\ndf_clean = df_clean.fillna({\n    \"SALARY\": median_salary,\n    \"REMOTE_TYPE_NAME\": \"Unknown\",\n    \"NAICS_2022_6_NAME\": \"Unknown\",\n    \"SOC_2021_4_NAME\": \"Unknown\"\n})"
   },
   {
     "objectID": "final_report.html#removing-duplicate-job-postings",
     "href": "final_report.html#removing-duplicate-job-postings",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Removing Duplicate Job Postings",
     "text": "Removing Duplicate Job Postings\nDuplicate job postings can distort the results by counting the same opportunity multiple times. To prevent this, duplicate observations should be removed using a reasonable combination of identifying fields such as title, company, location, and posting date."
   },
   {
     "objectID": "final_report.html#example-duplicate-removal",
     "href": "final_report.html#example-duplicate-removal",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Example Duplicate Removal",
     "text": "Example Duplicate Removal\n\n\nCode\ndf_clean = df_clean.dropDuplicates([\n    \"TITLE\",\n    \"COMPANY_NAME\",\n    \"LOCATION\",\n    \"POSTED\"\n])"
   },
   {
     "objectID": "final_report.html#why-this-matters-1",
     "href": "final_report.html#why-this-matters-1",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Why This Matters",
     "text": "Why This Matters\nData cleaning improves the reliability of every later stage of the project. Cleaner data leads to:\n\nmore accurate summaries and charts\nbetter model performance\nclearer interpretation for job seekers\nmore trustworthy career recommendations"
   },
   {
     "objectID": "final_report.html#output-of-cleaning-step",
     "href": "final_report.html#output-of-cleaning-step",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Output of Cleaning Step",
     "text": "Output of Cleaning Step\nAfter cleaning, the dataset is more suitable for:\n\nexploratory analysis of salary, industry, and remote work patterns\nclustering by occupation or industry categories\nregression models predicting salary\nclassification models predicting job categories or remote work type"
   },
   {
     "objectID": "final_report.html#title-exploratory-data-analysis",
     "href": "final_report.html#title-exploratory-data-analysis",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "title: “Exploratory Data Analysis”",
     "text": "title: “Exploratory Data Analysis”"
   },
   {
     "objectID": "final_report.html#overview-1",
     "href": "final_report.html#overview-1",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Overview",
     "text": "Overview\nBefore building any models, we explored the Lightcast job postings dataset to understand the underlying patterns in salary, industry composition, and AI-related job demand. This section summarizes what the data revealed about how AI roles compare to non-AI roles across key dimensions.\nAll analysis is based on the cleaned dataset of 70,892 job postings."
   },
   {
     "objectID": "final_report.html#defining-ai-vs-non-ai-roles",
     "href": "final_report.html#defining-ai-vs-non-ai-roles",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Defining AI vs Non-AI Roles",
     "text": "Defining AI vs Non-AI Roles\nTo distinguish AI-related jobs from the rest of the dataset, we flagged any posting where the job title or skills field contained keywords such as “ai”, “machine learning”, “artificial intelligence”, “deep learning”, “data science”, “nlp”, “llm”, or “neural network”.\n\n\nCode\nfrom pyspark.sql.functions import col, when, lower\n\nai_keywords = \"ai|machine learning|artificial intelligence|deep learning|nlp|llm|data science|neural network\"\n\ndf_clean = df_clean.withColumn(\n    \"IS_AI_ROLE\",\n    when(\n        lower(col(\"TITLE_RAW\")).rlike(ai_keywords) |\n        lower(col(\"SKILLS_NAME\")).rlike(ai_keywords),\n        1\n    ).otherwise(0)\n)\n\ndf_clean.groupBy(\"IS_AI_ROLE\").count().show()\n\n\n+----------+-----+\n|IS_AI_ROLE|count|\n+----------+-----+\n|         1|31857|\n|         0|39035|\n+----------+-----+\nThis produced 31,857 AI-related postings (approximately 45% of the dataset) and 39,035 non-AI postings (approximately 55%). The near-even split suggests that AI-related roles have moved well beyond a niche segment of the labor market."
   },
   {
     "objectID": "final_report.html#salary-distribution-ai-vs-non-ai",
     "href": "final_report.html#salary-distribution-ai-vs-non-ai",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Salary Distribution: AI vs Non-AI",
     "text": "Salary Distribution: AI vs Non-AI\n\n\nCode\nsalary_df = df_clean.select(\"SALARY_MID\", \"IS_AI_ROLE\") \\\n    .filter(col(\"SALARY_MID\").isNotNull()) \\\n    .toPandas()\n\nsalary_df[\"Role Type\"] = salary_df[\"IS_AI_ROLE\"].map({0: \"Non-AI\", 1: \"AI\"})\n\nfig = px.histogram(\n    salary_df, x=\"SALARY_MID\", color=\"Role Type\", barmode=\"overlay\",\n    nbins=50, opacity=0.7,\n    title=\"Salary Distribution: AI vs Non-AI Roles\",\n    labels={\"SALARY_MID\": \"Salary (USD)\"}\n)\nfig.show()\n\n\n\nThe first question we investigated was whether AI roles simply pay more. The overall pattern suggests they do not, at least not uniformly.\nBoth distributions peak near $112,500 and follow a similar right-skewed shape. The two groups overlap substantially, which indicates that holding an AI-related title does not automatically translate into higher compensation. The relationship between AI and salary appears to be more complex than a simple premium."
   },
   {
     "objectID": "final_report.html#average-salary-by-industry-ai-vs-non-ai",
     "href": "final_report.html#average-salary-by-industry-ai-vs-non-ai",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Average Salary by Industry: AI vs Non-AI",
     "text": "Average Salary by Industry: AI vs Non-AI\n\n\nCode\nfrom pyspark.sql.functions import round as spark_round\n\nindustry_df = df_clean.groupBy(\"NAICS_2022_2_NAME\", \"IS_AI_ROLE\") \\\n    .avg(\"SALARY_MID\") \\\n    .withColumn(\"avg_salary\", spark_round(\"avg(SALARY_MID)\", 0)) \\\n    .filter(col(\"NAICS_2022_2_NAME\").isNotNull()) \\\n    .orderBy(\"NAICS_2022_2_NAME\", \"IS_AI_ROLE\")\n\nindustry_df.select(\"NAICS_2022_2_NAME\", \"IS_AI_ROLE\", \"avg_salary\").show(10)\n\n\n+--------------------+----------+----------+\n|    NAICS_2022_2_NAME|IS_AI_ROLE|avg_salary|\n+--------------------+----------+----------+\n|Accommodation and...|         0|  119421.0|\n|Accommodation and...|         1|  116452.0|\n|Administrative an...|         0|  107157.0|\n|Administrative an...|         1|  107751.0|\n|Agriculture, Fore...|         0|  106967.0|\n|Agriculture, Fore...|         1|  106178.0|\n|Arts, Entertainme...|         0|   92280.0|\n|Arts, Entertainme...|         1|  105354.0|\n|Construction      |         0|  103011.0|\n|Construction      |         1|  116595.0|\n+--------------------+----------+----------+\n\nBreaking salary down by industry reveals a more nuanced picture. Certain industries show a meaningful AI salary premium, including Arts and Entertainment (approximately +$13,000), Construction (approximately +$13,500), and Retail Trade (approximately +$9,000). In these fields, AI skills remain relatively uncommon, and compensation reflects that scarcity.\nIn contrast, the Information industry pays AI roles less on average than non-AI roles. Interestingly, “working in an occupation that is considered high skill increases the odds of job loss to AI (Dahlin (2024))”…especially for the “middle-skill employees in the technological landscape (Dahlin (2024)).” Arguably, the high-skill employees can pivot using tools and higher levels of resources and knowledge to adapt to the shifting environment which does not appear to directly impact salary until it is considered that the majority of the middle-skill employees will must either transition to another field or be entirely displaced. This apparent stability of salary is likely because of the traditional IT and enterprise infrastructure roles in that sector already commanding high salaries, making AI titles less financially distinctive by comparison due to the stability of the high-skill employees maintaining positions."
   },
   {
     "objectID": "final_report.html#top-industries-by-ai-job-posting-count",
     "href": "final_report.html#top-industries-by-ai-job-posting-count",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Top Industries by AI Job Posting Count",
     "text": "Top Industries by AI Job Posting Count\n\n\nCode\nfrom pyspark.sql.functions import desc\n\ntop_industries = df_clean.filter(col(\"IS_AI_ROLE\") == 1) \\\n    .filter(col(\"NAICS_2022_2_NAME\").isNotNull()) \\\n    .groupBy(\"NAICS_2022_2_NAME\") \\\n    .count() \\\n    .orderBy(desc(\"count\")) \\\n    .limit(10)\n\ntop_industries.show(truncate=False)\n\n\n+--------------------------------------------------------+-----+\n|NAICS_2022_2_NAME                                       |count|\n+--------------------------------------------------------+-----+\n|Professional, Scientific, and Technical Services        |9821 |\n|Finance and Insurance                                   |4932 |\n|Information                                             |3847 |\n|Management of Companies and Enterprises                 |2841 |\n|Manufacturing                                           |2134 |\n|Administrative and Support and Waste Management...      |1823 |\n|Health Care and Social Assistance                       |1654 |\n|Retail Trade                                            |1432 |\n|Educational Services                                    |1187 |\n|Unclassified Industry                                   |1001 |\n+--------------------------------------------------------+-----+\n\nIn terms of where AI jobs are being posted, Professional, Scientific, and Technical Services leads by a wide margin, followed by Finance and Insurance and Information. While AI-related roles appear across many sectors, the majority of active hiring remains concentrated in knowledge-intensive industries. For job seekers targeting AI roles, these sectors represent the highest volume of opportunity."
   },
   {
     "objectID": "final_report.html#key-findings",
     "href": "final_report.html#key-findings",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Key Findings",
     "text": "Key Findings\nSeveral patterns emerged from this exploratory analysis worth carrying forward into the modeling phase.\nThe overall salary difference between AI and non-AI roles is insignificant at roughly $100 on average. The salary premium associated with AI skills is industry-specific rather than universal. Fields where AI capabilities are still emerging tend to reward those skills more generously. The concentration of AI hiring in professional services, finance, and information suggests that the benefits of AI are not evenly distributed across the workforce. Where a worker is employed matters as much as what skills they bring."
   },
   {
     "objectID": "final_report.html#overview-2",
     "href": "final_report.html#overview-2",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Overview",
     "text": "Overview\nThis section applies three machine learning models to the cleaned Lightcast dataset: a linear regression model to predict salary, a logistic regression model to classify AI versus non-AI roles, and a KMeans clustering model to identify natural groupings in the job market based on industry and occupation profile."
   },
   {
     "objectID": "final_report.html#regression-model-predicting-salary",
     "href": "final_report.html#regression-model-predicting-salary",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Regression Model: Predicting Salary",
     "text": "Regression Model: Predicting Salary\n\nObjective\nThe goal of this model is to predict the midpoint salary of a job posting based on observable job characteristics.\n\n\nFeature Justification\nTwo versions of the model were tested. The first used industry, remote work type, and AI role flag as features. The second added occupation category and years of experience. Occupation category was expected to be the strongest predictor because salary varies substantially across professional fields regardless of industry.\n\n\nCode\n\n\nCode\nfrom pyspark.ml.feature import StringIndexer, VectorAssembler\nfrom pyspark.ml.regression import LinearRegression\nfrom pyspark.ml import Pipeline\nfrom pyspark.ml.evaluation import RegressionEvaluator\n\n# Model 2: industry + remote + occupation + experience + AI flag\ndf_model = df_clean.filter(col(\"SALARY_MID\").isNotNull()) \\\n    .filter(col(\"NAICS_2022_2_NAME\").isNotNull()) \\\n    .filter(col(\"REMOTE_TYPE_NAME\").isNotNull()) \\\n    .filter(col(\"SOC_2021_2_NAME\").isNotNull()) \\\n    .withColumn(\"MIN_YEARS_EXP\", col(\"MIN_YEARS_EXPERIENCE\").cast(\"double\")) \\\n    .fillna({\"MIN_YEARS_EXP\": 0.0})\n\nindustry_indexer = StringIndexer(inputCol=\"NAICS_2022_2_NAME\", outputCol=\"industry_idx\", handleInvalid=\"skip\")\nremote_indexer = StringIndexer(inputCol=\"REMOTE_TYPE_NAME\", outputCol=\"remote_idx\", handleInvalid=\"skip\")\nsoc_indexer = StringIndexer(inputCol=\"SOC_2021_2_NAME\", outputCol=\"soc_idx\", handleInvalid=\"skip\")\n\nassembler = VectorAssembler(\n    inputCols=[\"industry_idx\", \"remote_idx\", \"soc_idx\", \"IS_AI_ROLE\", \"MIN_YEARS_EXP\"],\n    outputCol=\"features\"\n)\n\nlr = LinearRegression(featuresCol=\"features\", labelCol=\"SALARY_MID\")\npipeline = Pipeline(stages=[industry_indexer, remote_indexer, soc_indexer, assembler, lr])\n\ntrain, test = df_model.randomSplit([0.8, 0.2], seed=42)\nmodel = pipeline.fit(train)\npredictions = model.transform(test)\n\nrmse = RegressionEvaluator(labelCol=\"SALARY_MID\", predictionCol=\"prediction\", metricName=\"rmse\").evaluate(predictions)\nr2 = RegressionEvaluator(labelCol=\"SALARY_MID\", predictionCol=\"prediction\", metricName=\"r2\").evaluate(predictions)\n\nprint(f\"RMSE: ${rmse:,.0f}\")\nprint(f\"R2: {r2:.4f}\")\n\n\n\n\nResults\n\n\n\nModel\nFeatures\nRMSE\nR2\n\n\n\n\nModel 1\nIndustry, Remote Type, AI Flag\n$31,428\n0.0094\n\n\nModel 2\n+ Occupation, Experience\n$30,040\n0.0949\n\n\n\n\n\nInterpretation\nModel 1 has an R2 of 0.0094, meaning it explains less than 1% of salary variance. Adding occupation category and years of experience in Model 2 improved R2 to approximately 9.5% and reduced RMSE by roughly $1,400. While this represents a meaningful improvement, the overall explanatory power remains modest. This is an informative finding rather than a limitation — it indicates that the publicly observable characteristics of a job posting explain very little of what determines salary. Factors such as company size, individual negotiation, specific technical depth, and internal compensation structures account for the remaining variance. Salary is far more individualized than any job listing captures."
   },
   {
     "objectID": "final_report.html#classification-model-predicting-ai-vs-non-ai-roles",
     "href": "final_report.html#classification-model-predicting-ai-vs-non-ai-roles",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Classification Model: Predicting AI vs Non-AI Roles",
     "text": "Classification Model: Predicting AI vs Non-AI Roles\n\nObjective\nThis model attempts to classify whether a job posting is AI-related based on industry, remote work type, and occupation category.\n\n\nCode\n\n\nCode\nfrom pyspark.ml.classification import LogisticRegression\nfrom pyspark.ml.evaluation import MulticlassClassificationEvaluator, BinaryClassificationEvaluator\n\ndf_clf = df_clean.filter(col(\"NAICS_2022_2_NAME\").isNotNull()) \\\n    .filter(col(\"REMOTE_TYPE_NAME\").isNotNull()) \\\n    .filter(col(\"SOC_2021_2_NAME\").isNotNull())\n\nindustry_idx = StringIndexer(inputCol=\"NAICS_2022_2_NAME\", outputCol=\"industry_idx\", handleInvalid=\"skip\")\nremote_idx = StringIndexer(inputCol=\"REMOTE_TYPE_NAME\", outputCol=\"remote_idx\", handleInvalid=\"skip\")\nsoc_idx = StringIndexer(inputCol=\"SOC_2021_2_NAME\", outputCol=\"soc_idx\", handleInvalid=\"skip\")\nassembler_clf = VectorAssembler(inputCols=[\"industry_idx\", \"remote_idx\", \"soc_idx\"], outputCol=\"features\")\n\nlrc = LogisticRegression(featuresCol=\"features\", labelCol=\"IS_AI_ROLE\", maxIter=10)\npipeline_clf = Pipeline(stages=[industry_idx, remote_idx, soc_idx, assembler_clf, lrc])\n\ntrain_clf, test_clf = df_clf.randomSplit([0.8, 0.2], seed=42)\nmodel_clf = pipeline_clf.fit(train_clf)\npredictions_clf = model_clf.transform(test_clf)\n\npredictions_clf.groupBy(\"IS_AI_ROLE\", \"prediction\").count().orderBy(\"IS_AI_ROLE\", \"prediction\").show()\n\n\n\n\nResults\n\n\n\nMetric\nScore\n\n\n\n\nAccuracy\n55.6%\n\n\nF1 Score\n0.48\n\n\nAUC\n0.54\n\n\n\n\n\nConfusion Matrix\n+----------+----------+-----+\n|IS_AI_ROLE|prediction|count|\n+----------+----------+-----+\n|         0|       0.0| 6869|\n|         0|       1.0|  825|\n|         1|       0.0| 5426|\n|         1|       1.0|  952|\n+----------+----------+-----+\n\n\n\nConfusion Matrix\n\n\nThe confusion matrix shows that the model correctly identifies most non-AI roles (6,869 true negatives) but misclassifies the majority of actual AI roles as non-AI (5,426 false negatives). This pattern reflects the core finding that AI roles are not structurally distinguishable from non-AI roles based on industry, remote type, and occupation category alone.\n\n\nInterpretation\nThe model performs only slightly better than random guessing. This suggests that AI-related roles are spread across industries and occupation categories rather than being concentrated in obvious segments. What distinguishes an AI role is the specific language in the job title and required skills, not the broader structural features used here. Students searching for AI roles should focus on job titles and skills requirements directly rather than filtering by industry or occupation type alone."
   },
   {
     "objectID": "final_report.html#kmeans-clustering-job-market-segmentation",
     "href": "final_report.html#kmeans-clustering-job-market-segmentation",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "KMeans Clustering: Job Market Segmentation",
     "text": "KMeans Clustering: Job Market Segmentation\n\nObjective\nKMeans clustering was used to identify natural groupings in the job market based on industry, occupation category, and AI role status. Salary was intentionally excluded as a clustering feature and instead observed as an outcome across clusters to avoid circularity.\n\n\nCode\n\n\nCode\nfrom pyspark.ml.clustering import KMeans\n\ndf_km = df_clean.filter(col(\"NAICS_2022_2_NAME\").isNotNull()) \\\n    .filter(col(\"SOC_2021_2_NAME\").isNotNull()) \\\n    .filter(col(\"SALARY_MID\").isNotNull())\n\nindustry_km = StringIndexer(inputCol=\"NAICS_2022_2_NAME\", outputCol=\"industry_idx\", handleInvalid=\"skip\")\nsoc_km = StringIndexer(inputCol=\"SOC_2021_2_NAME\", outputCol=\"soc_idx\", handleInvalid=\"skip\")\nassembler_km = VectorAssembler(\n    inputCols=[\"industry_idx\", \"soc_idx\", \"IS_AI_ROLE\"],\n    outputCol=\"features\"\n)\n\nkmeans = KMeans(featuresCol=\"features\", k=4, seed=42)\npipeline_km = Pipeline(stages=[industry_km, soc_km, assembler_km, kmeans])\n\nmodel_km = pipeline_km.fit(df_km)\nclusters = model_km.transform(df_km)\n\nclusters.groupBy(\"prediction\", \"IS_AI_ROLE\") \\\n    .avg(\"SALARY_MID\") \\\n    .orderBy(\"prediction\", \"IS_AI_ROLE\") \\\n    .show()\n\nclusters.groupBy(\"prediction\").count().orderBy(\"prediction\").show()\n\n\n\n\nResults\n+----------+----------+------------------+\n|prediction|IS_AI_ROLE|   avg(SALARY_MID)|\n+----------+----------+------------------+\n|         0|         0|116955.04511258555|\n|         0|         1|116227.77811139468|\n|         1|         0|105665.59209323583|\n|         1|         1|110155.23738170347|\n|         2|         0|103838.20879984286|\n|         2|         1|105275.40979489326|\n|         3|         0|114011.06655818384|\n|         3|         1|114671.99140005348|\n+----------+----------+------------------+\n\n+----------+-----+\n|prediction|count|\n+----------+-----+\n|         0|32463|\n|         1| 4724|\n|         2| 9869|\n|         3|23819|\n+----------+-----+\n\n\n\nCluster\nJob Count\nAvg Salary (Non-AI)\nAvg Salary (AI)\n\n\n\n\nCluster 0\n32,463\n$116,955\n$116,228\n\n\nCluster 1\n4,724\n$105,666\n$110,155\n\n\nCluster 2\n9,869\n$103,838\n$105,275\n\n\nCluster 3\n23,819\n$114,011\n$114,672\n\n\n\n\n\nInterpretation\nWhen clustering on industry, occupation, and AI role status without salary as a feature, the four clusters represent distinct job market segments defined by structural characteristics rather than compensation. Observing salary as an outcome across these clusters, the average salaries range from approximately $104,000 to $117,000 — a narrow spread of roughly $13,000 across all groups.\nThis finding is consistent with the regression results. Structural job characteristics such as industry and occupation category explain very little salary variation. Within every cluster, AI and non-AI roles also earn similar average salaries, reinforcing the central conclusion of this analysis: AI designation alone does not meaningfully drive compensation. The factors that matter most — company, experience depth, negotiation, and individual skill profile — are not captured in job posting data."
   },
   {
     "objectID": "final_report.html#overview-3",
     "href": "final_report.html#overview-3",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Overview",
     "text": "Overview\nThis section examines which skills are most in demand across AI and non-AI job postings in the Lightcast dataset, and compares those findings to the skill profile of a typical business analytics student. The goal is to identify where gaps exist and what students should prioritize to remain competitive in an AI-influenced job market."
   },
   {
     "objectID": "final_report.html#top-skills-in-ai-roles",
     "href": "final_report.html#top-skills-in-ai-roles",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Top Skills in AI Roles",
     "text": "Top Skills in AI Roles\nThe fifteen most frequently requested skills across AI-related job postings are listed below.\n\n\n\nSkill\nFrequency\n\n\n\n\nCommunication\n16,483\n\n\nData Analysis\n15,188\n\n\nManagement\n12,316\n\n\nDetail Oriented\n11,753\n\n\nSQL\n11,717\n\n\nProblem Solving\n10,351\n\n\nComputer Science\n9,535\n\n\nLeadership\n8,852\n\n\nPython\n7,600\n\n\nOperations\n7,299\n\n\nMicrosoft Excel\n7,057\n\n\nTableau\n6,904\n\n\nData Science\n6,617\n\n\nDashboard\n6,529\n\n\nProject Management\n6,266"
   },
   {
     "objectID": "final_report.html#top-skills-in-non-ai-roles",
     "href": "final_report.html#top-skills-in-non-ai-roles",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Top Skills in Non-AI Roles",
     "text": "Top Skills in Non-AI Roles\n\n\n\nSkill\nFrequency\n\n\n\n\nCommunication\n14,621\n\n\nData Analysis\n12,502\n\n\nManagement\n11,813\n\n\nSQL\n9,429\n\n\nLeadership\n8,350\n\n\nProblem Solving\n7,715\n\n\nProject Management\n7,209\n\n\nComputer Science\n7,133\n\n\nBusiness Process\n6,998\n\n\nOperations\n6,993\n\n\nSAP Applications\n6,821\n\n\nBusiness Requirements\n6,726\n\n\nFinance\n6,147\n\n\nPresentations\n5,763\n\n\nPlanning\n5,621"
   },
   {
     "objectID": "final_report.html#comparing-ai-and-non-ai-skill-demand",
     "href": "final_report.html#comparing-ai-and-non-ai-skill-demand",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Comparing AI and Non-AI Skill Demand",
     "text": "Comparing AI and Non-AI Skill Demand\nSeveral patterns emerge when comparing the two lists. Communication, Data Analysis, Management, SQL, and Problem Solving rank highly in both, confirming that these are foundational skills regardless of whether a role is AI-related. However, AI roles place noticeably higher demand on Python, Tableau, Data Science, and Dashboard skills, while non-AI roles emphasize SAP Applications, Business Requirements, Finance, and Business Process knowledge.\nThis suggests that the transition into AI-related work requires building on a shared analytical foundation while adding more specialized technical and data visualization capabilities."
   },
   {
     "objectID": "final_report.html#skill-gap-assessment",
     "href": "final_report.html#skill-gap-assessment",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Skill Gap Assessment",
     "text": "Skill Gap Assessment\nA typical business analytics graduate entering this job market is likely comfortable with communication, Excel, SQL, and basic data analysis. Based on the demand patterns observed in this dataset, the most significant gaps tend to fall in the following areas.\nPython programming appears in the top ten for AI roles but not at all in the non-AI top fifteen, making it one of the clearest differentiators for students targeting AI-related positions. Tableau and dashboard development are heavily requested in AI roles and represent a practical visualization skill that complements SQL and Excel. Data Science as a named competency appears frequently in AI postings and signals employer expectations around modeling, statistical reasoning, and analytical workflows beyond basic reporting.\nOn the non-AI side, familiarity with enterprise platforms such as SAP and business process documentation skills appear prominently, suggesting that students targeting traditional analyst or operations roles should also develop comfort with enterprise systems."
   },
   {
     "objectID": "final_report.html#recommendations",
     "href": "final_report.html#recommendations",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Recommendations",
     "text": "Recommendations\nStudents aiming for AI-related roles should prioritize Python, Tableau, and applied data science coursework. Those targeting traditional business or operations roles will benefit from developing familiarity with SAP and structured business process skills. In either path, SQL, communication, and analytical thinking remain the most universally valued capabilities in the current labor market."
   },
   {
     "objectID": "final_report.html#overview-4",
     "href": "final_report.html#overview-4",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Overview",
     "text": "Overview\nThis section translates the findings from our exploratory analysis, predictive modeling, and skill gap assessment into actionable career guidance for students and early-career job seekers navigating an AI-influenced labor market."
   },
   {
     "objectID": "final_report.html#what-the-data-tells-us",
     "href": "final_report.html#what-the-data-tells-us",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "What the Data Tells Us",
     "text": "What the Data Tells Us\nSeveral consistent findings emerged across all stages of this project that should directly inform career planning decisions.\nAI-related roles do not universally pay more. Recent studies suggest that “increased AI exposure may be correlated with higher earnings in some contexts, but the strength and direction of this relationship are sensitive to model specification[s] (Dominski and Lee (2025)).” Within the findings of this project, for instance, the average salary difference between AI and non-AI roles in this dataset is approximately $100, which is negligible. Salary is determined more by industry, occupation tier, and job level than by AI designation alone. Students who assume that adding AI skills to their resume will automatically lead to higher pay may be disappointed without also considering the sector and role level they are targeting.\nThe salary premium for AI skills is industry-specific. Fields such as Arts and Entertainment, Construction, and Retail Trade show AI salary premiums of $9,000 to $13,500, likely because AI capabilities remain scarce in those sectors. In contrast, the Information industry pays non-AI roles more on average because that sector already compensates technical work highly regardless of AI involvement. Job seekers should research salary norms within their target industry rather than relying on general AI salary narratives.\nSalary tier matters more than AI status. The KMeans clustering analysis identified four distinct salary tiers in the job market ranging from approximately $49,000 at the entry level to $179,000 at the senior level. Within every tier, AI and non-AI roles earn nearly identical salaries. Moving up a salary tier requires developing the occupation and industry profile associated with that tier, not simply acquiring AI-related keywords."
   },
   {
     "objectID": "final_report.html#recommended-career-paths",
     "href": "final_report.html#recommended-career-paths",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Recommended Career Paths",
     "text": "Recommended Career Paths\nBased on the skill demand patterns and salary distributions observed in this dataset, three career directions appear particularly well-suited for business analytics students.\nStudents with strong SQL, Python, and data visualization skills are well positioned for data science and analytics roles, which appear frequently in the Professional, Scientific, and Technical Services sector and consistently fall in the upper mid salary tier around $114,000.\nStudents interested in finance and insurance will find that sector offers strong AI role concentration and competitive salaries. Finance-adjacent analytical roles that combine business knowledge with data skills appear to be in high demand.\nStudents targeting non-AI paths should not overlook the value of enterprise systems experience. SAP, business process management, and ERP skills appear prominently in non-AI postings and are associated with stable demand across multiple industries."
   },
   {
     "objectID": "final_report.html#priority-skills-to-develop",
     "href": "final_report.html#priority-skills-to-develop",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Priority Skills to Develop",
     "text": "Priority Skills to Develop\nBased on the skill gap analysis, the highest-return skills for students to develop before entering the job market are Python programming, SQL, Tableau or equivalent dashboard tools, and applied data science competencies. Communication, problem solving, and project management round out the universal skills that employers expect regardless of role type."
   },
   {
     "objectID": "final_report.html#final-takeaway",
     "href": "final_report.html#final-takeaway",
-    "title": "Career Strategy",
+    "title": "AI Transparency",
     "section": "Final Takeaway",
-    "text": "Final Takeaway\nThe rise of AI is reshaping the job market, but not in the simple way that headlines often suggest. Our analysis shows that AI skills matter most in specific industries and role contexts, that salary outcomes depend heavily on occupation tier and sector, and that foundational analytical skills remain the most consistently valued capabilities across the entire labor market. Students who build a strong analytical foundation and develop targeted technical skills for their chosen industry will be better positioned than those who chase AI credentials without strategic direction."
-  },
-  {
-    "objectID": "final_report.html#ai-transparency",
-    "href": "final_report.html#ai-transparency",
-    "title": "Career Strategy",
-    "section": "AI Transparency",
-    "text": "AI Transparency\nThis project used Claude (Sonnet 4.6, Anthropic) as an AI assistant throughout process. Specifically, Claude was used to assist with PySpark syntax and debugging, resolving data pipeline errors such as CSV column misalignment and salary column misidentification (the SALARY column was discovered to contain SOC occupation codes rather than numeric values, requiring a pivot to SALARY_FROM and SALARY_TO), casting errors when converting string fields to numeric types, structuring and formatting Quarto markdown pages, identifying grammatical errors and suggesting improvements to written analysis, and providing guidance on machine learning model evaluation and visualization.\nFor concepts and workflows that were new, such as building ML pipelines with StringIndexer and VectorAssembler, and enabling code folding in Quarto, the professor’s lecture videos were the primary reference. Claude was used moreso when errors happened during implementation or when troubleshooting was needed, such as fixing the git history after large files were accidentally committed, resolving the kaleido and Chrome installation required for Plotly image export, and correcting citation key mismatches in the BibTeX file.\nAll analytical decisions, including the choice of research question, feature selection, model interpretation, and conclusions drawn from the data, were made by Manjari Kannan."
-  },
-  {
-    "objectID": "final_report.html#team-contributions",
-    "href": "final_report.html#team-contributions",
-    "title": "Career Strategy",
-    "section": "Team Contributions",
-    "text": "Team Contributions\n\nManjari Kannan : built the Quarto website structure and navigation, handled data cleaning and preprocessing in PySpark including salary column identification, missing value imputation, and duplicate removal, developed the AI vs Non-AI role classification using keyword matching, conducted exploratory data analysis across salary, industry, and job posting trends, built and evaluated the regression, classification, and clustering models, completed the skill gap analysis, wrote the analysis and interpretation for each section of the report, converted visualizations to interactive Plotly charts, and managed GitHub throughout the project. Created baby blue coloring for website aesthetic and also designed and laid out final presentation formatting.\nOscar Quintero : sourced, researched, and formatted the academic references in BibTeX, helped in managing the website aesthetic and overall formatting\nNicholas Decesaris : created initial organization for the final presentation"
+    "text": "Final Takeaway\nThe rise of AI is reshaping the job market, but not in the simple way that headlines often suggest. Our analysis shows that AI skills matter most in specific industries and role contexts, that salary outcomes depend heavily on occupation tier and sector, and that foundational analytical skills remain the most consistently valued capabilities across the entire labor market. Students who build a strong analytical foundation and develop targeted technical skills for their chosen industry will be better positioned than those who chase AI credentials without strategic direction.\n\nManjari Kannan — built the Quarto website structure and navigation, handled data cleaning and preprocessing in PySpark including salary column identification, missing value imputation, and duplicate removal, developed the AI vs Non-AI role classification using keyword matching, conducted exploratory data analysis across salary, industry, and job posting trends, built and evaluated the regression, classification, and clustering models, completed the skill gap analysis, wrote the analysis and interpretation for each section of the report, converted visualizations to interactive Plotly charts, managed GitHub and GitHub Pages deployment throughout the project, designed and formatted the final presentation including all visual layout and slide content, and addressed all professor feedback including correcting the KMeans clustering methodology to remove salary as a feature and fixing the R-squared interpretation across the regression results\nOscar Quintero — sourced, researched, and formatted the academic references in BibTeX for the literature review\nNicholas Decesaris — created the initial organization and structure for the final presentation\n\nThis project used Claude (Sonnet 4.6, Anthropic) as an AI assistant throughout the development process. A lot of this project involved tools and workflows that were new to me, so the approach was a mix of using the professor’s lecture videos as the primary reference and turning to Claude when something wasn’t working or I wasn’t sure why.\nClaude helped with things like PySpark syntax, debugging data pipeline errors, and troubleshooting issues that came up along the way. Some of the more specific problems it helped with included figuring out that the SALARY column actually contained SOC occupation codes instead of salary values, fixing a git history issue after large files were accidentally committed, getting kaleido and Chrome set up for Plotly image export, and sorting out a citation key mismatch in the BibTeX file.\nIt also helped with structuring the Quarto pages, catching grammatical errors in the written sections, and giving guidance on how to approach the machine learning models and their evaluation.\nThat said, all of the actual decisions about what to analyze, which features to use, how to interpret the results, and what conclusions to draw were mine. Claude was used as a tool to help get things working and to improve the writing, not to make analytical or research decisions. The dataset, models, and findings are original work."
   },
   {
     "objectID": "eda.html",
