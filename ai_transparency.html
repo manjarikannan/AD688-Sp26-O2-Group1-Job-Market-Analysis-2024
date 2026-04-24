@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Exploratory Data Analysis – Job Market Analysis 2024</title>
+<title>AI Transparency – Job Market Analysis 2024</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,61 +23,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -159,7 +105,7 @@ div.csl-indent {
 <span class="menu-text">Data Preparation</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./eda.html" aria-current="page"> 
+    <a class="nav-link" href="./eda.html"> 
 <span class="menu-text">Exploratory Analysis</span></a>
   </li>  
   <li class="nav-item">
@@ -185,26 +131,15 @@ div.csl-indent {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#defining-ai-vs-non-ai-roles" id="toc-defining-ai-vs-non-ai-roles" class="nav-link" data-scroll-target="#defining-ai-vs-non-ai-roles">Defining AI vs Non-AI Roles</a></li>
-  <li><a href="#salary-distribution-ai-vs-non-ai" id="toc-salary-distribution-ai-vs-non-ai" class="nav-link" data-scroll-target="#salary-distribution-ai-vs-non-ai">Salary Distribution: AI vs Non-AI</a></li>
-  <li><a href="#average-salary-by-industry-ai-vs-non-ai" id="toc-average-salary-by-industry-ai-vs-non-ai" class="nav-link" data-scroll-target="#average-salary-by-industry-ai-vs-non-ai">Average Salary by Industry: AI vs Non-AI</a></li>
-  <li><a href="#top-industries-by-ai-job-posting-count" id="toc-top-industries-by-ai-job-posting-count" class="nav-link" data-scroll-target="#top-industries-by-ai-job-posting-count">Top Industries by AI Job Posting Count</a></li>
-  <li><a href="#key-findings" id="toc-key-findings" class="nav-link" data-scroll-target="#key-findings">Key Findings</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exploratory Data Analysis</h1>
+<h1 class="title">AI Transparency</h1>
 </div>
 
 
@@ -221,147 +156,14 @@ div.csl-indent {
 </header>
 
 
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Before building any models, we explored the Lightcast job postings dataset to understand the underlying patterns in salary, industry composition, and AI-related job demand. This section summarizes what the data revealed about how AI roles compare to non-AI roles across key dimensions.</p>
-<p>All analysis is based on the cleaned dataset of 70,892 job postings.</p>
-</section>
-<section id="defining-ai-vs-non-ai-roles" class="level2">
-<h2 class="anchored" data-anchor-id="defining-ai-vs-non-ai-roles">Defining AI vs Non-AI Roles</h2>
-<p>To distinguish AI-related jobs from the rest of the dataset, we flagged any posting where the job title or skills field contained keywords such as “ai”, “machine learning”, “artificial intelligence”, “deep learning”, “data science”, “nlp”, “llm”, or “neural network”.</p>
-<div id="21f84da0" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> col, when, lower</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ai_keywords <span class="op">=</span> <span class="st">"ai|machine learning|artificial intelligence|deep learning|nlp|llm|data science|neural network"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df_clean <span class="op">=</span> df_clean.withColumn(</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"IS_AI_ROLE"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    when(</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        lower(col(<span class="st">"TITLE_RAW"</span>)).rlike(ai_keywords) <span class="op">|</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        lower(col(<span class="st">"SKILLS_NAME"</span>)).rlike(ai_keywords),</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    ).otherwise(<span class="dv">0</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>df_clean.groupBy(<span class="st">"IS_AI_ROLE"</span>).count().show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<pre><code>+----------+-----+
-|IS_AI_ROLE|count|
-+----------+-----+
-|         1|31857|
-|         0|39035|
-+----------+-----+</code></pre>
-<p>This produced 31,857 AI-related postings (approximately 45% of the dataset) and 39,035 non-AI postings (approximately 55%). The near-even split suggests that AI-related roles have moved well beyond a niche segment of the labor market.</p>
-</section>
-<section id="salary-distribution-ai-vs-non-ai" class="level2">
-<h2 class="anchored" data-anchor-id="salary-distribution-ai-vs-non-ai">Salary Distribution: AI vs Non-AI</h2>
-<div id="7623b480" class="cell" data-execution_count="2">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>salary_df <span class="op">=</span> df_clean.select(<span class="st">"SALARY_MID"</span>, <span class="st">"IS_AI_ROLE"</span>) <span class="op">\</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"SALARY_MID"</span>).isNotNull()) <span class="op">\</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    .toPandas()</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>salary_df[<span class="st">"Role Type"</span>] <span class="op">=</span> salary_df[<span class="st">"IS_AI_ROLE"</span>].<span class="bu">map</span>({<span class="dv">0</span>: <span class="st">"Non-AI"</span>, <span class="dv">1</span>: <span class="st">"AI"</span>})</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.histogram(</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    salary_df, x<span class="op">=</span><span class="st">"SALARY_MID"</span>, color<span class="op">=</span><span class="st">"Role Type"</span>, barmode<span class="op">=</span><span class="st">"overlay"</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    nbins<span class="op">=</span><span class="dv">50</span>, opacity<span class="op">=</span><span class="fl">0.7</span>,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"Salary Distribution: AI vs Non-AI Roles"</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>{<span class="st">"SALARY_MID"</span>: <span class="st">"Salary (USD)"</span>}</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<iframe src="outputs/salary_distribution.html" width="100%" height="500px" frameborder="0"></iframe>
-<p>The first question we investigated was whether AI roles simply pay more. The overall pattern suggests they do not, at least not uniformly.</p>
-<p>Both distributions peak near $112,500 and follow a similar right-skewed shape. The two groups overlap substantially, which indicates that holding an AI-related title does not automatically translate into higher compensation. The relationship between AI and salary appears to be more complex than a simple premium.</p>
-</section>
-<section id="average-salary-by-industry-ai-vs-non-ai" class="level2">
-<h2 class="anchored" data-anchor-id="average-salary-by-industry-ai-vs-non-ai">Average Salary by Industry: AI vs Non-AI</h2>
-<div id="ca8c3f57" class="cell" data-execution_count="3">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> <span class="bu">round</span> <span class="im">as</span> spark_round</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>industry_df <span class="op">=</span> df_clean.groupBy(<span class="st">"NAICS_2022_2_NAME"</span>, <span class="st">"IS_AI_ROLE"</span>) <span class="op">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    .avg(<span class="st">"SALARY_MID"</span>) <span class="op">\</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    .withColumn(<span class="st">"avg_salary"</span>, spark_round(<span class="st">"avg(SALARY_MID)"</span>, <span class="dv">0</span>)) <span class="op">\</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"NAICS_2022_2_NAME"</span>).isNotNull()) <span class="op">\</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    .orderBy(<span class="st">"NAICS_2022_2_NAME"</span>, <span class="st">"IS_AI_ROLE"</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>industry_df.select(<span class="st">"NAICS_2022_2_NAME"</span>, <span class="st">"IS_AI_ROLE"</span>, <span class="st">"avg_salary"</span>).show(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<pre><code>+--------------------+----------+----------+
-|    NAICS_2022_2_NAME|IS_AI_ROLE|avg_salary|
-+--------------------+----------+----------+
-|Accommodation and...|         0|  119421.0|
-|Accommodation and...|         1|  116452.0|
-|Administrative an...|         0|  107157.0|
-|Administrative an...|         1|  107751.0|
-|Agriculture, Fore...|         0|  106967.0|
-|Agriculture, Fore...|         1|  106178.0|
-|Arts, Entertainme...|         0|   92280.0|
-|Arts, Entertainme...|         1|  105354.0|
-|Construction      |         0|  103011.0|
-|Construction      |         1|  116595.0|
-+--------------------+----------+----------+</code></pre>
-<iframe src="outputs/salary_by_industry.html" width="100%" height="600px" frameborder="0"></iframe>
-<p>Breaking salary down by industry reveals a more nuanced picture. Certain industries show a meaningful AI salary premium, including Arts and Entertainment (approximately +$13,000), Construction (approximately +$13,500), and Retail Trade (approximately +$9,000). In these fields, AI skills remain relatively uncommon, and compensation reflects that scarcity.</p>
-<p>In contrast, the Information industry pays AI roles less on average than non-AI roles. Interestingly, “working in an occupation that is considered high skill increases the odds of job loss to AI <span class="citation" data-cites="doi:10.1177/23780231241259672">(<a href="#ref-doi:10.1177/23780231241259672" role="doc-biblioref">Dahlin (2024)</a>)</span>”…especially for the “middle-skill employees in the technological landscape <span class="citation" data-cites="doi:10.1177/23780231241259672">(<a href="#ref-doi:10.1177/23780231241259672" role="doc-biblioref">Dahlin (2024)</a>)</span>.” Arguably, the high-skill employees can pivot using tools and higher levels of resources and knowledge to adapt to the shifting environment which does not appear to directly impact salary until it is considered that the majority of the middle-skill employees will must either transition to another field or be entirely displaced. This apparent stability of salary is likely because of the traditional IT and enterprise infrastructure roles in that sector already commanding high salaries, making AI titles less financially distinctive by comparison due to the stability of the high-skill employees maintaining positions.</p>
-</section>
-<section id="top-industries-by-ai-job-posting-count" class="level2">
-<h2 class="anchored" data-anchor-id="top-industries-by-ai-job-posting-count">Top Industries by AI Job Posting Count</h2>
-<div id="c0e89047" class="cell" data-execution_count="4">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyspark.sql.functions <span class="im">import</span> desc</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>top_industries <span class="op">=</span> df_clean.<span class="bu">filter</span>(col(<span class="st">"IS_AI_ROLE"</span>) <span class="op">==</span> <span class="dv">1</span>) <span class="op">\</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(col(<span class="st">"NAICS_2022_2_NAME"</span>).isNotNull()) <span class="op">\</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    .groupBy(<span class="st">"NAICS_2022_2_NAME"</span>) <span class="op">\</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    .count() <span class="op">\</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    .orderBy(desc(<span class="st">"count"</span>)) <span class="op">\</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    .limit(<span class="dv">10</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>top_industries.show(truncate<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<pre><code>+--------------------------------------------------------+-----+
-|NAICS_2022_2_NAME                                       |count|
-+--------------------------------------------------------+-----+
-|Professional, Scientific, and Technical Services        |9821 |
-|Finance and Insurance                                   |4932 |
-|Information                                             |3847 |
-|Management of Companies and Enterprises                 |2841 |
-|Manufacturing                                           |2134 |
-|Administrative and Support and Waste Management...      |1823 |
-|Health Care and Social Assistance                       |1654 |
-|Retail Trade                                            |1432 |
-|Educational Services                                    |1187 |
-|Unclassified Industry                                   |1001 |
-+--------------------------------------------------------+-----+</code></pre>
-<iframe src="outputs/top_industries.html" width="100%" height="500px" frameborder="0"></iframe>
-<p>In terms of where AI jobs are being posted, Professional, Scientific, and Technical Services leads by a wide margin, followed by Finance and Insurance and Information. While AI-related roles appear across many sectors, the majority of active hiring remains concentrated in knowledge-intensive industries. For job seekers targeting AI roles, these sectors represent the highest volume of opportunity.</p>
-</section>
-<section id="key-findings" class="level2">
-<h2 class="anchored" data-anchor-id="key-findings">Key Findings</h2>
-<p>Several patterns emerged from this exploratory analysis worth carrying forward into the modeling phase.</p>
-<p>The overall salary difference between AI and non-AI roles is insignificant at roughly $100 on average. The salary premium associated with AI skills is industry-specific rather than universal. Fields where AI capabilities are still emerging tend to reward those skills more generously. The concentration of AI hiring in professional services, finance, and information suggests that the benefits of AI are not evenly distributed across the workforce. Where a worker is employed matters as much as what skills they bring.</p>
+<p>This project used Claude (Sonnet 4.6, Anthropic) as an AI assistant throughout the development process. A lot of this project involved tools and workflows that were new to me, so the approach was a mix of using the professor’s lecture videos as the primary reference and turning to Claude when something wasn’t working or I wasn’t sure why.</p>
+<p>Claude helped with things like PySpark syntax, debugging data pipeline errors, and troubleshooting issues that came up along the way. Some of the more specific problems it helped with included figuring out that the SALARY column actually contained SOC occupation codes instead of salary values, fixing a git history issue after large files were accidentally committed, getting kaleido and Chrome set up for Plotly image export, and sorting out a citation key mismatch in the BibTeX file.</p>
+<p>It also helped with structuring the Quarto pages, catching grammatical errors in the written sections, and giving guidance on how to approach the machine learning models and their evaluation.</p>
+<p>That said, all of the actual decisions about what to analyze, which features to use, how to interpret the results, and what conclusions to draw were mine. Claude was used as a tool to help get things working and to improve the writing, not to make analytical or research decisions. The dataset, models, and findings are original work.</p>
 
 
 
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-doi:10.1177/23780231241259672" class="csl-entry" role="listitem">
-<span class="smallcaps">Dahlin, E.</span> (2024): <span>“<a href="https://doi.org/10.1177/23780231241259672">Who says artificial intelligence is stealing our jobs?</a>”</span> <em>Socius</em>, 10, 23780231241259672.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
