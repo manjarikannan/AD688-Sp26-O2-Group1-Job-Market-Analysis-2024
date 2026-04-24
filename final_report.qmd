@@ -36,16 +36,6 @@ format:
 
 {{< include career_plan.qmd >}}
 
-## AI Transparency
+{{< include contributions.qmd >}}
 
-This project used Claude (Sonnet 4.6, Anthropic) as an AI assistant throughout process. Specifically, Claude was used to assist with PySpark syntax and debugging, resolving data pipeline errors such as CSV column misalignment and salary column misidentification (the SALARY column was discovered to contain SOC occupation codes rather than numeric values, requiring a pivot to SALARY_FROM and SALARY_TO), casting errors when converting string fields to numeric types, structuring and formatting Quarto markdown pages, identifying grammatical errors and suggesting improvements to written analysis, and providing guidance on machine learning model evaluation and visualization.
-
-For concepts and workflows that were new, such as building ML pipelines with StringIndexer and VectorAssembler, and enabling code folding in Quarto, the professor's lecture videos were the primary reference. Claude was used moreso when errors happened during implementation or when troubleshooting was needed, such as fixing the git history after large files were accidentally committed, resolving the kaleido and Chrome installation required for Plotly image export, and correcting citation key mismatches in the BibTeX file.
-
-All analytical decisions, including the choice of research question, feature selection, model interpretation, and conclusions drawn from the data, were made by Manjari Kannan.
-
-## Team Contributions
-
-- **Manjari Kannan** : built the Quarto website structure and navigation, handled data cleaning and preprocessing in PySpark including salary column identification, missing value imputation, and duplicate removal, developed the AI vs Non-AI role classification using keyword matching, conducted exploratory data analysis across salary, industry, and job posting trends, built and evaluated the regression, classification, and clustering models, completed the skill gap analysis, wrote the analysis and interpretation for each section of the report, converted visualizations to interactive Plotly charts, and managed GitHub throughout the project. Created baby blue coloring for website aesthetic and also designed and laid out final presentation formatting.
-- **Oscar Quintero** : sourced, researched, and formatted the academic references in BibTeX, helped in managing the website aesthetic and overall formatting
-- **Nicholas Decesaris** : created initial organization for the final presentation
+{{< include ai_transparency.qmd >}}
